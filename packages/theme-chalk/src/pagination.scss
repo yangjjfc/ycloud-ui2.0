@@ -2,4 +2,31 @@
 @import "common/var";
 
 @include b(pagination) {
+    .el-pagination .el-pager .number, .el-pagination .btn-prev, .el-pagination .btn-next, .el-pagination .btn-prev {
+        background: #fff;
+        border: #D1DBE5 solid 1px;
+        padding: 0px 4px;
+        color: #666;
+        font-weight: normal;
+        min-width: 28px;
+    }
+    .el-pagination .el-pager .number {
+        margin-left: -1px;
+    }
+    .el-pagination .el-pager .number.active {
+        border-color: #209EFF;
+        background: #209EFF;
+        color: #fff;
+    }
+    
+    .el-pagination .btn-prev {
+        border-left: #D1DBE5 solid 1px;
+        border-right: 0px;
+        border-radius: 3px 0px 0px 3px;
+    }
+    
+    .el-pagination .btn-next {
+        border-left: 0px;
+        border-radius: 0px 3px 3px 0px;
+    }
 }

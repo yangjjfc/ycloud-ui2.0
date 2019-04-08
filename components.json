@@ -1,3 +1,4 @@
 {
-  "pagination": "./packages/pagination/index.js"
+  "pagination": "./packages/pagination/index.js",
+  "dialog": "./packages/dialog/index.js"
 }
