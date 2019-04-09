@@ -1,4 +1,7 @@
 {
   "pagination": "./packages/pagination/index.js",
-  "dialog": "./packages/dialog/index.js"
+  "dialog": "./packages/dialog/index.js",
+  "file-upload": "./packages/file-upload/index.js",
+  "table-tree": "./packages/table-tree/index.js",
+  "region-picker": "./packages/region-picker/index.js"
 }

@@ -259,6 +259,26 @@
             {
               "path": "/dialog",
               "title": "Dialog"
+            },
+            {
+              "path": "/tableTree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/regionPicker",
+              "title": "RegionPicker"
+            },
+            {
+              "path": "/file-upload",
+              "title": "FileUpload"
+            },
+            {
+              "path": "/table-tree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/region-picker",
+              "title": "RegionPicker"
             }
           ]
         }
@@ -525,6 +545,26 @@
             {
               "path": "/dialog",
               "title": "Dialog"
+            },
+            {
+              "path": "/tableTree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/regionPicker",
+              "title": "RegionPicker"
+            },
+            {
+              "path": "/file-upload",
+              "title": "FileUpload"
+            },
+            {
+              "path": "/table-tree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/region-picker",
+              "title": "RegionPicker"
             }
           ]
         }
@@ -791,6 +831,26 @@
             {
               "path": "/dialog",
               "title": "Dialog"
+            },
+            {
+              "path": "/tableTree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/regionPicker",
+              "title": "RegionPicker"
+            },
+            {
+              "path": "/file-upload",
+              "title": "FileUpload"
+            },
+            {
+              "path": "/table-tree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/region-picker",
+              "title": "RegionPicker"
             }
           ]
         }
@@ -1057,6 +1117,26 @@
             {
               "path": "/dialog",
               "title": "Dialog"
+            },
+            {
+              "path": "/tableTree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/regionPicker",
+              "title": "RegionPicker"
+            },
+            {
+              "path": "/file-upload",
+              "title": "FileUpload"
+            },
+            {
+              "path": "/table-tree",
+              "title": "TableTree"
+            },
+            {
+              "path": "/region-picker",
+              "title": "RegionPicker"
             }
           ]
         }
