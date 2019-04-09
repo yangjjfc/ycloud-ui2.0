@@ -34,7 +34,7 @@ export default {
                 district: ''
             },
             value_provinces: '', // 省
-            value_city: '',  // 市
+            value_city: '', // 市
             value_district: '' // 区
         };
     },
@@ -45,7 +45,7 @@ export default {
     },
     watch: {
         'district' (val) {
-            this.setAddress()
+            this.setAddress();
         }
     },
     props: {

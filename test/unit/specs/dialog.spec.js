@@ -12,4 +12,3 @@ describe('Dialog', () => {
     expect(vm.$el).to.exist;
   });
 });
-

@@ -11,13 +11,13 @@
       <predefine v-if="predefine" :color="color" :colors="predefine"></predefine>
       <div class="el-color-dropdown__btns">
         <span class="el-color-dropdown__value">
-          <el-input
+          <!-- <el-input
             v-model="customInput"
             @keyup.native.enter="handleConfirm"
             @blur="handleConfirm"
             :validate-event="false"
             size="mini">
-          </el-input>
+          </el-input> -->
         </span>
         <!-- <el-button
           size="mini"
@@ -26,13 +26,13 @@
           @click="$emit('clear')">
           {{ t('el.colorpicker.clear') }}
         </el-button> -->
-        <el-button
+        <!-- <el-button
           plain
           size="mini"
           class="el-color-dropdown__btn"
           @click="confirmValue">
           {{ t('el.colorpicker.confirm') }}
-        </el-button>
+        </el-button> -->
       </div>
       <color-list 
         v-if="colorList && colorList.length > 0" 
@@ -50,10 +50,8 @@
   import AlphaSlider from './alpha-slider';
   import Predefine from './predefine';
   import ColorList from './color-list';
-  import Popper from 'element-ui/src/utils/vue-popper';
-  import Locale from 'element-ui/src/mixins/locale';
-  import ElInput from 'element-ui/packages/input';
-  import ElButton from 'element-ui/packages/button';
+  import Popper from 'ycloud-ui/src/utils/vue-popper';
+  import Locale from 'ycloud-ui/src/mixins/locale';
 
   export default {
     name: 'el-color-picker-dropdown',
@@ -64,8 +62,6 @@
       SvPanel,
       HueSlider,
       AlphaSlider,
-      ElInput,
-      ElButton,
       Predefine,
       ColorList
     },
@@ -79,40 +75,40 @@
       colorList: Array
     },
 
-    data() {
+    data () {
       return {
         customInput: ''
       };
     },
 
     computed: {
-      currentColor() {
+      currentColor () {
         const parent = this.$parent;
         return !parent.value && !parent.showPanelColor ? '' : parent.color.value;
       }
     },
 
     methods: {
-      confirmValue() {
+      confirmValue () {
         this.$emit('pick');
       },
 
-      onColorListSelect(e) {
+      onColorListSelect (e) {
         this.$emit('pick', e);
       },
 
-      handleConfirm() {
+      handleConfirm () {
         this.color.fromString(this.customInput);
       }
     },
 
-    mounted() {
+    mounted () {
       this.$parent.popperElm = this.popperElm = this.$el;
       this.referenceElm = this.$parent.$el;
     },
 
     watch: {
-      showPopper(val) {
+      showPopper (val) {
         if (val === true) {
           this.$nextTick(() => {
             const { sl, hue, alpha } = this.$refs;
@@ -125,7 +121,7 @@
 
       currentColor: {
         immediate: true,
-        handler(val) {
+        handler (val) {
           this.customInput = val;
         }
       }

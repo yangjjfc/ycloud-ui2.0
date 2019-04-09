@@ -69,21 +69,21 @@ export default {
     }
   },
   computed: {
-    configName() {
+    configName () {
       return this.currentConfig.name;
     },
-    userConfigByType() {
+    userConfigByType () {
       return this.userConfig[filterConfigType(this.configName)];
     },
-    configByOrder() {
+    configByOrder () {
       return this.currentConfig.config.sort((a, b) => (a.order - b.order));
     }
   },
   methods: {
-    getCategoryDisplayName(key) {
+    getCategoryDisplayName (key) {
       return getCategoryDisplayName(key);
     },
-    editorComponent(type) {
+    editorComponent (type) {
       switch (type) {
         case 'color':
           return ColorEditor;
@@ -101,10 +101,10 @@ export default {
           return simpleTextEditor;
       }
     },
-    onChange(e) {
+    onChange (e) {
       this.$emit('onChange', e);
     },
-    showCategory(name, key) {
+    showCategory (name, key) {
       if (!name) {
         return false;
       }
@@ -115,7 +115,7 @@ export default {
       return false;
     }
   },
-  data() {
+  data () {
     return {
       categoryDisplay: {}
     };

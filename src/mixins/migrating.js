@@ -2,7 +2,7 @@
  * Show migrating guide in browser console.
  *
  * Usage:
- * import Migrating from 'element-ui/src/mixins/migrating';
+ * import Migrating from 'ycloud-ui/src/mixins/migrating';
  *
  * mixins: [Migrating]
  *
@@ -20,7 +20,7 @@
  *  },
  */
 export default {
-  mounted() {
+  mounted () {
     if (process.env.NODE_ENV === 'production') return;
     if (!this.$vnode) return;
     const { props = {}, events = {} } = this.getMigratingConfig();
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    getMigratingConfig() {
+    getMigratingConfig () {
       return {
         props: {},
         events: {}

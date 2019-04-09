@@ -111,14 +111,14 @@ export default {
     ColorPicker,
     themeInput: Input
   },
-  data() {
+  data () {
     return {
       valueArr: []
     };
   },
   mixins: [Mixin],
   methods: {
-    onAddShadow() {
+    onAddShadow () {
       this.valueArr.push({
         offsetX: 0,
         offsetY: 0,
@@ -128,17 +128,17 @@ export default {
         inset: false
       });
     },
-    onMinusShadow(index) {
+    onMinusShadow (index) {
       this.valueArr.splice(index, 1);
       this.onShadowChange();
     },
-    onInputChange(e, index, key) {
+    onInputChange (e, index, key) {
       const arr = this.valueArr[index];
       arr[key] = e;
       this.valueArr.splice(index, 1, arr);
       this.onShadowChange();
     },
-    onShadowChange() {
+    onShadowChange () {
       this.onChange(
         stringifyShaodw(this.valueArr)
       );
@@ -147,7 +147,7 @@ export default {
   watch: {
     'mergedValue': {
       immediate: true,
-      handler(value) {
+      handler (value) {
         this.valueArr = parseShaodw(value);
       }
     }

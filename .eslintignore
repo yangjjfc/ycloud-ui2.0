@@ -1,6 +1,6 @@
 src/utils/popper.js
 src/utils/date.js
-examples/play
+examples/*
 *.sh
 node_modules
 lib
@@ -9,3 +9,4 @@ coverage
 *.scss
 *.woff
 *.ttf
+packages/theme-chalk/package.json

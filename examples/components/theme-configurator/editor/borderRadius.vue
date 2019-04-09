@@ -38,7 +38,7 @@ import Input from './input';
 import { getStyleDisplayName } from '../utils/utils.js';
 
 export default {
-  data() {
+  data () {
     return {
       options: [],
       value: ''
@@ -49,15 +49,15 @@ export default {
   },
   mixins: [Mixin],
   computed: {
-    isGlobalInputValue() {
+    isGlobalInputValue () {
       return this.config.value.startsWith('$');
     }
   },
   methods: {
-    onSelectChange(e) {
+    onSelectChange (e) {
       this.onChange(e);
     },
-    initSelectOption() {
+    initSelectOption () {
       this.options = [];
       const golbalV = this.golbalValue.border;
       if (golbalV) {
@@ -76,7 +76,7 @@ export default {
   watch: {
     'mergedValue': {
       immediate: true,
-      handler(value) {
+      handler (value) {
         this.initSelectOption();
         this.value = this.mergedValue;
       }

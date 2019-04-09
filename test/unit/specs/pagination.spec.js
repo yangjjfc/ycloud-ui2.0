@@ -12,4 +12,3 @@ describe('Pagination', () => {
     expect(vm.$el).to.exist;
   });
 });
-

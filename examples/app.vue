@@ -37,16 +37,16 @@
     name: 'app',
 
     computed: {
-      lang() {
+      lang () {
         return this.$route.path.split('/')[1] || 'zh-CN';
       },
-      isComponent() {
+      isComponent () {
         return /^component-/.test(this.$route.name || '');
       }
     },
 
     watch: {
-      lang(val) {
+      lang (val) {
         if (val === 'zh-CN') {
           this.suggestJump();
         }
@@ -55,7 +55,7 @@
     },
 
     methods: {
-      suggestJump() {
+      suggestJump () {
         if (process.env.NODE_ENV !== 'production') return;
 
         const href = location.href;
@@ -76,7 +76,7 @@
       }
     },
 
-    mounted() {
+    mounted () {
       localize(this.lang);
       if (this.lang === 'zh-CN') {
         this.suggestJump();

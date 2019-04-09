@@ -49,19 +49,19 @@
 <script>
 import { getActionDisplayName } from './utils/utils.js';
 export default {
-  data() {
+  data () {
     return {
       downloading: false
     };
   },
   methods: {
-    onReset() {
+    onReset () {
       this.$parent.onReset();
     },
-    getActionDisplayName(key) {
+    getActionDisplayName (key) {
       return getActionDisplayName(key);
     },
-    onDownload() {
+    onDownload () {
       this.downloading = true;
       this.$parent.onDownload()
         .then()

@@ -1,7 +1,7 @@
-import { once, on } from 'element-ui/src/utils/dom';
+import { once, on } from 'ycloud-ui/src/utils/dom';
 
 export default {
-  bind(el, binding, vnode) {
+  bind (el, binding, vnode) {
     let interval = null;
     let startTime;
     const handler = () => vnode.context[binding.expression].apply();

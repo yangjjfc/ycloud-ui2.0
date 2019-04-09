@@ -15,7 +15,7 @@
             <template slot-scope="scope">
                 <!-- Todo -->
                 <!-- eslint-disable-next-line vue/no-confusing-v-for-v-if -->
-                <span v-for="space in scope.row._level" v-if="index === 0" :key="space" class="ms-tree-space"/>
+                <span v-for="space in scope.row._level"  :key="space" class="ms-tree-space" v-if="index === 0"/>
                 <span v-if="iconShow(index,scope.row)" class="tree-ctrl" @click="toggleExpanded(scope.$index)">
                   <i v-if="!scope.row._expanded" class="el-icon-caret-right"/>
                   <i v-else class="el-icon-caret-bottom"/>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import treeToArray from './eval'
+import treeToArray from './eval';
 export default {
   name: 'YlTableTree',
   props: {

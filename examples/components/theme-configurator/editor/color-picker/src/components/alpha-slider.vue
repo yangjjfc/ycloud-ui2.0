@@ -31,17 +31,17 @@
     },
 
     watch: {
-      'color._alpha'() {
+      'color._alpha' () {
         this.update();
       },
 
-      'color.value'() {
+      'color.value' () {
         this.update();
       }
     },
 
     methods: {
-      handleClick(event) {
+      handleClick (event) {
         const thumb = this.$refs.thumb;
         const target = event.target;
 
@@ -50,7 +50,7 @@
         }
       },
 
-      handleDrag(event) {
+      handleDrag (event) {
         const rect = this.$el.getBoundingClientRect();
         const { thumb } = this.$refs;
 
@@ -69,7 +69,7 @@
         }
       },
 
-      getThumbLeft() {
+      getThumbLeft () {
         if (this.vertical) return 0;
         const el = this.$el;
         const alpha = this.color._alpha;
@@ -79,7 +79,7 @@
         return Math.round(alpha * (el.offsetWidth - thumb.offsetWidth / 2) / 100);
       },
 
-      getThumbTop() {
+      getThumbTop () {
         if (!this.vertical) return 0;
         const el = this.$el;
         const alpha = this.color._alpha;
@@ -89,7 +89,7 @@
         return Math.round(alpha * (el.offsetHeight - thumb.offsetHeight / 2) / 100);
       },
 
-      getBackground() {
+      getBackground () {
         if (this.color && this.color.value) {
           const { r, g, b } = this.color.toRgb();
           return `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 0) 0%, rgba(${r}, ${g}, ${b}, 1) 100%)`;
@@ -97,14 +97,14 @@
         return null;
       },
 
-      update() {
+      update () {
         this.thumbLeft = this.getThumbLeft();
         this.thumbTop = this.getThumbTop();
         this.background = this.getBackground();
       }
     },
 
-    data() {
+    data () {
       return {
         thumbLeft: 0,
         thumbTop: 0,
@@ -112,7 +112,7 @@
       };
     },
 
-    mounted() {
+    mounted () {
       const { bar, thumb } = this.$refs;
 
       const dragConfig = {

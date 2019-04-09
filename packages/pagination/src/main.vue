@@ -8,10 +8,10 @@
 <script>
 export default {
   name: 'YlPagination',
-  data() {
+  data () {
     return {
       isChangeSizeEvent: false// 标记,避免重复更新
-    }
+    };
   },
   props: {
     layout: {
@@ -19,20 +19,20 @@ export default {
       default: 'total, sizes, prev, pager, next, jumper'
     }
   },
-  created() {
-    let whiteList = ['change', 'update:currentPage', 'update:pageSize'], //重置了的相关事件排除
+  created () {
+    let whiteList = ['change', 'update:currentPage', 'update:pageSize'], // 重置了的相关事件排除
       listeners = {};
     Object.keys(this.$listeners).filter(item => {
       if (!whiteList.includes(item)) {
-        listeners[item] = this.$listeners[item]
+        listeners[item] = this.$listeners[item];
       }
-    })
-    this.listeners = listeners
+    });
+    this.listeners = listeners;
   },
   methods: {
     // 改变页码
-    changePage(page) {
-      this.$listeners
+    changePage (page) {
+      this.$listeners;
       if (this.isChangeSizeEvent) {
         this.isChangeSizeEvent = false;
         return;
@@ -40,8 +40,8 @@ export default {
       this.$emit('change', page, this.$attrs['page-size']);
     },
     // 改变总条数
-    changeSize(size) {
-      if (Number(this.$attrs['total']) / size < this.$attrs['current-page']) {
+    changeSize (size) {
+      if (Number(this.$attrs.total) / size < this.$attrs['current-page']) {
         this.isChangeSizeEvent = true;// 阻止changePage触发
       }
       this.$emit('update:current-page', 1);

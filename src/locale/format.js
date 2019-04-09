@@ -1,4 +1,4 @@
-import { hasOwn } from 'element-ui/src/utils/util';
+import { hasOwn } from 'ycloud-ui/src/utils/util';
 
 const RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
 /**
@@ -6,8 +6,7 @@ const RE_NARGS = /(%|)\{([0-9a-zA-Z_]+)\}/g;
  *  - Inspired:
  *    https://github.com/Matt-Esch/string-template/index.js
  */
-export default function(Vue) {
-
+export default function (Vue) {
   /**
    * template
    *
@@ -16,7 +15,7 @@ export default function(Vue) {
    * @return {String}
    */
 
-  function template(string, ...args) {
+  function template (string, ...args) {
     if (args.length === 1 && typeof args[0] === 'object') {
       args = args[0];
     }

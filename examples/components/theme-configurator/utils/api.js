@@ -11,10 +11,6 @@ const hostList = {
 
 const host = hostList[process.env.FAAS_ENV] || hostList.production;
 
-export const getVars = () => {
-  return get(`${host}getVariable?version=${version}`);
-};
+export const getVars = () => get(`${host}getVariable?version=${version}`);
 
-export const updateVars = (data, cb) => {
-  return post(`${host}updateVariable?version=${version}`, data, cb);
-};
+export const updateVars = (data, cb) => post(`${host}updateVariable?version=${version}`, data, cb);

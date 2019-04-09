@@ -1,7 +1,6 @@
 const defaultError = 'Server Error 500';
 const defaultTimeout = 'Request Timeout';
-const xhr = (method, url, data = null, cb) => {
-  return new window.Promise((resolve, reject) => {
+const xhr = (method, url, data = null, cb) => new window.Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     const doReject = (xhr) => {
       reject(xhr.response || xhr.statusText || defaultError);
@@ -54,12 +53,7 @@ const xhr = (method, url, data = null, cb) => {
     };
     xhr.send(JSON.stringify(data));
   });
-};
 
-export const post = (url, data, cb) => {
-  return xhr('POST', url, data, cb);
-};
+export const post = (url, data, cb) => xhr('POST', url, data, cb);
 
-export const get = (url) => {
-  return xhr('GET', url);
-};
+export const get = (url) => xhr('GET', url);

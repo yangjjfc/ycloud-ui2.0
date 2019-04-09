@@ -11,7 +11,7 @@ import REGION_DATA from './data.js'; // 元数据的文案要改，只能把数�
 export default {
   name: 'YlRegionPicker',
   mixins: [emitter],
-  data() {
+  data () {
     return {
       chinaAddr: REGION_DATA,
       province: '',
@@ -40,16 +40,16 @@ export default {
     }
   },
   watch: {
-    codes(val) {
+    codes (val) {
       this._initData(val);
     }
   },
-  created() {
+  created () {
     this.codes && this._initData(this.codes);
   },
   methods: {
     // 初始化数据
-    _initData(val) {
+    _initData (val) {
       if (val) {
         let district = val.toString(),
           province = district.slice(0, 2) + '0000',
@@ -72,7 +72,7 @@ export default {
         this.district = '';
       }
     },
-    change(msg) {
+    change (msg) {
       let names = [msg.provinceName, msg.cityName, msg.townName].join('');
       let vals = msg.townCode;
       this.selectedData = msg;
@@ -83,7 +83,7 @@ export default {
         this.dispatch('ElFormItem', 'el.form.change', names);
       }
     },
-    getSelectedData() {
+    getSelectedData () {
       return this.selectedData;
     }
   },

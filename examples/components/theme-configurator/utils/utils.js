@@ -37,18 +37,14 @@ export const getStyleDisplayValue = (displayValue, global) => {
   return displayValue;
 };
 
-const getLang = () => {
-  return location.hash.replace('#', '').split('/')[1] || 'zh-CN';
-};
+const getLang = () => location.hash.replace('#', '').split('/')[1] || 'zh-CN';
 
 const getNameFromI18N = (name) => {
   const lang = getLang();
   return constant.filter(config => config.lang === lang)[0][name];
 };
 
-export const getVariableDisplayName = (key) => {
-  return getNameFromI18N('variable-name')[key] || key;
-};
+export const getVariableDisplayName = (key) => getNameFromI18N('variable-name')[key] || key;
 
 export const getStyleDisplayName = (config, componentName) => {
   const displayNameMap = getNameFromI18N('display-name');
@@ -63,13 +59,9 @@ export const getStyleDisplayName = (config, componentName) => {
   return displayName.trim();
 };
 
-export const getActionDisplayName = (key) => {
-  return getNameFromI18N('action')[key] || key;
-};
+export const getActionDisplayName = (key) => getNameFromI18N('action')[key] || key;
 
-export const getCategoryDisplayName = (key) => {
-  return getNameFromI18N('category')[key] || key;
-};
+export const getCategoryDisplayName = (key) => getNameFromI18N('category')[key] || key;
 
 export const updateDomHeadStyle = (id, styleContent) => {
   let styleTag = document.getElementById(id);

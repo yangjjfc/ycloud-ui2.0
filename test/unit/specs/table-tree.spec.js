@@ -12,4 +12,3 @@ describe('TableTree', () => {
     expect(vm.$el).to.exist;
   });
 });
-

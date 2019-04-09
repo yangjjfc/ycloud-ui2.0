@@ -12,4 +12,3 @@ describe('FileUpload', () => {
     expect(vm.$el).to.exist;
   });
 });
-

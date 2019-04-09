@@ -43,15 +43,15 @@ export default {
     hideCancelButton: {
       type: Boolean,
       default: false
-    }//隐藏按钮
+    }// 隐藏按钮
   },
   methods: {
     // 确认事件
-    submit() {
+    submit () {
       this.$emit('submit');
     },
     // 取消事件
-    cancel() {
+    cancel () {
       this.$emit('update:show', false); // 更新父组件show
       this.$emit('reset');
     }

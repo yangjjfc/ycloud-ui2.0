@@ -27,7 +27,7 @@
 
   const ORIGINAL_THEME = '#409EFF';
   export default {
-    data() {
+    data () {
       return {
         chalk: '', // content of theme-chalk css
         docs: '', // content of docs css
@@ -36,12 +36,11 @@
     },
 
     watch: {
-      theme(val, oldVal) {
+      theme (val, oldVal) {
         if (typeof val !== 'string') return;
         const themeCluster = this.getThemeCluster(val.replace('#', ''));
         const originalCluster = this.getThemeCluster(oldVal.replace('#', ''));
-        const getHandler = (variable, id) => {
-          return () => {
+        const getHandler = (variable, id) => () => {
             const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''));
             let newStyle = this.updateStyle(this[variable], originalCluster, themeCluster);
 
@@ -53,22 +52,19 @@
             }
             styleTag.innerText = newStyle;
           };
-        };
 
         const chalkHandler = getHandler('chalk', 'chalk-style');
         const docsHandler = getHandler('docs', 'docs-style');
 
         if (!this.chalk) {
-          const url = `https://unpkg.com/element-ui@${ version }/lib/theme-chalk/index.css`;
+          const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`;
           this.getCSSString(url, chalkHandler, 'chalk');
         } else {
           chalkHandler();
         }
 
         if (!this.docs) {
-          const links = [].filter.call(document.querySelectorAll('link'), link => {
-            return /docs\..+\.css/.test(link.href || '');
-          });
+          const links = [].filter.call(document.querySelectorAll('link'), link => /docs\..+\.css/.test(link.href || ''));
           links[0] && this.getCSSString(links[0].href, docsHandler, 'docs');
         } else {
           docsHandler();
@@ -88,7 +84,7 @@
     },
 
     methods: {
-      updateStyle(style, oldCluster, newCluster) {
+      updateStyle (style, oldCluster, newCluster) {
         let newStyle = style;
         oldCluster.forEach((color, index) => {
           newStyle = newStyle.replace(new RegExp(color, 'ig'), newCluster[index]);
@@ -96,7 +92,7 @@
         return newStyle;
       },
 
-      getCSSString(url, callback, variable) {
+      getCSSString (url, callback, variable) {
         const xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4 && xhr.status === 200) {
@@ -108,7 +104,7 @@
         xhr.send();
       },
 
-      getThemeCluster(theme) {
+      getThemeCluster (theme) {
         const tintColor = (color, tint) => {
           let red = parseInt(color.slice(0, 2), 16);
           let green = parseInt(color.slice(2, 4), 16);
@@ -125,7 +121,7 @@
             green = green.toString(16);
             blue = blue.toString(16);
 
-            return `#${ red }${ green }${ blue }`;
+            return `#${red}${green}${blue}`;
           }
         };
 
@@ -142,7 +138,7 @@
           green = green.toString(16);
           blue = blue.toString(16);
 
-          return `#${ red }${ green }${ blue }`;
+          return `#${red}${green}${blue}`;
         };
 
         const clusters = [theme];

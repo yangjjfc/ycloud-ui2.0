@@ -117,7 +117,7 @@ export default {
     mainPanel,
     DownloadArea
   },
-  data() {
+  data () {
     return {
       init: false,
       visible: false,
@@ -135,23 +135,23 @@ export default {
   },
   mixins: [DocStyle, Loading, Shortcut],
   computed: {
-    globalValue() {
+    globalValue () {
       return filterGlobalValue(this.defaultConfig, this.userConfig);
     },
-    pageCouldEdit() {
+    pageCouldEdit () {
       const noNeedEdit = ['installation', 'quickstart', 'i18n', 'custom-theme', 'transition'];
       const lastPath = this.$route.path.split('/').slice(-1).pop();
       return noNeedEdit.indexOf(lastPath) < 0;
     }
   },
-  mounted() {
+  mounted () {
     this.checkLocalThemeConfig();
   },
   methods: {
-    getActionDisplayName(key) {
+    getActionDisplayName (key) {
       return getActionDisplayName(key);
     },
-    showConfigurator() {
+    showConfigurator () {
       this.visible = !this.visible;
       this.visible ? this.enableShortcut() : this.disableShortcut();
       bus.$emit('user-theme-config-visible', this.visible);
@@ -183,7 +183,7 @@ export default {
           });
       });
     },
-    checkLocalThemeConfig() {
+    checkLocalThemeConfig () {
       try {
         if (this.hasLocalConfig) {
           this.$message(getActionDisplayName('load-local-theme-config'));
@@ -200,37 +200,35 @@ export default {
         // bad local config
       }
     },
-    filterCurrentConfig() {
-      this.currentConfig = this.defaultConfig.find((config) => {
-        return config.name === this.$route.path.split('/').pop().toLowerCase().replace('-', '');
-      });
+    filterCurrentConfig () {
+      this.currentConfig = this.defaultConfig.find((config) => config.name === this.$route.path.split('/').pop().toLowerCase().replace('-', ''));
     },
-    userConfigChange(e) {
+    userConfigChange (e) {
       this.userConfigHistory.push(JSON.stringify(this.userConfig));
       this.userConfigRedoHistory = [];
       this.$set(this.userConfig[filterConfigType(this.currentConfig.name)], e.key, e.value);
       this.onAction();
     },
-    applyStyle(res, time) {
+    applyStyle (res, time) {
       if (time < this.lastApply) return;
       this.updateDocs(() => {
         updateDomHeadStyle('chalk-style', res);
       });
       this.lastApply = time;
     },
-    onDownload() {
-      return updateVars(Object.assign({}, this.userConfig, {download: true}), (xhr) => {
+    onDownload () {
+      return updateVars(Object.assign({}, this.userConfig, { download: true }), (xhr) => {
         xhr.responseType = 'blob';
       });
     },
-    onReset() {
+    onReset () {
       this.userConfig = {
         global: {},
         local: {}
       };
       this.onAction();
     },
-    onAction() {
+    onAction () {
       this.triggerComponentLoading(true);
       const time = +new Date();
       const currentConfigString = JSON.stringify(this.userConfig);
@@ -250,7 +248,7 @@ export default {
           this.triggerComponentLoading(false);
         });
     },
-    onError(err) {
+    onError (err) {
       let message;
       try {
         message = JSON.parse(err).message;
@@ -259,22 +257,22 @@ export default {
       }
       this.$message.error(message);
     },
-    triggerComponentLoading(val) {
+    triggerComponentLoading (val) {
       bus.$emit('user-theme-config-loading', val);
     },
-    updateDocs(cb) {
+    updateDocs (cb) {
       window.userThemeConfig = JSON.parse(JSON.stringify(this.userConfig));
       bus.$emit('user-theme-config-update', this.userConfig);
       this.updateDocStyle(this.userConfig, cb);
     },
-    undo() {
+    undo () {
       if (this.userConfigHistory.length > 0) {
         this.userConfigRedoHistory.push(JSON.stringify(this.userConfig));
         this.userConfig = JSON.parse(this.userConfigHistory.pop());
         this.onAction();
       }
     },
-    redo() {
+    redo () {
       if (this.userConfigRedoHistory.length > 0) {
         this.userConfigHistory.push(JSON.stringify(this.userConfig));
         this.userConfig = JSON.parse(this.userConfigRedoHistory.shift());
@@ -283,13 +281,12 @@ export default {
     }
   },
   watch: {
-    '$route.path'() {
+    '$route.path' () {
       this.defaultConfig && this.filterCurrentConfig();
       if (!this.$refs.mainConfigurator) return;
       this.$nextTick(() => {
         this.$refs.mainConfigurator.scrollTop = 0;
       });
-
     }
   }
 };

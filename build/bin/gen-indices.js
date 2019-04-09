@@ -19,12 +19,12 @@ const langs = {
   const index = client.initIndex(indexName);
   index.clearIndex(err => {
     if (err) return;
-    fs.readdir(path.resolve(__dirname, `../../examples/docs/${ lang }`), (err, files) => {
+    fs.readdir(path.resolve(__dirname, `../../examples/docs/${lang}`), (err, files) => {
       if (err) return;
       let indices = [];
       files.forEach(file => {
         const component = file.replace('.md', '');
-        const content = fs.readFileSync(path.resolve(__dirname, `../../examples/docs/${ lang }/${ file }`), 'utf8');
+        const content = fs.readFileSync(path.resolve(__dirname, `../../examples/docs/${lang}/${file}`), 'utf8');
         const matches = content
           .replace(/:::[\s\S]*?:::/g, '')
           .replace(/```[\s\S]*?```/g, '')

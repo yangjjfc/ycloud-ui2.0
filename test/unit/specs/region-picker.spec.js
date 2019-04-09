@@ -12,4 +12,3 @@ describe('RegionPicker', () => {
     expect(vm.$el).to.exist;
   });
 });
-

@@ -1,7 +1,7 @@
 import TableTree from './src/main';
 
 /* istanbul ignore next */
-TableTree.install = function(Vue) {
+TableTree.install = function (Vue) {
   Vue.component(TableTree.name, TableTree);
 };
 
