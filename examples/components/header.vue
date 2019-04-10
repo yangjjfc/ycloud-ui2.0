@@ -2,7 +2,12 @@
   .headerWrapper {
     height: 80px;
   }
-
+  .logo-name{
+    font-size: 31px !important;
+    font-weight: bold;
+    color: #409EFF;
+    font-family: fantasy;
+  }
   .header {
     height: 80px;
     background-color: #fff;
@@ -272,14 +277,15 @@
         <h1><router-link :to="`/${ lang }`">
           <!-- logo -->
           <slot>
-            <img
+            <span class="logo-name">ycloud</span>
+            <!-- <img
               src="../assets/images/element-logo.svg"
               alt="element-logo"
               class="nav-logo">
             <img
               src="../assets/images/element-logo-small.svg"
               alt="element-logo"
-              class="nav-logo-small">
+              class="nav-logo-small"> -->
           </slot>
 
         </router-link></h1>
