@@ -437,11 +437,21 @@
     },
     methods: {
       switchVersion(version) {
+        this.$message({
+          message: '切换版本还在开发中.....',
+          type: 'warning'
+        });
+        return;
         if (version === this.version) return;
         location.href = `${ location.origin }/${ this.versions[version] }/${ location.hash } `;
       },
 
       switchLang(targetLang) {
+        this.$message({
+          message: '切换语言还在开发中.....',
+          type: 'warning'
+        });
+        return;
         if (this.lang === targetLang) return;
         localStorage.setItem('ELEMENT_LANGUAGE', targetLang);
         this.$router.push(this.$route.path.replace(this.lang, targetLang));

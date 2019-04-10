@@ -1,5 +1,5 @@
-import navConfig from './nav.config';
-import langs from './i18n/route';
+import navConfig from './nav.config'; //侧边
+import langs from './i18n/route'; //语言
 
 const LOAD_MAP = {
   'zh-CN': name => r => require.ensure([], () =>
@@ -116,8 +116,8 @@ route.push({
   component: require('./play/index.vue')
 });
 
-let userLanguage = localStorage.getItem('ELEMENT_LANGUAGE') || window.navigator.language || 'en-US';
-let defaultPath = '/en-US';
+let userLanguage = localStorage.getItem('ELEMENT_LANGUAGE') || window.navigator.language || 'en-US'; //选择默认语言
+let defaultPath = '/zh-CN';
 if (userLanguage.indexOf('zh-') !== -1) {
   defaultPath = '/zh-CN';
 } else if (userLanguage.indexOf('es') !== -1) {
@@ -134,4 +134,5 @@ route = route.concat([{
   redirect: defaultPath
 }]);
 
+console.log(route);
 export default route;

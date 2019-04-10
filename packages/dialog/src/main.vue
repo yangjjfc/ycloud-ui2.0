@@ -1,12 +1,17 @@
 <template>
   <div class="yl-dialog">
     <el-dialog v-bind="$attrs" v-on="$listeners" :visible="show" :close-on-click-modal="closeOnClickModal" :before-close="cancel">
-      <slot name='content'></slot>
-      <span slot="footer" class="dialog-footer">
-        <slot name="footer"></slot>
-        <el-button type="primary" @click="submit" v-if="!hideSubmitButton" size="small" :disabled="disabledConfirmButton">{{this.confirmButtonText}}</el-button>
-        <el-button @click="cancel" size="small" v-if="!hideCancelButton">{{closeButtonText}}</el-button>
-      </span>
+      <template #title v-if="$slots.title">
+          <slot name="title"></slot>
+      </template>
+      <slot></slot>
+      <template #footer>
+         <span class="dialog-footer" >
+          <slot name="footer"></slot>
+          <el-button type="primary" @click="submit" v-if="!hideSubmitButton" size="small" :disabled="disabledConfirmButton">{{confirmButtonText}}</el-button>
+          <el-button @click="cancel" size="small" v-if="!hideCancelButton">{{closeButtonText}}</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>

@@ -5,6 +5,28 @@
     .el-dialog {
         min-width: 300px;
     }
+    .el-dialog__footer {
+        border-top: #E4EFF7 solid 1px;
+        padding: 12px;
+    }
+    
+    .el-dialog__body {
+        font-size: 12px;
+        padding: 20px 20px 10px 20px;
+    }
+
+    .el-dialog__header {
+        padding: 10px 16px;
+        background: #F6FAFD;
+        border-bottom: #E4EFF7 solid 1px;
+        color: #44667f
+    }
+    
+    .el-dialog__header .el-dialog__title {
+        color: #44667f;
+        font-weight: bold;
+        font-size: 14px;
+    }
 
     @media screen and (max-height: 700px) {
         .el-dialog__wrapper {
