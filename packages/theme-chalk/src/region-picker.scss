@@ -2,4 +2,8 @@
 @import "common/var";
 
 @include b(region-picker) {
+    .Address {
+        width: 32.5%;
+        margin-bottom: 5px;
+    }
 }

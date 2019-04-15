@@ -54,6 +54,10 @@
             {
               "path": "/region-picker",
               "title": "RegionPicker 地址"
+            },
+            {
+              "path": "/icon",
+              "title": "Icon 图标"
             }
           ]
         }

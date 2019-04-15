@@ -5,6 +5,7 @@ import Dialog from '../packages/dialog/index.js';
 import FileUpload from '../packages/file-upload/index.js';
 import TableTree from '../packages/table-tree/index.js';
 import RegionPicker from '../packages/region-picker/index.js';
+import Icon from '../packages/icon/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 const components = [
@@ -13,6 +14,7 @@ const components = [
   FileUpload,
   TableTree,
   RegionPicker,
+  Icon,
   CollapseTransition
 ];
 
@@ -40,5 +42,6 @@ export default {
   Dialog,
   FileUpload,
   TableTree,
-  RegionPicker
+  RegionPicker,
+  Icon
 };

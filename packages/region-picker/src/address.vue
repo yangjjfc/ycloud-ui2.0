@@ -195,9 +195,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-    .Address {
-        width: 32.5%;
-        margin-bottom: 5px;
-    }
-</style>

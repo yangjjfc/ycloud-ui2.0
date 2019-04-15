@@ -32,7 +32,6 @@ export default {
   methods: {
     // 改变页码
     changePage (page) {
-      this.$listeners;
       if (this.isChangeSizeEvent) {
         this.isChangeSizeEvent = false;
         return;

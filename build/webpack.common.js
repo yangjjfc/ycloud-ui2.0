@@ -12,10 +12,10 @@ module.exports = {
   output: {
     path: path.resolve(process.cwd(), './lib'),
     publicPath: '/dist/',
-    filename: 'element-ui.common.js',
+    filename: 'ylcloud-ui.common.js',
     chunkFilename: '[id].js',
     libraryExport: 'default',
-    library: 'ELEMENT',
+    library: 'YCLOUD',
     libraryTarget: 'commonjs2'
   },
   resolve: {

@@ -1,87 +1,67 @@
 <template>
   <div class="yl-table-tree">
-     <el-table :data="formatData" :row-style="showRow" v-bind="$attrs" :max-height="height">
-        <el-table-column v-if="columns.length===0" width="150">
-            <template slot-scope="scope">
-                <span v-for="space in scope.row._level" :key="space" class="ms-tree-space"/>
-                <span v-if="iconShow(0,scope.row)" class="tree-ctrl" @click="toggleExpanded(scope.$index)">
-                  <i v-if="!scope.row._expanded" class="el-icon-caret-right"/>
-                  <i v-else class="el-icon-caret-bottom"/>
-                </span>
-                {{ scope.$index }}
-            </template>
-        </el-table-column>
-        <el-table-column v-for="(column, index) in columns" v-else :key="column.value" :label="column.text" :width="column.width">
-            <template slot-scope="scope">
-                <!-- Todo -->
-                <!-- eslint-disable-next-line vue/no-confusing-v-for-v-if -->
-                <span v-for="space in scope.row._level"  :key="space" class="ms-tree-space" v-if="index === 0"/>
-                <span v-if="iconShow(index,scope.row)" class="tree-ctrl" @click="toggleExpanded(scope.$index)">
-                  <i v-if="!scope.row._expanded" class="el-icon-caret-right"/>
-                  <i v-else class="el-icon-caret-bottom"/>
-                </span>
-                {{ scope.row[column.value] }}
-            </template>
-        </el-table-column>
-        <slot/>
+    <el-table  v-bind="$attrs" :data="formatData" :expand-row-keys="expandRowKeys" :row-key="getRowKey" v-on="$listeners" style="width: 100%;margin-bottom: 20px;" border >
+      <slot />
     </el-table>
   </div>
 </template>
 
 <script>
-import treeToArray from './eval';
 export default {
   name: 'YlTableTree',
+  data () {
+    return {
+      formatData: [],
+      expandRowKeys: []
+    };
+  },
   props: {
-    /* eslint-disable */
-    data: {
-      type: [Array, Object],
-      required: true
-    },
-    columns: {
-      type: Array,
-      default: () => []
-    },
-    height: {
-      type: [Number, String],
-      default: 500
-    },
-    evalFunc: Function,
-    evalArgs: Array,
-    expandAll: {
+    expandAll: { // 是否默认展开
       type: Boolean,
       default: false
+    }, 
+    node: { // 节点
+      type: String,
+      default: 'children'
     }
   },
-  computed: {
-    // 格式化数据源
-    formatData: function () {
-      let tmp
-      if (!Array.isArray(this.data)) {
-        tmp = [this.data]
-      } else {
-        tmp = this.data
-      }
-      const func = this.evalFunc || treeToArray
-      const args = this.evalArgs ? Array.concat([tmp, this.expandAll], this.evalArgs) : [tmp, this.expandAll]
-      return func.apply(null, args)
+  watch: {
+    $attrs: {
+      handler: function (val, oldVal) {
+        let data = val.data;
+        if (this.isArray(data)) {
+          [this.formatData, this.expandRowKeys] = this.treeToArray(JSON.parse(JSON.stringify(data)));
+        } else {
+          return new Error('data必须是array');
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
-    showRow: function (row) {
-      const show = (row.row.parent ? (row.row.parent._expanded && row.row.parent._show) : true)
-      row.row._show = show
-      return show ? 'animation:treeTableShow 1s;-webkit-animation:treeTableShow 1s;' : 'display:none;'
+    isArray (o) { // 是否数组
+      return Object.prototype.toString.call(o).slice(8, -1) === 'Array';
     },
-    // 切换下级是否展开
-    toggleExpanded: function (trIndex) {
-      const record = this.formatData[trIndex]
-      record._expanded = !record._expanded
+    treeToArray (data, level = 0, expandRowKeys = []) {
+      let arr = data.map((item, index) => {
+        item._id = level + (index + 1) + '';
+        if (this.expandAll) {
+          expandRowKeys.push(item._id);
+        }
+        let node = this.node || 'children';
+        item.children = item[node];
+        if (item.children && item.children.length) {
+          [item.children] = this.treeToArray(item.children, item._id, expandRowKeys);
+        }
+        return item;
+      });
+      return [arr, expandRowKeys];
     },
-    // 图标显示
-    iconShow(index, record) {
-      return (index === 0 && record.children && record.children.length > 0)
+    getRowKey (row) {
+      return row._id;
     }
   }
+ 
 };
 </script>
