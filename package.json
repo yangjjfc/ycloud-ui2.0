@@ -1,8 +1,8 @@
 {
-  "name": "element-ui",
+  "name": "ycloud-ui",
   "version": "2.6.3",
   "description": "A Component Library for Vue.js.",
-  "main": "lib/element-ui.common.js",
+  "main": "lib/ycloud-ui.common.js",
   "files": [
     "lib",
     "src",
