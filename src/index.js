@@ -45,3 +45,4 @@ export default {
   RegionPicker,
   Icon
 };
+module.exports.default = module.exports;
