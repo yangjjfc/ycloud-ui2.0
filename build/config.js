@@ -1,6 +1,6 @@
 var path = require('path');
 var fs = require('fs');
-var nodeExternals = require('webpack-node-externals');
+var nodeExternals = require('webpack-node-externals'); // 防止将某些 import 的包(package)打包到 bundle 中
 var Components = require('../components.json');
 
 var utilsList = fs.readdirSync(path.resolve(__dirname, '../src/utils'));

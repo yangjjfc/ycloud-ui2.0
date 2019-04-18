@@ -25,10 +25,10 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: config.alias
   },
-  externals: {
+  externals: { // 排除相关文件打包
     vue: config.vue
   },
-  optimization: {
+  optimization: { // 优化
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -39,10 +39,10 @@ module.exports = {
       })
     ]
   },
-  performance: {
+  performance: { // 性能
     hints: false
   },
-  stats: {
+  stats: { // 统计信息
     children: false
   },
   module: {
