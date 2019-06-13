@@ -12,7 +12,7 @@ langConfig.forEach(lang => {
   }
 
   Object.keys(lang.pages).forEach(page => {
-    var templatePath = path.resolve(__dirname, `../../examples/pages/template/${page}.tpl`);
+    var templatePath = path.resolve(__dirname, `../../examples/pages/template/${page}.tpl`); // 获取模板
     var outputPath = path.resolve(__dirname, `../../examples/pages/${lang.lang}/${page}.vue`);
     var content = fs.readFileSync(templatePath, 'utf8');
     var pairs = lang.pages[page];

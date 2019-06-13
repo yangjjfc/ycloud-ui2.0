@@ -20,13 +20,13 @@ const LOAD_DOCS_MAP = {
 const loadDocs = function (lang, path) {
   return LOAD_DOCS_MAP[lang](path);
 };
-
+//注册路由
 const registerRoute = (navConfig) => {
   let route = [];
   Object.keys(navConfig).forEach((lang, index) => {
     let navs = navConfig[lang];
     route.push({
-      path: `/${lang}/component`,
+      path: `/${lang}/component`, //'/zh-CN/component'
       redirect: `/${lang}/component/installation`,
       component: load(lang, 'component'),
       children: []

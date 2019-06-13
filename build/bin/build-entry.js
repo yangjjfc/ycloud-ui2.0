@@ -1,9 +1,9 @@
 var Components = require('../../components.json');
 var fs = require('fs');
-var render = require('json-templater/string');
-var uppercamelcase = require('uppercamelcase');
+var render = require('json-templater/string'); // JSON模板化
+var uppercamelcase = require('uppercamelcase');// 大写驼峰 foo-bar→FooBar
 var path = require('path');
-var endOfLine = require('os').EOL;
+var endOfLine = require('os').EOL; // 定义操作系统相关的行末标志
 
 var OUTPUT_PATH = path.join(__dirname, '../../src/index.js');
 var IMPORT_TEMPLATE = 'import {{name}} from \'../packages/{{package}}/index.js\';';
@@ -44,7 +44,7 @@ export default {
 
 delete Components.font;
 
-var ComponentNames = Object.keys(Components);
+var ComponentNames = Object.keys(Components); // 获取键值
 
 var includeComponentTemplate = [];
 var installTemplate = [];

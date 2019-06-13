@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');// 提取 CSS 
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 拷贝文件
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // html 模板插件
+const ProgressBarPlugin = require('progress-bar-webpack-plugin'); // 进度条
+const VueLoaderPlugin = require('vue-loader/lib/plugin');// .vue编译
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css文件
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // 压缩js
 
 const config = require('./config');
 
