@@ -13,7 +13,7 @@ const webpackConfig = {
     publicPath: '/dist/',
     filename: '[name].js',
     chunkFilename: '[id].js',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2' //导出的是 module.exports.default
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

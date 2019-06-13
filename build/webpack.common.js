@@ -14,9 +14,9 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'ycloud-ui.common.js',
     chunkFilename: '[id].js',
-    libraryExport: 'default',
-    library: 'YCLOUD',
-    libraryTarget: 'commonjs2'
+    libraryExport: 'default', //var MyDefaultModule = _entry_return_.default
+    library: 'YCLOUD', //注入全局变量
+    libraryTarget: 'commonjs2'// 入口起点的返回值将分配给 module.exports 对象
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

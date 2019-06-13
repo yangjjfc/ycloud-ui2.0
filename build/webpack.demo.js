@@ -21,25 +21,26 @@ const webpackConfig = {
   } : (isPlay ? './examples/play.js' : './examples/entry.js'),
   output: {
     path: path.resolve(process.cwd(), './examples/element-ui/'),
-    publicPath: process.env.CI_ENV || '',
+    publicPath: process.env.CI_ENV || '', //基准路径
     filename: '[name].[hash:7].js',
-    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js'
+    chunkFilename: isProd ? '[name].[hash:7].js' : '[name].js' //文件改变时才会变化hash值
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: config.alias,
     modules: ['node_modules']
   },
-  devServer: {
+  devServer: { //端口
     host: '0.0.0.0',
     port: 8086,
     publicPath: '/',
-    noInfo: true
+    noInfo: true,
+    open: true //默认打开浏览器
   },
-  performance: {
-    hints: false
+  performance: { //性能
+    hints: false // webpack 抛出一个错误或警告
   },
-  stats: {
+  stats: { //统计信息
     children: false
   },
   module: {
@@ -123,7 +124,7 @@ const webpackConfig = {
     })
   ],
   optimization: {
-    minimizer: []
+    minimizer: [] //MiniCssExtractPlugin使用
   }
 };
 
