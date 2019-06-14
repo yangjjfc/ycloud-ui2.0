@@ -6,6 +6,8 @@ import FileUpload from '../packages/file-upload/index.js';
 import TableTree from '../packages/table-tree/index.js';
 import RegionPicker from '../packages/region-picker/index.js';
 import Icon from '../packages/icon/index.js';
+import Throttle from '../packages/throttle/index.js';
+import Debounce from '../packages/debounce/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 const components = [
@@ -15,6 +17,8 @@ const components = [
   TableTree,
   RegionPicker,
   Icon,
+  Throttle,
+  Debounce,
   CollapseTransition
 ];
 
@@ -43,5 +47,7 @@ export default {
   FileUpload,
   TableTree,
   RegionPicker,
-  Icon
+  Icon,
+  Throttle,
+  Debounce
 };

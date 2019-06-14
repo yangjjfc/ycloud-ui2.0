@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+const hasOwnProperty = Object.prototype.hasOwnProperty; // 是否含有自身属性 prop,不是继承来的
 
 export function noop () {}
 

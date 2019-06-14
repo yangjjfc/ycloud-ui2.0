@@ -1,6 +1,6 @@
 <template>
   <div class="yl-table-tree">
-    <el-table  v-bind="$attrs" :data="formatData" :expand-row-keys="expandRowKeys" :row-key="getRowKey" v-on="$listeners" style="width: 100%;margin-bottom: 20px;" border >
+    <el-table  v-bind="$attrs" :data="formatData" :expand-row-keys="expandRowKeys" :row-key="getRowKey" v-on="$listeners" style="width: 100%;" border >
       <slot />
     </el-table>
   </div>
@@ -29,8 +29,9 @@ export default {
     $attrs: {
       handler: function (val, oldVal) {
         let data = val.data;
-        if (this.isArray(data)) {
+        if (this.isArray(data)) { // 判断数组
           [this.formatData, this.expandRowKeys] = this.treeToArray(JSON.parse(JSON.stringify(data)));
+          console.log(this.formatData, this.expandRowKeys);
         } else {
           return new Error('data必须是array');
         }
@@ -45,7 +46,7 @@ export default {
     },
     treeToArray (data, level = 0, expandRowKeys = []) {
       let arr = data.map((item, index) => {
-        item._id = level + (index + 1) + '';
+        item._id = level + (index + 1) + ''; // 自增一个id
         if (this.expandAll) {
           expandRowKeys.push(item._id);
         }

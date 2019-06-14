@@ -22,4 +22,4 @@ function copyfont () {
     .pipe(dest('./lib/fonts'));
 }
 
-exports.build = series(compile, copyfont);
+exports.build = series(compile, copyfont); // 将任务函数和/或组合操作组合成更大的操作，这些操作将按顺序依次执行

@@ -21,16 +21,12 @@ export default {
     };
   },
   props: {
-    // 省市区名称
-    value: {
-      type: String
-    },
     // 省市区编码
     codes: {
       type: [String, Number],
       default: ''
     },
-    validateEvent: {
+    validate: {
       type: Boolean,
       default: true
     },
@@ -79,7 +75,7 @@ export default {
       this.$emit('input', names);
       this.$emit('update:codes', vals);
       this.$emit('change', vals);
-      if (this.validateEvent) {
+      if (this.validate) {
         this.dispatch('ElFormItem', 'el.form.change', names);
       }
     },

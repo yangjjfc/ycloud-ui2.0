@@ -14,7 +14,7 @@ function fileExists (filePath) {
     return false;
   }
 }
-
+// 在theme-chalk文件夹下创建scss文件
 themes.forEach((theme) => {
   var isSCSS = theme !== 'theme-default';
   var indexContent = isSCSS ? '@import "./base.scss";\n' : '@import "./base.css";\n';

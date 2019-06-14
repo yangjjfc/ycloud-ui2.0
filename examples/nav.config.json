@@ -58,6 +58,14 @@
             {
               "path": "/icon",
               "title": "Icon 图标"
+            },
+            {
+              "path": "/throttle",
+              "title": "Throttle 节流"
+            },
+            {
+              "path": "/debounce",
+              "title": "Debounce 抖动"
             }
           ]
         }

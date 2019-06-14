@@ -1,10 +1,10 @@
 import defaultLang from 'ycloud-ui/src/locale/lang/zh-CN';
 import Vue from 'vue';
-import deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge'; // 深入合并两个或多个对象的可枚举属性
 import Format from './format';
 
 const format = Format(Vue);
-let lang = defaultLang;
+let lang = defaultLang; // zh-CN
 let merged = false;
 let i18nHandler = function () {
   const vuei18n = Object.getPrototypeOf(this || Vue).$t;

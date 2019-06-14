@@ -134,5 +134,4 @@ route = route.concat([{
   redirect: defaultPath
 }]);
 
-console.log(route);
 export default route;

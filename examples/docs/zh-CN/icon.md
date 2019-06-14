@@ -3,14 +3,23 @@
 
 :::demo yl-icon使用时需引入阿里iconfont的svg图标
 ```html
-<yl-icon icon="icon-gantanhao"></yl-icon>
+<yl-icon icon="icon-msg-1" className="icon"></yl-icon>
 <yl-icon icon="icon-msg-1"></yl-icon>
 <yl-icon icon="icon-home"></yl-icon>
 <yl-icon icon="icon-xinfeng-kai"></yl-icon>
 <yl-icon icon="icon-juhelianjie"></yl-icon>
 <yl-icon icon="icon-youkeyanshijichanpindaishenhe"></yl-icon>
-```
 
+
+<style>
+.icon{
+    height:100px;
+    width:100px;
+    fill:#f00;
+}
+</style>
+
+```
 :::
 
 ### Attributes
