@@ -4,7 +4,5 @@
   "file-upload": "./packages/file-upload/index.js",
   "table-tree": "./packages/table-tree/index.js",
   "region-picker": "./packages/region-picker/index.js",
-  "icon": "./packages/icon/index.js",
-  "throttle": "./packages/throttle/index.js",
-  "debounce": "./packages/debounce/index.js"
+  "icon": "./packages/icon/index.js"
 }

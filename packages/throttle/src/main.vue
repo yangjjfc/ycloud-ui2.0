@@ -56,10 +56,10 @@ export default {
   },
   mounted () {
     this.$watch('include', val => { // 监听include参数变化，实时更新节流函数
-      pruneThrottle(this, name => matchs(val, name));
+      pruneThrottle(this, name => match(val, name));
     });
     this.$watch('exclude', val => {
-      pruneThrottle(this, name => !matchs(val, name));
+      pruneThrottle(this, name => !match(val, name));
     });
   },
   destroyed () {
