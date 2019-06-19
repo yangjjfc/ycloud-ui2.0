@@ -4,5 +4,6 @@
   "file-upload": "./packages/file-upload/index.js",
   "table-tree": "./packages/table-tree/index.js",
   "region-picker": "./packages/region-picker/index.js",
-  "icon": "./packages/icon/index.js"
+  "icon": "./packages/icon/index.js",
+  "Tinymce": "./packages/Tinymce/index.js"
 }

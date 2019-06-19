@@ -1,14 +1,14 @@
 import { createTest, destroyVM } from '../util';
-import Throttle from 'packages/throttle';
+import Tinymce from 'packages/Tinymce';
 
-describe('Throttle', () => {
+describe('Tinymce', () => {
   let vm;
   afterEach(() => {
     destroyVM(vm);
   });
 
   it('create', () => {
-    vm = createTest(Throttle, true);
+    vm = createTest(Tinymce, true);
     expect(vm.$el).to.exist;
   });
 });

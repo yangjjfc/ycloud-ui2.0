@@ -12,4 +12,3 @@ describe('Debounce', () => {
     expect(vm.$el).to.exist;
   });
 });
-

@@ -15,7 +15,7 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'index.js',
     chunkFilename: '[id].js',
-    libraryTarget: 'umd',//将你的 library 暴露为所有的模块定义下都可运行的方式
+    libraryTarget: 'umd', // 将你的 library 暴露为所有的模块定义下都可运行的方式
     libraryExport: 'default',
     library: 'YCLOUD',
     umdNamedDefine: true,

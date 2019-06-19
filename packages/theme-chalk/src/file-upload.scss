@@ -2,4 +2,32 @@
 @import "common/var";
 
 @include b(file-upload) {
+    $width: 90px;
+    .yl-upload-cont {
+        line-height: 1;
+        padding-top: 5px;
+    }
+    /deep/ .el-upload--picture-card {
+        background-color: #fbfdff;
+        border: 1px dashed #c0ccda;
+        border-radius: 6px;
+        box-sizing: border-box;
+        width: $width;
+        height: $width;
+        cursor: pointer;
+        line-height: $width;
+        vertical-align: top;
+        margin-bottom: 8px;
+    }
+    /deep/ .el-upload-list--picture-card .el-upload-list__item {
+        overflow: hidden;
+        background-color: #fff;
+        border: 1px solid #c0ccda;
+        border-radius: 6px;
+        box-sizing: border-box;
+        width: $width;
+        height: $width;
+        margin: 0 8px 8px 0;
+        display: inline-block;
+    }
 }
