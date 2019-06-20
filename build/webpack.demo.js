@@ -35,7 +35,13 @@ const webpackConfig = {
     port: 8086,
     publicPath: '/',
     noInfo: true,
-    open: true // 默认打开浏览器
+    open: true, // 默认打开浏览器
+    proxy: { // 代理
+      '/gateway': {
+        target: 'http://scs.dev.cloudyigou.com',
+        changeOrigin: true
+      }
+    } 
   },
   performance: { // 性能
     hints: false // webpack 抛出一个错误或警告

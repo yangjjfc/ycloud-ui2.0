@@ -2,4 +2,38 @@
 @import "common/var";
 
 @include b(Tinymce) {
+    position: relative;
+
+    /deep/ .mce-fullscreen {
+        z-index: 10000;
+    }
+
+    .tinymce-textarea {
+        visibility: hidden;
+        z-index: -1;
+    }
+
+    .editor-custom-btn-container {
+        position: absolute;
+        right: 4px;
+        top: 4px;
+        /*z-index: 2005;*/
+    }
+
+    &.fullscreen .editor-custom-btn-container {
+        z-index: 10000;
+        position: fixed;
+    }
+
+    .editor-upload-btn {
+        display: inline-block;
+    }
+
+    .editor-slide-upload {
+        margin-bottom: 20px;
+
+        .el-upload--picture-card {
+            width: 100%;
+        }
+    }
 }

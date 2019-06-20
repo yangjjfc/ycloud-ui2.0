@@ -2,6 +2,9 @@
 import pdf from './img/pdf.png'; // daf
 import compressPackage from './img/package.png';
 import noimg from './img/noimage.png';
+import doc from './img/doc.png'; 
+import txt from './img/txt.png'; 
+import excel from './img/excel.png'; 
 
 /**
  * 密码加密处理
@@ -99,28 +102,33 @@ export const format = (time, fmt) => {
 /**
  *
  * @param {*文件上传支持的类型} item
+ * @param {*扩张文件类型} extendFileType
  */
 export const getFileType = (item) => {
   if (!item) {
     return null;
   }
-  // 判断是否是图片
-  let strFilter = ['jpeg', 'jpg', 'png', 'pic', 'bmp', 'gif'];
-  let strPostfix;
+  // 所支持的文件类型
+  let fileTypes = [
+      ['jpg', 'jpeg', 'png', 'pic', 'bmp', 'gif'],
+      ['pdf'],
+      ['doc', 'docx'],
+      ['rar', 'zip'],
+      ['xls', 'xlsx'],
+      ['txt']
+    ],
+    getFile = null;
   if (item.indexOf('.') > -1) {
-    strPostfix = (item.split('.').pop() || '').toLowerCase();
-    if (strFilter.includes(strPostfix)) {
-      return 'image';
-    } else if (['pdf'].includes(strPostfix)) {
-      return 'pdf';
-    } else if (['rar', 'zip'].includes(strPostfix)) {
-      return 'package';
-    } else {
-      return false; // 不支持的文件类型
+    let etx = (item.split('.').pop() || '').toLowerCase();
+    for (const file of fileTypes) {
+      if (file.includes(etx)) {
+        getFile = file[0];
+        break;
+      }
     }
   }
-  return null;
-}; // 没有图片
+  return getFile;
+};
 export let mode = process.env.NODE_ENV === 'production' ? {
   IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/',
   IMAGE_UPLOAD: '/gateway/upload',
@@ -136,15 +144,25 @@ export const changeMode = (obj = { IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.c
 };
 export const formatFile = (item, size) => {
   let thumbnail = '';
-  switch (getFileType(item)) {
-    case 'image':
+  let fileType = getFileType(item);
+  switch (fileType) {
+    case 'jpg':
       thumbnail = mode.IMAGE_DOWNLOAD + changeImgSize(item, size);
       break;
     case 'pdf':
       thumbnail = pdf;
       break;
-    case 'package':
+    case 'rar':
       thumbnail = compressPackage;
+      break;
+    case 'xls':
+      thumbnail = excel;
+      break;
+    case 'txt':
+      thumbnail = txt;
+      break;
+    case 'doc':
+      thumbnail = doc;
       break;
     default:
       thumbnail = noimg;

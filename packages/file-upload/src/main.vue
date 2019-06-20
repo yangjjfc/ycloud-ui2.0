@@ -1,6 +1,6 @@
 <template>
   <div class="yl-file-upload" ref="imgUpload">
-    <el-upload  :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :on-preview="review" :before-upload="beforeUpload" :drag="drag" :file-list="fileLists" :on-remove="remove"  :on-exceed="handleExceed" :limit="limit">
+    <el-upload   v-bind="$attrs" v-on="listeners"  :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :on-preview="review" :before-upload="beforeUpload" :drag="drag" :file-list="fileLists" :on-remove="remove"  :on-exceed="handleExceed" :limit="limit">
         <slot name='imgs'></slot>
         <i class="el-icon-plus"></i>
     </el-upload>
@@ -13,7 +13,7 @@
 <script>
 import Emitter from 'ycloud-ui/src/mixins/emitter';
 import boxer from 'ycloud-ui/src/directives/boxer';
-import { getFileType, formatFile, mode, token } from 'ycloud-ui/src/utils/global';
+import { getFileType, formatFile, mode } from 'ycloud-ui/src/utils/global';
 export default {
   name: 'YlFileUpload',
   mixins: [Emitter],
@@ -32,7 +32,7 @@ export default {
   props: {
     action: {
       type: String,
-      default: '/gateway/upload'
+      default: '/gateway/upload' // 云医购
     },
     listType: {
       type: String,
@@ -62,21 +62,11 @@ export default {
     }
   },
   mounted () {
-    if (token) {
-      this.headers.jtoken = token;
-    } else {
-      // this.$notify.error({
-      //   title: '错误',
-      //   message: '无法获取token'
-      // });
-      // return;
-    }
+    this.headers.jtoken = '5a4bae1349626eca4a654081618dd4d9'; // todo
+
     this.initFiles(this.value);
   },
   watch: {
-    // max () {
-    //   this.maxLength = Number(this.max);
-    // },
     value: {
       deep: true,
       handler: function (val, oldVal) {
@@ -91,7 +81,6 @@ export default {
       let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), // TODO 需修改
         list = [],
         reUrls = []; // 全地址
-
       this.imgUrls = [];
       src && src.forEach(item => {
         if (item) {
@@ -129,6 +118,12 @@ export default {
     },
     // 上传前
     beforeUpload (file) {
+      if (!this.headers.jtoken) {
+        this.$notify.error({
+          title: '错误',
+          message: '文件服务器有误,暂时无法上传'
+        });
+      }
       // 文件类型
       if (!getFileType(file.name)) {
         this.$notify.error({
