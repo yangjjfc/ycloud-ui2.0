@@ -4,7 +4,7 @@
 
 :::demo table-tree基于el-table中tree实现方式,继承所有的参数,添加`node`已那种方式为节点
 ```html
-<yl-table-tree :data="tableData">
+<yl-table-tree :data="tableData" :expandAll="true">
   <el-table-column prop="date" label="日期" sortable width="180">
   </el-table-column>
   <el-table-column prop="name" label="姓名" sortable width="180">
@@ -76,6 +76,7 @@
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | node   | 父子节点名称 | string | — | children |
+| expandAll   | 是否默认展开 | Boolean | — | false |
 
 
 ### Slot

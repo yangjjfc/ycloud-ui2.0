@@ -7,6 +7,7 @@ import TableTree from '../packages/table-tree/index.js';
 import RegionPicker from '../packages/region-picker/index.js';
 import Icon from '../packages/icon/index.js';
 import Tinymce from '../packages/Tinymce/index.js';
+import Table from '../packages/table/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 const components = [
@@ -17,6 +18,7 @@ const components = [
   RegionPicker,
   Icon,
   Tinymce,
+  Table,
   CollapseTransition
 ];
 
@@ -46,5 +48,6 @@ export default {
   TableTree,
   RegionPicker,
   Icon,
-  Tinymce
+  Tinymce,
+  Table
 };

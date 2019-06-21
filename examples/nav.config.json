@@ -62,6 +62,10 @@
             {
               "path": "/Tinymce",
               "title": "Tinymce 富文本"
+            },
+            {
+              "path": "/table",
+              "title": "Table 表格"
             }
           ]
         }

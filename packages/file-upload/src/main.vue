@@ -1,6 +1,6 @@
 <template>
   <div class="yl-file-upload" ref="imgUpload">
-    <el-upload   v-bind="$attrs" v-on="listeners"  :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :on-preview="review" :before-upload="beforeUpload" :drag="drag" :file-list="fileLists" :on-remove="remove"  :on-exceed="handleExceed" :limit="limit">
+    <el-upload   v-bind="$attrs" v-on="$listeners"  :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :on-preview="review" :before-upload="beforeUpload" :drag="drag" :file-list="fileLists" :on-remove="remove"  :on-exceed="handleExceed" :limit="limit">
         <slot name='imgs'></slot>
         <i class="el-icon-plus"></i>
     </el-upload>
@@ -187,7 +187,7 @@ export default {
         fullUrl: mode.IMAGE_DOWNLOAD + this.getFileUrl(item)
       }));
       this.$emit('input', this.imgUrls);
-      this.$emit('on-success', this.imgUrls + '');// 上传完成钩子
+      this.$emit('on-success', this.imgUrls + '', list);// 上传完成钩子
       if (this.validateEvent) {
         this.dispatch('ElFormItem', 'el.form.change', [this.imgUrls + '']);
       }
@@ -206,7 +206,13 @@ export default {
     },
     // 点击放大镜查看
     review (file) {
-      this.$refs.boxer.querySelector(`.link-view-${file.uid}`).click();
+      let fileUrl = this._getFileUrl(file),
+        fileType = getFileType(fileUrl);
+      if (['image', 'pdf'].includes(fileType)) {
+        this.$refs.boxer.querySelector(`.link-view-${file.uid}`).click();
+      } else {
+        window.open('http://view.officeapps.live.com/op/view.aspx?src=' + mode.IMAGE_DOWNLOAD + fileUrl);
+      }
     },
     handleExceed (files, fileList) {
       this.$message.warning(`当前限制选择 ${this.limit}个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);

@@ -1,0 +1,36 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(table) {
+    .table-btns {
+        margin-right: 5px !important;
+        margin-left: 0px !important;
+    }
+
+    .svg-table-title {
+        margin-top: 8px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .el-dropdown-link{
+        font-size: 12px;
+        color: #409EFF;
+    }
+    .custom-table-expand {
+        .right-btn {
+            height: 200px;
+            margin-top: 100px;
+
+            p.text-center {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+
+        .el-radio {
+            /deep/ .el-radio__label {
+                display: none; //隐藏radio ladel
+            }
+        }
+    }
+}

@@ -110,7 +110,7 @@ export const getFileType = (item) => {
   }
   // 所支持的文件类型
   let fileTypes = [
-      ['jpg', 'jpeg', 'png', 'pic', 'bmp', 'gif'],
+      ['image', 'jpg', 'jpeg', 'png', 'pic', 'bmp', 'gif'],
       ['pdf'],
       ['doc', 'docx'],
       ['rar', 'zip'],
@@ -146,7 +146,7 @@ export const formatFile = (item, size) => {
   let thumbnail = '';
   let fileType = getFileType(item);
   switch (fileType) {
-    case 'jpg':
+    case 'image':
       thumbnail = mode.IMAGE_DOWNLOAD + changeImgSize(item, size);
       break;
     case 'pdf':
