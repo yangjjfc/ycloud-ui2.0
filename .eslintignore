@@ -3,6 +3,7 @@ src/utils/date.js
 src/utils/boxer/*
 src/utils/aes/*
 src/utils/sha256/*
+src/utils/img/*
 examples/*
 *.sh
 node_modules

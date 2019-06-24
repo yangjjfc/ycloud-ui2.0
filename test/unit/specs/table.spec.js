@@ -12,4 +12,3 @@ describe('Table', () => {
     expect(vm.$el).to.exist;
   });
 });
-
