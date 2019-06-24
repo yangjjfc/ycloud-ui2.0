@@ -9,9 +9,9 @@
 
 <script>
 import editorImage from './editorImage';
-import { mode } from 'ycloud-ui/src/utils/global'; // 文件格式
 import plugins from './plugins';
 import toolbar from './toolbar';
+import config from 'ycloud-ui/src/config/index';
 
 export default {
   name: 'YlTinymce',
@@ -136,7 +136,7 @@ export default {
     imageSuccessCBK (arr) {
       const _this = this;
       arr.forEach(v => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${mode.IMAGE_DOWNLOAD + v}" >`);
+        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${config.IMAGE_DOWNLOAD + v}" >`);
       });
     }
   }

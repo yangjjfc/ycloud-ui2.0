@@ -134,7 +134,6 @@ export default {
     }
   },
   methods: {
-
     // 得到页面的key
     _getPageKey () {
       let path = window.location.pathname.split('/').slice(1, 3);

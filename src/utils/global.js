@@ -11,6 +11,8 @@ import excel from './img/excel.png';
  */
 import CryptoJS from 'ycloud-ui/src/utils/aes/aes-min.min.js';
 import SHA256 from 'ycloud-ui/src/utils/sha256/sha256.min.js';
+// 环境配置
+import config from 'ycloud-ui/src/config/index';
 
 'use strict';
 /**
@@ -102,14 +104,18 @@ export const format = (time, fmt) => {
 /**
  *
  * @param {*文件上传支持的类型} item
- * @param {*扩张文件类型} extendFileType
+ * @param {*定制化上传类型} type
  */
-export const getFileType = (item) => {
+export const getFileType = (item, type = 'all') => {
   if (!item) {
     return null;
   }
-  // 所支持的文件类型
-  let fileTypes = [
+  let supportType = { // 支持上传的文件类型
+      img: ['image', 'pdf'],
+      file: ['doc', 'rar', 'xls', 'txt']
+    },
+    // 所支持的文件类型
+    fileTypes = [
       ['image', 'jpg', 'jpeg', 'png', 'pic', 'bmp', 'gif'],
       ['pdf'],
       ['doc', 'docx'],
@@ -120,6 +126,9 @@ export const getFileType = (item) => {
     getFile = null;
   if (item.indexOf('.') > -1) {
     let etx = (item.split('.').pop() || '').toLowerCase();
+    if (type !== 'all') { // 过滤上传的文件类型
+      fileTypes = fileTypes.filter(item => supportType[type].includes(item[0]));
+    }
     for (const file of fileTypes) {
       if (file.includes(etx)) {
         getFile = file[0];
@@ -129,25 +138,13 @@ export const getFileType = (item) => {
   }
   return getFile;
 };
-export let mode = process.env.NODE_ENV === 'production' ? {
-  IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/',
-  IMAGE_UPLOAD: '/gateway/upload',
-  IMG_SIZE_MAX: '5242880'
-} : {
-  IMAGE_DOWNLOAD: 'http://dfs.dev.cloudyigou.com/dfs/',
-  IMAGE_UPLOAD: '/gateway/upload',
-  IMG_SIZE_MAX: '5242880'
-};
-// 修改
-export const changeMode = (obj = { IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/' }) => {
-  mode = { ...mode, ...obj };
-};
+
 export const formatFile = (item, size) => {
   let thumbnail = '';
   let fileType = getFileType(item);
   switch (fileType) {
     case 'image':
-      thumbnail = mode.IMAGE_DOWNLOAD + changeImgSize(item, size);
+      thumbnail = config.IMAGE_DOWNLOAD + changeImgSize(item, size);
       break;
     case 'pdf':
       thumbnail = pdf;
@@ -221,23 +218,6 @@ export const delEvent = (obj, evtype, fn, useCapture) => {
   } else {
     obj['on' + evtype] = null;
   }
-};
-
-/**
- * 对象数组的深度拷贝.
- * source是原数据，extendObj是新增的键值对
- */
-export const objArrDeepCopy = (source, extendObj) => {
-  var sourceCopy = source instanceof Array ? [] : {};
-  for (let item in source) {
-    sourceCopy[item] = typeof source[item] === 'object' ? objArrDeepCopy(source[item], extendObj) : source[item];
-    if (typeof extendObj === 'object' && !(sourceCopy instanceof Array)) {
-      for (let param in extendObj) {
-        sourceCopy[param] = extendObj[param];
-      }
-    }
-  }
-  return sourceCopy;
 };
 
 /**
@@ -347,14 +327,3 @@ export const regexp = {
   bankcard: /^\d{6,50}$/,
   tel: /^((1\d{10})|(0\d{2,3}-\d{7,8})|(0\d{2,3}\d{7,8}))$/
 };
-
-// 工具函数
-// export let Tools = {
-//     encryption,
-//     reverseData,
-//     formatFile,
-//     getSelectValue,
-//     clearAttr,
-//     regexp
-// };
-// export default Tools;

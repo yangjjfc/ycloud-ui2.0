@@ -13,7 +13,8 @@
 <script>
 import Emitter from 'ycloud-ui/src/mixins/emitter';
 import boxer from 'ycloud-ui/src/directives/boxer';
-import { getFileType, formatFile, mode } from 'ycloud-ui/src/utils/global';
+import { getFileType, formatFile } from 'ycloud-ui/src/utils/global';
+import config from 'ycloud-ui/src/config/index';
 export default {
   name: 'YlFileUpload',
   mixins: [Emitter],
@@ -44,6 +45,13 @@ export default {
         return 5;
       }
     },
+    supportType: {
+      type: String,
+      default: 'all',
+      validator: function (value) {
+        return ['img', 'file', 'all'].indexOf(value) !== -1;
+      }
+    },
     drag: {
       type: Boolean,
       default: false
@@ -62,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    this.headers.jtoken = '5a4bae1349626eca4a654081618dd4d9'; // todo
+    this.headers.jtoken = config.TOKEN; // todo
 
     this.initFiles(this.value);
   },
@@ -77,8 +85,8 @@ export default {
   methods: {
     // 初始化file
     initFiles (val) {
-      let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null; // TODO 需修改
-      let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), // TODO 需修改
+      let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null; 
+      let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), 
         list = [],
         reUrls = []; // 全地址
       this.imgUrls = [];
@@ -99,7 +107,7 @@ export default {
       return {
         uid: (uid || parseInt(Math.random() * 1000000000)),
         url: thumbnail, // 缩略图地址
-        fullUrl: mode.IMAGE_DOWNLOAD + item, // TODO 需修改
+        fullUrl: config.IMAGE_DOWNLOAD + item, // TODO 需修改
         reUrl: item // 原地址
       };
     },
@@ -125,7 +133,7 @@ export default {
         });
       }
       // 文件类型
-      if (!getFileType(file.name)) {
+      if (!getFileType(file.name, this.supportType)) {
         this.$notify.error({
           title: '错误',
           message: '暂不支持上传文件 ' + file.type + ' 格式。'
@@ -133,10 +141,10 @@ export default {
         return false;
       }
       // 文件大小不能超过5M
-      if (file.size > mode.IMG_SIZE_MAX) {
+      if (file.size > config.IMG_SIZE_MAX) {
         this.$notify.error({
           title: '错误',
-          message: `文件大小不能超过 ${parseInt(mode.IMG_SIZE_MAX) / 1024 / 1024}MB。`
+          message: `文件大小不能超过 ${parseInt(config.IMG_SIZE_MAX) / 1024 / 1024}MB。`
         });
         return false;
       }
@@ -184,10 +192,10 @@ export default {
       this.imgUrls = list.map(item => this.getFileUrl(item));
       this.files = list.map(item => ({
         uid: item.uid,
-        fullUrl: mode.IMAGE_DOWNLOAD + this.getFileUrl(item)
+        fullUrl: config.IMAGE_DOWNLOAD + this.getFileUrl(item)
       }));
       this.$emit('input', this.imgUrls);
-      this.$emit('on-success', this.imgUrls + '', list);// 上传完成钩子
+      this.$emit('success', this.imgUrls + '', list);// 上传完成钩子
       if (this.validateEvent) {
         this.dispatch('ElFormItem', 'el.form.change', [this.imgUrls + '']);
       }
@@ -211,7 +219,7 @@ export default {
       if (['image', 'pdf'].includes(fileType)) {
         this.$refs.boxer.querySelector(`.link-view-${file.uid}`).click();
       } else {
-        window.open('http://view.officeapps.live.com/op/view.aspx?src=' + mode.IMAGE_DOWNLOAD + fileUrl);
+        window.open('http://view.officeapps.live.com/op/view.aspx?src=' + config.IMAGE_DOWNLOAD + fileUrl);
       }
     },
     handleExceed (files, fileList) {

@@ -4,7 +4,7 @@
 
 :::demo table-tree基于el-table中tree实现方式,继承所有的参数,添加`node`已那种方式为节点
 ```html
-<yl-table-tree :data="tableData" :expandAll="true">
+<yl-table-tree :data="tableData" default-expand-all>
   <el-table-column prop="date" label="日期" sortable width="180">
   </el-table-column>
   <el-table-column prop="name" label="姓名" sortable width="180">
