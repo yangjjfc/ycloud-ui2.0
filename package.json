@@ -1,6 +1,6 @@
 {
   "name": "ycloud-ui",
-  "version": "2.6.3",
+  "version": "2.0.1",
   "description": "A Component Library for Vue.js.",
   "main": "lib/ycloud-ui.common.js",
   "files": [
@@ -27,34 +27,12 @@
     "test": "npm run lint && npm run build:theme && cross-env CI_ENV=/dev/ BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test:watch": "npm run build:theme && cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
-  "faas": [
-    {
-      "domain": "element",
-      "public": "temp_web/element"
-    },
-    {
-      "domain": "element-theme",
-      "public": "examples/element-ui",
-      "build": [
-        "yarn",
-        "npm run deploy:build"
-      ]
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:ElemeFE/element.git"
-  },
-  "homepage": "http://element.eleme.io",
   "keywords": [
     "ylcoud",
     "vue",
     "components"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ElemeFE/element/issues"
-  },
   "unpkg": "lib/index.js",
   "style": "lib/theme-chalk/index.css",
   "dependencies": {
