@@ -39,7 +39,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '2.6.3',
+  version: '2.0.1',
   install,
   CollapseTransition,
   Pagination,
