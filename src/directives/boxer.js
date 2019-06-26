@@ -1,6 +1,6 @@
 /* eslint-disable */
-import 'ycloud-ui/src/utils/boxer/jquery.fs.boxer.js';
-import 'ycloud-ui/src/utils/boxer/jquery.fs.boxer.css';
+import '../utils/boxer/jquery.fs.boxer.js';
+import '../utils/boxer/jquery.fs.boxer.css';
 import { getFileType } from 'ycloud-ui/src/utils/global';
 
 const bind = (el, binding, vnode) => {

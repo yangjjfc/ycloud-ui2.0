@@ -10,6 +10,11 @@ import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
+import Http from 'ycloud-ui/src/utils/axios/index';
+import * as Tools from 'ycloud-ui/src/utils/global';
+import emitter from 'ycloud-ui/src/mixins/emitter';
+import boxer from 'ycloud-ui/src/directives/boxer';
+
 const components = [
   Pagination,
   Dialog,
@@ -37,9 +42,14 @@ const install = function (Vue, opts = {}) {
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
-
+export {
+  emitter,
+  Tools,
+  boxer,
+  Http
+};
 export default {
-  version: '2.0.1',
+  version: '2.0.2',
   install,
   CollapseTransition,
   Pagination,
