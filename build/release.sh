@@ -2,7 +2,6 @@
 set -e
 
 git checkout master
-git merge dev
 
 VERSION=`npx select-version-cli`
 
