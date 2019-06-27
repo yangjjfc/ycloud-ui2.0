@@ -9,26 +9,28 @@ var transitionList = fs.readdirSync(path.resolve(__dirname, '../src/transitions'
 var externals = {};
 
 Object.keys(Components).forEach(function (key) {
-  externals[`element-ui/packages/${key}`] = `element-ui/lib/${key}`;
+  externals[`ycloud-ui/packages/${key}`] = `ycloud-ui/lib/${key}`;
 });
 
-externals['element-ui/src/locale'] = 'element-ui/lib/locale';
+externals['ycloud-ui/src/locale'] = 'ycloud-ui/lib/locale';
 utilsList.forEach(function (file) {
   file = path.basename(file, '.js');
-  externals[`element-ui/src/utils/${file}`] = `element-ui/lib/utils/${file}`;
+  externals[`ycloud-ui/src/utils/${file}`] = `ycloud-ui/lib/utils/${file}`;
 });
 mixinsList.forEach(function (file) {
   file = path.basename(file, '.js');
-  externals[`element-ui/src/mixins/${file}`] = `element-ui/lib/mixins/${file}`;
+  externals[`ycloud-ui/src/mixins/${file}`] = `ycloud-ui/lib/mixins/${file}`;
 });
 transitionList.forEach(function (file) {
   file = path.basename(file, '.js');
-  externals[`element-ui/src/transitions/${file}`] = `element-ui/lib/transitions/${file}`;
+  externals[`ycloud-ui/src/transitions/${file}`] = `ycloud-ui/lib/transitions/${file}`;
 });
 
 externals = [Object.assign({
   vue: 'vue'
-}, externals), nodeExternals()];
+}, externals), nodeExternals({
+  whitelist: ['element-ui']
+})];
 
 exports.externals = externals;
 

@@ -14,7 +14,7 @@
 import Emitter from 'ycloud-ui/src/mixins/emitter';
 import boxer from 'ycloud-ui/src/directives/boxer';
 import { getFileType, formatFile } from 'ycloud-ui/src/utils/global';
-import config from 'ycloud-ui/src/config/index';
+import { Environment } from 'ycloud-ui/src/config/index';
 export default {
   name: 'YlFileUpload',
   mixins: [Emitter],
@@ -70,7 +70,7 @@ export default {
     }
   },
   mounted () {
-    this.headers.jtoken = config.TOKEN; // todo
+    this.headers.jtoken = Environment.TOKEN; // todo
 
     this.initFiles(this.value);
   },
@@ -107,7 +107,7 @@ export default {
       return {
         uid: (uid || parseInt(Math.random() * 1000000000)),
         url: thumbnail, // 缩略图地址
-        fullUrl: config.IMAGE_DOWNLOAD + item, // TODO 需修改
+        fullUrl: Environment.IMAGE_DOWNLOAD + item, // TODO 需修改
         reUrl: item // 原地址
       };
     },
@@ -141,10 +141,10 @@ export default {
         return false;
       }
       // 文件大小不能超过5M
-      if (file.size > config.IMG_SIZE_MAX) {
+      if (file.size > Environment.IMG_SIZE_MAX) {
         this.$notify.error({
           title: '错误',
-          message: `文件大小不能超过 ${parseInt(config.IMG_SIZE_MAX) / 1024 / 1024}MB。`
+          message: `文件大小不能超过 ${parseInt(Environment.IMG_SIZE_MAX) / 1024 / 1024}MB。`
         });
         return false;
       }
@@ -192,7 +192,7 @@ export default {
       this.imgUrls = list.map(item => this.getFileUrl(item));
       this.files = list.map(item => ({
         uid: item.uid,
-        fullUrl: config.IMAGE_DOWNLOAD + this.getFileUrl(item)
+        fullUrl: Environment.IMAGE_DOWNLOAD + this.getFileUrl(item)
       }));
       this.$emit('input', this.imgUrls);
       this.$emit('success', this.imgUrls + '', list);// 上传完成钩子
@@ -219,7 +219,7 @@ export default {
       if (['image', 'pdf'].includes(fileType)) {
         this.$refs.boxer.querySelector(`.link-view-${file.uid}`).click();
       } else {
-        window.open('http://view.officeapps.live.com/op/view.aspx?src=' + config.IMAGE_DOWNLOAD + fileUrl);
+        window.open('http://view.officeapps.live.com/op/view.aspx?src=' + Environment.IMAGE_DOWNLOAD + fileUrl);
       }
     },
     handleExceed (files, fileList) {

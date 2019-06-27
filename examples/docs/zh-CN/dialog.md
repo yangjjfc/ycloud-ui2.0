@@ -14,12 +14,15 @@ Dialog 弹出一个对话框，适合需要定制性更大的场景。继承elem
     <div>
         <li>1</li>
     </div>
-    <span #slot='footer' style="margin-right:10px">
-        <el-button type="primary" size="small">暂存</el-button>
-        <el-button type="primary" size="small">暂存</el-button>
-        <el-button type="primary" size="small">暂存</el-button>
-        <el-button type="primary" size="small">暂存</el-button>
-    </span>
+    <template #footer>
+      <span  style="margin-right:10px">
+          <el-button type="primary" size="small">暂存</el-button>
+          <el-button type="primary" size="small">暂存</el-button>
+          <el-button type="primary" size="small">暂存</el-button>
+          <el-button type="primary" size="small">暂存</el-button>
+      </span>
+    </template>
+    
 </yl-dialog>
 
 <script>

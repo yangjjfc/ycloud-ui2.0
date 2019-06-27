@@ -1,5 +1,6 @@
 {
-  "presets": [ 
+  "presets": [
+    
     [
       "env",
       {
@@ -12,7 +13,13 @@
     ],
     "stage-2"
   ],
-  "plugins": ["transform-vue-jsx"],
+  "plugins": ["transform-vue-jsx",  [
+    "component",
+    {
+      "libraryName": "element-ui",
+      "styleLibraryName": "theme-chalk"
+    }
+  ]],
   "env": {
     "utils": {
       "presets": [

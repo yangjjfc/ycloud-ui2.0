@@ -43,7 +43,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
 export default {
-  version: '2.0.2',
+  version: '2.0.3',
   install,
   emitter,
   Tools,

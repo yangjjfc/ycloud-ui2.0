@@ -3,7 +3,7 @@
  */
 import axios from 'axios';
 // 环境配置
-import Mode from 'ycloud-ui/src/config/index';
+// import { Environment } from 'ycloud-ui/src/config/index';
 import Interceptor from './interceptor';
 const TimeOut = 15000;
 // 初始化拦截器
@@ -27,7 +27,8 @@ let Http = (url, data = {}, type = 'post') => {
     'Content-Type': 'application/json'
   };
   // 添加header token
-  let token = Mode.TOKEN || '', query; 
+  const userInfo = JSON.parse(sessionStorage.getItem('user'));
+  let token = userInfo ? userInfo.token : '', query; 
   // 处理配置
   for (const item of configuration) {
     if (data[item]) {

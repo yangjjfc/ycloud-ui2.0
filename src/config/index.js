@@ -6,14 +6,14 @@
  * @Description: 全局环境配置文件,使用时必须是import,而不能require
  */
 
-let config = {
+export let Environment = {
   IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/', // 图片下载服务器地址
   IMG_SIZE_MAX: '5242880',
   TOKEN: '5a4bae1349626eca4a654081618dd4d9' // 用户登入凭证
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config = { ...config, 
+  Environment = { ...Environment, 
     ...{
       IMAGE_DOWNLOAD: 'http://dfs.dev.cloudyigou.com/dfs/'
     }
@@ -21,7 +21,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export const changeConfig = (obj) => {
-  config = { ...config, ...obj };
+  Environment = { ...Environment, ...obj };
 };
-
-export default config;
