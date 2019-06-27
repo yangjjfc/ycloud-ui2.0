@@ -12,7 +12,7 @@ import excel from './img/excel.png';
 import CryptoJS from 'ycloud-ui/src/utils/aes/aes-min.min.js';
 import SHA256 from 'ycloud-ui/src/utils/sha256/sha256.min.js';
 // 环境配置
-import config from 'ycloud-ui/src/config/index';
+import { Environment } from 'ycloud-ui/src/config/index';
 
 'use strict';
 /**
@@ -144,7 +144,7 @@ export const formatFile = (item, size) => {
   let fileType = getFileType(item);
   switch (fileType) {
     case 'image':
-      thumbnail = config.IMAGE_DOWNLOAD + changeImgSize(item, size);
+      thumbnail = Environment.IMAGE_DOWNLOAD + changeImgSize(item, size);
       break;
     case 'pdf':
       thumbnail = pdf;
