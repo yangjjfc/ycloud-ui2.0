@@ -5,7 +5,7 @@ import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css'; // Progress 进度条 样式
 // import qs from 'qs';序列化数据
 import { Message } from 'element-ui';
-
+console.log(Message);
 // const codeMessage = {
 //   200: '服务器成功返回请求的数据。',
 //   201: '新建或修改数据成功。',

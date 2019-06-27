@@ -21,7 +21,7 @@ const configuration = [
  * @param {*} data  参数
  * @param {*} type  请求类型,默认post
  */
-let Http = async (url, data = {}, type = 'post') => {
+let Http = (url, data = {}, type = 'post') => {
   let headers = {
     'X-Requested-With': 'XMLHttpRequest',
     'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ let Http = async (url, data = {}, type = 'post') => {
   };
   let response = null;
   try {
-    response = await axios(config);
+    response = axios(config);
   } catch (error) {
     response = Promise.reject(error);
   }

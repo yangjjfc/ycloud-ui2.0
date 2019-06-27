@@ -17,6 +17,13 @@
         }
       };
     },
+    created(){
+      
+      console.log(this.Http)
+      this.Http('current').then(s =>{
+
+      });
+    },
     methods: {
        getList(pageIndex=this.page.pageIndex,pageSize=this.page.pageSize){
           console.log(pageIndex);

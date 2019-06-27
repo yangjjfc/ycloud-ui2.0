@@ -1,28 +1,60 @@
 <template>
-  <div class="yl-table" style="overflow:hidden">
-    <el-table stripe border v-on="$listeners" v-bind="$attrs" :data="mixData" ref="table" :max-height="height">
+  <div
+    class="yl-table"
+    style="overflow:hidden"
+  >
+    <el-table
+      stripe
+      border
+      v-on="$listeners"
+      v-bind="$attrs"
+      :data="mixData"
+      ref="table"
+      :max-height="height"
+    >
       <template v-for="cItem in columns">
         <!-- hide时隐藏该列 -->
-        <template  v-if="!cItem.isHide">
+        <template v-if="!cItem.isHide">
           <template v-for="item in [formatItem(cItem)]">
-            <slot v-if="item.slot && !item.hide" :name="item.slot" :label="item.label" :col="item"></slot>
-            <el-table-column v-bind="formatItem(item)" :key="item.mathRound" v-else-if="item.type=='operate' && !item.hide">
+            <slot
+              v-if="item.slot && !item.hide"
+              :name="item.slot"
+              :label="item.label"
+              :col="item"
+            ></slot>
+            <el-table-column
+              v-bind="formatItem(item)"
+              :key="item.mathRound"
+              v-else-if="item.type=='operate' && !item.hide"
+            >
               <template slot-scope="scope">
                 <template v-for="(filItem) in [filterBtns(scope.row,item.btns)]">
                   <template v-for="subItem in filItem.splice(0,(filItem.length>4?3:4))">
-                    <el-button :key="subItem.mathRound" type="text" class="table-btns" size="mini" @click="subItem.event(scope.row)">{{subItem.name}}
+                    <el-button
+                      :key="subItem.mathRound"
+                      type="text"
+                      class="table-btns"
+                      size="mini"
+                      @click="subItem.event(scope.row)"
+                    >{{subItem.name}}
                     </el-button>
                   </template>
                 </template>
                 <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
                   <template v-if="filItem.length>4">
-                    <el-dropdown size="mini" :key="fillIndex">
+                    <el-dropdown
+                      size="mini"
+                      :key="fillIndex"
+                    >
                       <span class="el-dropdown-link">
                         更多<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                       <el-dropdown-menu slot="dropdown">
                         <template v-for="subItem in filItem.splice(filItem.length>4?3:4)">
-                          <el-dropdown-item :key="subItem.mathRound" @click.native="subItem.event(scope.row)">{{subItem.name}}</el-dropdown-item>
+                          <el-dropdown-item
+                            :key="subItem.mathRound"
+                            @click.native="subItem.event(scope.row)"
+                          >{{subItem.name}}</el-dropdown-item>
                         </template>
                       </el-dropdown-menu>
                     </el-dropdown>
@@ -31,26 +63,52 @@
               </template>
             </el-table-column>
 
-            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.field && !item.hide">
+            <el-table-column
+              v-bind="item"
+              :key="item.mathRound"
+              v-else-if="item.field && !item.hide"
+            >
               <template slot-scope="scope">
                 <div v-html="scope.row[item.field]"></div>
               </template>
             </el-table-column>
 
-            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='index' && !item.hide">
-              <template slot="header" slot-scope="scope">
-                <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
+            <el-table-column
+              v-bind="item"
+              :key="item.mathRound"
+              v-else-if="item.type=='index' && !item.hide"
+            >
+              <template
+                slot="header"
+                slot-scope="scope"
+              >
+                <i
+                  class="el-icon-setting svg-table-title"
+                  v-if="!item.show"
+                  @click.self="handleSet(scope,item)"
+                ></i>
                 <span v-else>序号</span>
               </template>
             </el-table-column>
 
-            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="!item.hide"></el-table-column>
+            <el-table-column
+              v-bind="item"
+              :key="item.mathRound"
+              v-else-if="!item.hide"
+            ></el-table-column>
           </template>
         </template>
       </template>
     </el-table>
     <div v-if="isTableSet">
-      <my-table-expand :isShow.sync="isTableSet" :sourceColumns="config.col" :columns.sync="columns" :name="config.name" @change="expandChange" :isShowTotalRow="show.setTotalRow"></my-table-expand>
+      <my-table-expand
+        :isShow.sync="isTableSet"
+        :sourceColumns="config.col"
+        :columns.sync="columns"
+        :name="config.name"
+        @change="expandChange"
+        :isShowTotalRow="show.setTotalRow"
+      ></my-table-expand>
     </div>
     <slot></slot>
   </div>
@@ -68,7 +126,8 @@ export default {
       pageKey: '', // 保存设置唯一key
       showAll: false, // hack方法,确保二次渲染不会出错
       columns: [], // 列表
-      show: { // 显示
+      show: {
+        // 显示
         total: false, // 自定义合计
         setTotalRow: true // 显示设置表格合计列
       },
@@ -85,13 +144,15 @@ export default {
       type: Object,
       default () {
         return {
-          name: '', // 名字 
-          col: [{
-            label: '',
-            prop: '',
-            slot: '',
-            unSave: true // 是否保存名称
-          }] // 列表 
+          name: '', // 名字
+          col: [
+            {
+              label: '',
+              prop: '',
+              slot: '',
+              unSave: true // 是否保存名称
+            }
+          ] // 列表
         };
       },
       required: true
@@ -99,7 +160,8 @@ export default {
     maxHeight: {
       type: Number
     },
-    data: { // 数据
+    data: {
+      // 数据
       type: Array,
       required: true
     },
@@ -127,7 +189,7 @@ export default {
           if (!this.disAutoHeight) {
             if (!this.maxHeight) {
               this.countHeight();
-            } 
+            }
           }
         });
       }
@@ -161,7 +223,8 @@ export default {
     // 获取表格配置
     _getConfig () {
       var cols = cloneDeep(this.config.col);
-      if (this.uselocal) { // 强制使用本地配置
+      if (this.uselocal) {
+        // 强制使用本地配置
         this.columns = cols;
         this.showAll = true;
       } else {
@@ -180,7 +243,7 @@ export default {
         // });
       }
     },
-   
+
     // 处理列配置
     formatItem (item) {
       let obj = {};
@@ -205,11 +268,16 @@ export default {
     // 处理按钮
     showBtnFunc (row, item) {
       // 按钮关键词,过滤显示按钮,flag表示什么时候按钮是隐藏的
-      let keywords = [{ key: 'hide', flag: true }, { key: 'show', flag: false }];
+      let keywords = [
+        { key: 'hide', flag: true },
+        { key: 'show', flag: false }
+      ];
       for (const iterator of keywords) {
         if (item[iterator.key]) {
           if (typeof item[iterator.key] === 'function') {
-            return iterator.flag ? !item[iterator.key].apply(this, row) : item[iterator.key].apply(this, row);
+            return iterator.flag
+              ? !item[iterator.key].apply(this, row)
+              : item[iterator.key].apply(this, row);
           } else {
             return iterator.flag ? !item[iterator.key] : item[iterator.key];
           }
@@ -220,13 +288,14 @@ export default {
       return true;
     },
     // 排序设置改变
-    async expandChange (allList, saveList) {
-      await this._updateConfig(saveList);
-      this.isTableSet = false;
-      this.showAll = false;
-      this.$nextTick(() => {
-        this.columns = allList;
-        this.showAll = true;
+    expandChange (allList, saveList) {
+      this._updateConfig(saveList).then(() => {
+        this.isTableSet = false;
+        this.showAll = false;
+        this.$nextTick(() => {
+          this.columns = allList;
+          this.showAll = true;
+        });
       });
     },
     // 更新表格设置
@@ -258,11 +327,12 @@ export default {
       if (this.show.total) {
         this.columns.forEach(item => {
           item.totalProps = item.totalProps || ['', ''];
-          item.totalRow && result.push({
-            label: item.prop,
-            sub: item.totalProps[0],
-            total: item.totalProps[1]
-          });
+          item.totalRow &&
+            result.push({
+              label: item.prop,
+              sub: item.totalProps[0],
+              total: item.totalProps[1]
+            });
         });
       }
       this.mixData = [...this.data];
@@ -296,8 +366,13 @@ export default {
         case 'dialog':
           let $dialogHeader = document.querySelector('.el-dialog__header');
           let $dialogbody = document.querySelector('.el-dialog__body');
-          let bodyHeight = parseInt(window.getComputedStyle($dialogbody, null).getPropertyValue('max-height'));
-          elHeight = bodyHeight - (offsetTop - $dialogHeader.clientHeight) - limitH;
+          let bodyHeight = parseInt(
+            window
+              .getComputedStyle($dialogbody, null)
+              .getPropertyValue('max-height')
+          );
+          elHeight =
+            bodyHeight - (offsetTop - $dialogHeader.clientHeight) - limitH;
           this.$nextTick(() => {
             this.height = elHeight;
           });
@@ -308,16 +383,20 @@ export default {
     }
   },
   created () {
-    this.config.showTotal && (this.show = { ...this.show, ...this.config.showTotal }); // 合计列
+    this.config.showTotal &&
+      (this.show = { ...this.show, ...this.config.showTotal }); // 合计列
     this.uselocal = !!this.config.uselocal;
     this.disAutoHeight = !!this.config.disAutoHeight;
-    this.container = this.config.container ? this.config.container : this.container;
+    this.container = this.config.container
+      ? this.config.container
+      : this.container;
     this.limitHeight = this.config.limitHeight || 0;
     this._getPageKey();
     this._getConfig();
   },
   mounted () {
-    if (!this.disAutoHeight) { // 关闭自动高度
+    if (!this.disAutoHeight) {
+      // 关闭自动高度
       if (!this.maxHeight) {
         const debounceFunc = debounce(this.countHeight, 500);
         window.addEventListener('resize', debounceFunc);

@@ -42,15 +42,13 @@ const install = function (Vue, opts = {}) {
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
-export {
-  emitter,
-  Tools,
-  boxer,
-  Http
-};
 export default {
   version: '2.0.2',
   install,
+  emitter,
+  Tools,
+  boxer,
+  Http,
   CollapseTransition,
   Pagination,
   Dialog,
