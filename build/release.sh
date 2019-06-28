@@ -13,8 +13,8 @@ then
 
   # build
   VERSION=$VERSION npm run dist
-  
-  cd ../..
+
+  cd ../
   # commit
   git add -A
   git commit -m "[build] $VERSION"
