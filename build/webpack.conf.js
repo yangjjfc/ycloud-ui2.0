@@ -16,7 +16,7 @@ module.exports = {
     filename: 'index.js',
     chunkFilename: '[id].js',
     libraryTarget: 'umd', // 将你的 library 暴露为所有的模块定义下都可运行的方式
-    libraryExport: 'default',
+    // libraryExport: 'default',
     library: 'YCLOUD',
     umdNamedDefine: true,
     globalObject: 'typeof self !== \'undefined\' ? self : this'

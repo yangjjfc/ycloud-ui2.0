@@ -383,12 +383,11 @@
   import ThemeConfigurator from './theme-configurator';
   import AlgoliaSearch from './search.vue';
   import compoLang from '../i18n/component.json';
-  import Element from 'main/index.js';
+  // import Element from 'main/index.js';
   import { getVars } from './theme-configurator/utils/api.js';
   import bus from '../bus';
-
+  import Element,{Environment,changeEnvironment} from 'ycloud-ui/lib/index.js';
   const { version } = Element;
-
   export default {
     data() {
       return {
@@ -473,6 +472,11 @@
     },
 
     created() {
+      // changeEnvironment({
+      //   TOKEN:'dasdasdad98798479877898977987987'
+      // })
+      // console.log(Environment,123123)
+      // this.Http('123123')
       const xhr = new XMLHttpRequest();
       xhr.onreadystatechange = _ => {
         if (xhr.readyState === 4 && xhr.status === 200) {

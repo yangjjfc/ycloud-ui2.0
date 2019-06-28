@@ -11,10 +11,10 @@ module.exports = {
   },
   output: {
     path: path.resolve(process.cwd(), './lib'),
-    publicPath: '/dist/',
-    filename: 'ycloud-ui.common.js',
-    chunkFilename: '[id].js',
-    libraryExport: 'default', // var MyDefaultModule = _entry_return_.default
+    publicPath: '/dist/', // 路径
+    filename: 'ycloud-ui.common.js', // 名称
+    chunkFilename: '[id].js', // chunk name
+    // libraryExport: 'default', // 默认导出哪个模块
     library: 'YCLOUD', // 注入全局变量
     libraryTarget: 'commonjs2'// 入口起点的返回值将分配给 module.exports 对象
   },

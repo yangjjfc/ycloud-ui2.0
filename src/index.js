@@ -10,10 +10,12 @@ import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
-import Http from 'ycloud-ui/src/utils/axios/index';
+import axios from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
 import emitter from 'ycloud-ui/src/mixins/emitter';
+import formValid from 'ycloud-ui/src/mixins/formValid';
 import boxer from 'ycloud-ui/src/directives/boxer';
+import { Environment, changeEnvironment } from 'ycloud-ui/src/config';
 
 const components = [
   Pagination,
@@ -31,24 +33,26 @@ const install = function (Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
-  
-  Vue.prototype.$YCLOUD = {
-    size: opts.size || '',
-    zIndex: opts.zIndex || 2000
-  };
-};
+  Vue.prototype.Http = axios;
+  Vue.directive('boxer', boxer);
+}; 
 
 /* istanbul ignore if */
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue);
 }
+
+export {
+  emitter,
+  formValid,
+  Environment,
+  changeEnvironment,
+  Tools
+};
+
 export default {
   version: '2.0.4',
   install,
-  emitter,
-  Tools,
-  boxer,
-  Http,
   CollapseTransition,
   Pagination,
   Dialog,

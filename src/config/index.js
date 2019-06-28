@@ -2,7 +2,7 @@
  * @Author: yangjj
  * @Date: 2019-06-24 09:08:18
  * @LastEditors: yangjj
- * @LastEditTime: 2019-06-24 14:22:52
+ * @LastEditTime: 2019-06-28 15:12:05
  * @Description: 全局环境配置文件,使用时必须是import,而不能require
  */
 
@@ -20,6 +20,6 @@ if (process.env.NODE_ENV === 'production') {
   };
 }
 
-export const changeConfig = (obj) => {
+export const changeEnvironment = (obj) => {
   Environment = { ...Environment, ...obj };
 };
