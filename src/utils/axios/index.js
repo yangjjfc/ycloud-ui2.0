@@ -10,7 +10,7 @@ const TimeOut = 15000;
 new Interceptor({ TimeOut, axios }); // eslint-disable-line no-new
 // 配置
 const configuration = [
-  'version', // 版本
+  'version1', // 版本
   'ignoreRepeat', // 忽略防止重复请求
   'verifycode' // 验证码
 ];

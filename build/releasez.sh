@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 set -e
+  cd ../
   # commit
   git add -A
   git commit -m "[build] $VERSION"
