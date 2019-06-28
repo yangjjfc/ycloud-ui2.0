@@ -25,7 +25,7 @@ then
   #git checkout dev
   #git rebase master
   #git push eleme dev
-  cd ../
+  
 
   if [[ $VERSION =~ "beta" ]]
   then
