@@ -1,20 +1,19 @@
 #!/usr/bin/env sh
-set -e
+# set -e
 
-git checkout master
+# git checkout master
 
-VERSION=`npx select-version-cli`
+# VERSION=`npx select-version-cli`
 
-read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  echo "Releasing $VERSION ..."
+# read -p "Releasing $VERSION - are you sure? (y/n)" -n 1 -r
+# echo    # (optional) move to a new line
+# if [[ $REPLY =~ ^[Yy]$ ]]
+# then
+#   echo "Releasing $VERSION ..."
 
-  # build
-  VERSION=$VERSION npm run dist
+#   # build
+#   VERSION=$VERSION npm run dist
 
-  cd ../
   # commit
   git add -A
   git commit -m "[build] $VERSION"
