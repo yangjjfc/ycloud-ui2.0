@@ -5,12 +5,12 @@
 ## LICENSE
 [MIT](LICENSE)
 
-
+```
 目录结构
 ├── build //打包命令
 │   ├── bin 
 │   │   ├── build-entry.js //生成组件index.js文件
-│   │   ├── build-locale.js //国际化语言打包----暂不去了解
+│   │   ├── build-locale.js //将语言包打包成umd格式
 │   │   ├── gen-cssfile.js //生成packages/theme-chalk下的scss文件
 │   │   ├── gen-indices.js //解析doc的md文件,生成algoliasearch的搜索
 │   │   ├── i18n.js //生成api官网不同语言,
@@ -91,3 +91,4 @@
 │   ├── region-picker.d.ts
 │   └── table-tree.d.ts
 └── yarn.lock
+```

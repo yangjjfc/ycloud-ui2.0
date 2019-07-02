@@ -1,6 +1,5 @@
 'use strict';
 
-console.log();
 process.on('exit', () => {
   console.log();
 });

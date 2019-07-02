@@ -10,7 +10,7 @@ import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
-import axios from 'ycloud-ui/src/utils/axios/index';
+import Http from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
 import emitter from 'ycloud-ui/src/mixins/emitter';
 import formValid from 'ycloud-ui/src/mixins/formValid';
@@ -33,7 +33,7 @@ const install = function (Vue, opts = {}) {
   components.forEach(component => {
     Vue.component(component.name, component);
   });
-  Vue.prototype.Http = axios;
+  Vue.prototype.Http = Http;
   Vue.directive('boxer', boxer);
 }; 
 
@@ -45,13 +45,14 @@ if (typeof window !== 'undefined' && window.Vue) {
 export {
   emitter,
   formValid,
+  Http,
   Environment,
   changeEnvironment,
   Tools
 };
 
 export default {
-  version: '2.1.0',
+  version: '2.1.1',
   install,
   CollapseTransition,
   Pagination,
