@@ -27,7 +27,7 @@ let Http = (url, data = {}, type = 'post') => {
     'Content-Type': 'application/json'
   };
   // 添加header token
-  let token = Environment.token, query; 
+  let token = Environment.TOKEN, query; 
   // 处理配置
   for (const item of configuration) {
     if (data[item]) {
