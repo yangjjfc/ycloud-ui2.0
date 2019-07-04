@@ -1,8 +1,9 @@
+import { kebabCase } from 'ycloud-ui/src/utils/util';
 /**
  * Show migrating guide in browser console.
  *
  * Usage:
- * import Migrating from 'ycloud-ui/src/mixins/migrating';
+ * import Migrating from 'element-ui/src/mixins/migrating';
  *
  * mixins: [Migrating]
  *
@@ -20,7 +21,7 @@
  *  },
  */
 export default {
-  mounted () {
+  mounted() {
     if (process.env.NODE_ENV === 'production') return;
     if (!this.$vnode) return;
     const { props = {}, events = {} } = this.getMigratingConfig();
@@ -29,19 +30,21 @@ export default {
     const definedEvents = componentOptions.listeners || {};
 
     for (let propName in definedProps) {
-      if (definedProps.hasOwnProperty(propName) && props[propName]) {
+      propName = kebabCase(propName); // compatible with camel case
+      if (props[propName]) {
         console.warn(`[Element Migrating][${this.$options.name}][Attribute]: ${props[propName]}`);
       }
     }
 
     for (let eventName in definedEvents) {
-      if (definedEvents.hasOwnProperty(eventName) && events[eventName]) {
+      eventName = kebabCase(eventName); // compatible with camel case
+      if (events[eventName]) {
         console.warn(`[Element Migrating][${this.$options.name}][Event]: ${events[eventName]}`);
       }
     }
   },
   methods: {
-    getMigratingConfig () {
+    getMigratingConfig() {
       return {
         props: {},
         events: {}
