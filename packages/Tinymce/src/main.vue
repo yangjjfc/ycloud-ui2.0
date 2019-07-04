@@ -9,6 +9,7 @@
 
 <script>
 import editorImage from './editorImage';
+import './zh_CN.js';
 import plugins from './plugins';
 import toolbar from './toolbar';
 import { Environment } from 'ycloud-ui/src/config/index';

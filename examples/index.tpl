@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//shadow.elemecdn.com/npm/highlight.js@9.3.0/styles/color-brewer.css">
     <script src="//at.alicdn.com/t/font_977230_95yfphuqnf.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./examples/plugins/tinymce4.7.5/tinymce.min.js"></script>
+    <script src="https://cdn.bootcss.com/tinymce/4.7.5/tinymce.min.js"></script>
     <title>Element - The world's most popular Vue UI framework</title>
     <meta name="description" content="Element，一套为开发者、设计师和产品经理准备的基于 Vue 2.0 的桌面端组件库" />
   </head>
