@@ -1,0 +1,37 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(sku) {
+    dt {
+        width: 100px;
+        text-align: right;
+    }
+    dl {
+        clear: both;
+        overflow:hidden;
+    }
+    dl.hl {
+        background:#ddd;
+    }
+    dt, dd {
+        float:left;
+        height: 40px;
+        line-height: 40px;
+        margin-left: 10px;
+    }
+    button {
+        font-size: 14px;
+        font-weight: bold;
+        width: 100px;
+        height: 30px;
+        margin: 0 10px;
+    }
+
+    .disabled {
+        color:#999;
+        border: 1px dashed #666;
+    }
+    .active {
+        color: red;
+    }
+}

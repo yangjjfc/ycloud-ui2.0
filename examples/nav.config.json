@@ -66,6 +66,10 @@
             {
               "path": "/table",
               "title": "Table 表格"
+            },
+            {
+              "path": "/sku",
+              "title": "Sku 商品属性"
             }
           ]
         }
