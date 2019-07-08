@@ -32,7 +32,7 @@ const webpackConfig = {
   },
   devServer: { // 端口
     host: '127.0.0.1',
-    port: 8086,
+    port: 8087,
     publicPath: '/',
     noInfo: true,
     open: true, // 默认打开浏览器
