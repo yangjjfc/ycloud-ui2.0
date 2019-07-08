@@ -1,48 +1,53 @@
 <template>
   <div class="yl-sku">
-    <dl v-for="(item,key) in collection" :key="key" class="content">
-      <dt> {{key}} : </dt>
-      <dd>
-        <button class="item" v-for="value in item" :key="value.name" @click="handleActive(key, value)" v-bind:class="{active: value.active, disabled: !value.active && value.disabled}"> {{ value.name }} </button>
-      </dd>
-    </dl>
-    已经选择：{{ message }}
+    <slot>
+      <dl v-for="(item,key) in collection" :key="key" class="yl-sku-dl" v-bind="$attrs">
+        <dt>{{key}}：</dt>
+        <dd>
+          <button class="button" v-for="value in item" :key="value.name" @click="handleActive(key, value)" v-bind:class="{active: value.active, disabled: !value.active && value.disabled}"> {{ value.name }} </button>
+        </dd>
+      </dl>
+    </slot>
   </div>
 </template>
 
 <script>
 export default {
-  name: "YlSku",
-  data() {
+  name: 'YlSku',
+  data () {
     return {
-      sequenceMap:{},//格式化的数据(幂集)
-      spliter: "\u2299", // 分隔符
-      attrNames:[],//属性类别名称 ['颜色','尺寸','大小']
-      selectSkuId:'',//选中的skuId
-      simplifyData:[],//简化后的data [{path:'红⊙大⊙A',sku:'3158055'}]
-      collection:{},//显示归集,用于展示使用
-      // data: [
-      //   { 颜色: "红", 尺码: "大", 型号: "A", skuId: "3158055" },
-      //   { 颜色: "白", 尺码: "大", 型号: "A", skuId: "3158054" },
-      //   { 颜色: "白", 尺码: "中", 型号: "B", skuId: "3133859" },
-      //   { 颜色: "蓝", 尺码: "小", 型号: "C", skuId: "3516833" }
-      // ],
-      // 数据集合{list.result list.items}
-      message: ""
+      sequenceMap: {}, // 格式化的数据(幂集)
+      spliter: '\u2299', // 分隔符
+      attrNames: [], // 属性类别名称 ['颜色','尺寸','大小']
+      selectSkuId: '', // 选中的skuId
+      simplifyData: [], // 简化后的data [{path:'红⊙大⊙A',sku:'3158055'}]
+      collection: {}, // 显示归集,用于展示使用
+      message: ''
     };
   },
-  props:{
-    data:{
+  props: {
+    data: {
       type: Array,
-      required:true
+      required: true
     },
-    skuName:{
-      type:String,
-      default:'skuId'
+    skuName: {
+      type: String,
+      default: 'skuId'
     },
-    skuId:{
-      type:[String,Number],
-      default:''
+    value: {
+      type: [String, Number],
+      default: ''
+    }
+  },
+  watch: {
+    data: {
+      handler: function (val) {
+        if (val.length) {
+          this.initData();
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
@@ -50,23 +55,23 @@ export default {
      * 初始化数据
      * @return
      */
-    initData() {
+    initData () {
       this.sequenceMap = {}; 
-      this.selectSkuId=this.skuId || this.data[0][this.skuName];//默认选中第一条
-      this.attrNames = this.getAllAttrs(); //得到属性
-      let {simplifyData,collection} = this.combineAttr(this.data, this.attrNames);//得到简化后的data数据,和归类
-      this.collection=collection;
-      this.simplifyData=simplifyData;
-      this.selectSkuId && (this.initSeleted(this.selectSkuId)); //初始化选中
-      this.buildResult(simplifyData); //生成所有子集
-      this.updateStatus(this.getSelectedItem()); //获取选中信息,更新状态
+      this.selectSkuId = this.value || this.data[0][this.skuName];// 默认选中第一条
+      this.attrNames = this.getAllAttrs(); // 得到属性
+      let { simplifyData, collection } = this.combineAttr(this.data, this.attrNames);// 得到简化后的data数据,和归类
+      this.collection = collection;
+      this.simplifyData = simplifyData;
+      this.selectSkuId && (this.initSeleted(this.selectSkuId)); // 初始化选中
+      this.buildResult(simplifyData); // 生成所有子集
+      this.updateStatus(this.getSelectedItem()); // 获取选中信息,更新状态
       this.showResult();
     },
     /**
      * 获取所有属性
      * @return {[type]} [description]
      */
-    getAllAttrs() {
+    getAllAttrs () {
       let arrKeys = [];
       for (let attribute in this.data[0]) {
         if (!this.data[0].hasOwnProperty(attribute)) {
@@ -84,7 +89,7 @@ export default {
      * @param  {[type]} keys [description]
      * @return {[type]}      [description]
      */
-    combineAttr(data, keys) {
+    combineAttr (data, keys) {
       let allKeys = [];
       let result = {};
       for (let i = 0; i < data.length; i++) {
@@ -104,9 +109,9 @@ export default {
           }
           values.push(item[key]);
         }
-        allKeys.push({ //将数据格式化成简单数据
+        allKeys.push({ // 将数据格式化成简单数据
           path: values.join(this.spliter),
-          sku: item["skuId"]
+          sku: item.skuId
         });
         // {path: "红⊙大⊙A", sku: "3158055"}
       }
@@ -120,22 +125,22 @@ export default {
      * @param  mixed|Int|String skuId 需要选中的skuId
      * @return {[type]}       [description]
      */
-    initSeleted(skuId) {
-       for (const item of this.data) {
-          if (item[this.skuName] === skuId) {
-              Object.keys(item).forEach(subItem=>{
-                if(subItem !== this.skuName){
-                  collection[subItem][item[subItem]].active=true
-                }
-              })
+    initSeleted (skuId) {
+      for (const item of this.data) {
+        if (item[this.skuName] === skuId) {
+          Object.keys(item).forEach(subItem => {
+            if (subItem !== this.skuName) {
+              this.collection[subItem][item[subItem]].active = true;
+            }
+          });
           break;
-          }
         }
+      }
     },
     /**
      * 生成所有子集是否可选、库存状态 map
      */
-    buildResult(items) {
+    buildResult (items) {
       let allKeys = this.getAttruites(items);
 
       for (let i = 0; i < allKeys.length; i++) {
@@ -159,8 +164,8 @@ export default {
         }
       }
     },
-    //幂集
-    powerset(arr) {
+    // 幂集
+    powerset (arr) {
       let ps = [[]];
       for (let i = 0; i < arr.length; i++) {
         for (let j = 0, len = ps.length; j < len; j++) {
@@ -170,7 +175,7 @@ export default {
       return ps;
     },
 
-    getAttruites(arr) {
+    getAttruites (arr) {
       let result = [];
       for (let i = 0; i < arr.length; i++) {
         result.push(arr[i].path);
@@ -182,10 +187,10 @@ export default {
      * 获取选中的信息
      * @return Array
      */
-    getSelectedItem() {
+    getSelectedItem () {
       let result = [];
       for (let attr in this.collection) {
-        let attributeName = "";
+        let attributeName = '';
         for (let attribute in this.collection[attr]) {
           if (this.collection[attr][attribute].active === true) {
             attributeName = attribute;
@@ -198,60 +203,59 @@ export default {
     /**
      * 更新所有属性状态
      */
-    updateStatus(selected) {
+    updateStatus (selected) {
       for (let i = 0; i < this.attrNames.length; i++) {
         let key = this.attrNames[i],
           data = this.collection[key],
-          hasActive = !!selected[i],
           copy = selected.slice();
 
         for (let j in data) {
-          let item = data[j]["name"];
-          if (selected[i] == item) {
+          let item = data[j].name;
+          if (selected[i] === item) {
             continue;
           }
 
           copy[i] = item;
           let curr = this.trimSpliter(copy.join(this.spliter), this.spliter);
-          this.collection[key][j]["disabled"] = this.sequenceMap[curr]
-            ? false
-            : true;
+          this.collection[key][j].disabled = !this.sequenceMap[curr];
         }
       }
     },
     
-			trimSpliter(str, spliter) {
-			    // ⊙abc⊙ => abc
-			    // ⊙a⊙⊙b⊙c⊙ => a⊙b⊙c
-			    let reLeft    = new RegExp('^' + spliter + '+', 'g');
-			    let reRight   = new RegExp(spliter + '+$', 'g');
-			    let reSpliter = new RegExp(spliter + '+', 'g');
-			    return str.replace(reLeft, '')
-			        .replace(reRight, '')
-			        .replace(reSpliter, spliter)
-			},
+    trimSpliter (str, spliter) {
+      // ⊙abc⊙ => abc
+      // ⊙a⊙⊙b⊙c⊙ => a⊙b⊙c
+      let reLeft = new RegExp('^' + spliter + '+', 'g');
+      let reRight = new RegExp(spliter + '+$', 'g');
+      let reSpliter = new RegExp(spliter + '+', 'g');
+      return str.replace(reLeft, '')
+        .replace(reRight, '')
+        .replace(reSpliter, spliter);
+    },
     /**
      * 显示选中的信息
      * @return
      */
-    showResult() {
+    showResult () {
       let result = this.getSelectedItem();
       let s = [];
       for (let i = 0; i < result.length; i++) {
         let item = result[i];
-        if (!!item) {
+        if (item) {
           s.push(item);
         }
       }
 
-      if (s.length == this.attrNames.length) {
+      if (s.length === this.attrNames.length) {
         let curr = this.sequenceMap[s.join(this.spliter)];
         if (curr) {
           s = s.concat(curr.skus);
           this.selectSkuId = curr.skus[0];
+          this.$emit('input', this.selectSkuId);
+          this.$emit('update', this.selectSkuId);
         }
 
-        this.message = s.join("\u3000-\u3000");
+        // this.message = s.join('\u3000-\u3000');
       }
     },
     /**
@@ -259,8 +263,8 @@ export default {
      * @param  key   点击的行
      * @param  value 点击的按钮的数据
      */
-    handleActive: function(key, value) {
-      if (value.active == true) {
+    handleActive: function (key, value) {
+      if (value.active) {
         return false;
       }
 
@@ -276,9 +280,9 @@ export default {
      * 正常属性点击
      * 同组其他置成activefalse
      */
-    handleNormalClick(key, value) {
+    handleNormalClick (key, value) {
       for (let i in this.collection[key]) {
-        if (i != value.name) {
+        if (i !== value.name) {
           this.collection[key][i].active = false;
         } else {
           this.collection[key][i].active = true;
@@ -289,11 +293,11 @@ export default {
      * 无效属性点击
      * 其他组全部置成activefalse
      */
-    handleDisableClick(key, value) {
-      this.collection[key][value.name]["disabled"] = false;
+    handleDisableClick (key, value) {
+      this.collection[key][value.name].disabled = false;
       // 清空高亮行的已选属性状态（因为更新的时候默认会跳过已选状态）
       for (let i in this.collection) {
-        if (i != key) { 
+        if (i !== key) { 
           for (let x in this.collection[i]) {
             this.collection[i][x].active = false;
           }
@@ -301,9 +305,7 @@ export default {
       }
       this.updateStatus(this.getSelectedItem());
     }
-  },
-  created() {
-    this.initData();
   }
+ 
 };
 </script>

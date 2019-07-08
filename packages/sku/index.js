@@ -1,7 +1,7 @@
 import Sku from './src/main';
 
 /* istanbul ignore next */
-Sku.install = function(Vue) {
+Sku.install = function (Vue) {
   Vue.component(Sku.name, Sku);
 };
 
