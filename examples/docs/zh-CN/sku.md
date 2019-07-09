@@ -2,7 +2,7 @@
 
 ### 基础用法
 
-:::demo 设置`layout`，表示需要显示的内容，用逗号分隔，布局元素会依次显示。`page-size` 每页显示个数, `current-page` 当前页码,`change`改变页码或显示数量时回调
+:::demo Sku 商品属性
 
 ```html
 <yl-sku :data="data" v-model="skuId"></yl-sku>
@@ -34,12 +34,14 @@
 
 ### Attributes
 
-| 参数   | 说明                         | 类型   | 可选值                                            | 默认值                                  |
-| ------ | ---------------------------- | ------ | ------------------------------------------------- | --------------------------------------- |
-| layout | 组件布局，子组件名用逗号分隔 | String | sizes, prev, pager, next, jumper, ->, total, slot | total, sizes, prev, pager, next, jumper |
+| 参数   | 说明                         | 类型   | 可选值             | 默认值             |
+| ------ | ---------------------------- | ------ | ------------- |----------- |
+| data | sku数据,需要一定格式 | Array |---|---|
+| skuName | sku唯一标识 | String |---|'skuId'|
+| value | 默认绑定的skuId,支持v-model | [String, Number] |---|--|
 
 ### Events
 
 | 事件名称 | 说明         | 回调参数           |
 | -------- | ------------ | ------------------ |
-| change   | 改变页码回调 | pageIndex,pageSize |
+| update   | 选中sku组合后的回调 | 选中的skuId |

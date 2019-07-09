@@ -1,60 +1,28 @@
 <template>
-  <div
-    class="yl-table"
-    style="overflow:hidden"
-  >
-    <el-table
-      stripe
-      border
-      v-on="$listeners"
-      v-bind="$attrs"
-      :data="mixData"
-      ref="table"
-      :max-height="height"
-    >
+  <div class="yl-table" style="overflow:hidden">
+    <el-table stripe border v-on="$listeners" v-bind="$attrs" :data="mixData" ref="table" :max-height="height">
       <template v-for="cItem in columns">
         <!-- hide时隐藏该列 -->
         <template v-if="!cItem.isHide">
           <template v-for="item in [formatItem(cItem)]">
-            <slot
-              v-if="item.slot && !item.hide"
-              :name="item.slot"
-              :label="item.label"
-              :col="item"
-            ></slot>
-            <el-table-column
-              v-bind="formatItem(item)"
-              :key="item.mathRound"
-              v-else-if="item.type=='operate' && !item.hide"
-            >
+            <slot v-if="item.slot && !item.hide" :name="item.slot" :label="item.label" :col="item"></slot>
+            <el-table-column v-bind="formatItem(item)" :key="item.mathRound" v-else-if="item.type=='operate' && !item.hide">
               <template slot-scope="scope">
                 <template v-for="(filItem) in [filterBtns(scope.row,item.btns)]">
                   <template v-for="subItem in filItem.splice(0,(filItem.length>4?3:4))">
-                    <el-button
-                      :key="subItem.mathRound"
-                      type="text"
-                      class="table-btns"
-                      size="mini"
-                      @click="subItem.event(scope.row)"
-                    >{{subItem.name}}
+                    <el-button :key="subItem.mathRound" type="text" class="table-btns" size="mini" @click="subItem.event(scope.row)">{{subItem.name}}
                     </el-button>
                   </template>
                 </template>
                 <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
                   <template v-if="filItem.length>4">
-                    <el-dropdown
-                      size="mini"
-                      :key="fillIndex"
-                    >
+                    <el-dropdown size="mini" :key="fillIndex">
                       <span class="el-dropdown-link">
                         更多<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                       <el-dropdown-menu slot="dropdown">
                         <template v-for="subItem in filItem.splice(filItem.length>4?3:4)">
-                          <el-dropdown-item
-                            :key="subItem.mathRound"
-                            @click.native="subItem.event(scope.row)"
-                          >{{subItem.name}}</el-dropdown-item>
+                          <el-dropdown-item :key="subItem.mathRound" @click.native="subItem.event(scope.row)">{{subItem.name}}</el-dropdown-item>
                         </template>
                       </el-dropdown-menu>
                     </el-dropdown>
@@ -63,54 +31,28 @@
               </template>
             </el-table-column>
 
-            <el-table-column
-              v-bind="item"
-              :key="item.mathRound"
-              v-else-if="item.field && !item.hide"
-            >
+            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.field && !item.hide">
               <template slot-scope="scope">
                 <div v-html="scope.row[item.field]"></div>
               </template>
             </el-table-column>
 
-            <el-table-column
-              v-bind="item"
-              :key="item.mathRound"
-              v-else-if="item.type=='index' && !item.hide"
-            >
-              <template
-                slot="header"
-                slot-scope="scope"
-              >
-                <i
-                  class="el-icon-setting svg-table-title"
-                  v-if="!item.show"
-                  @click.self="handleSet(scope,item)"
-                ></i>
+            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='index' && !item.hide">
+              <template slot="header" slot-scope="scope">
+                <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
                 <span v-else>序号</span>
               </template>
             </el-table-column>
 
-            <el-table-column
-              v-bind="item"
-              :key="item.mathRound"
-              v-else-if="!item.hide"
-            ></el-table-column>
+            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="!item.hide"></el-table-column>
           </template>
         </template>
       </template>
     </el-table>
     <div v-if="isTableSet">
-      <my-table-expand
-        :isShow.sync="isTableSet"
-        :sourceColumns="config.col"
-        :columns.sync="columns"
-        :name="config.name"
-        @change="expandChange"
-        :isShowTotalRow="show.setTotalRow"
-      ></my-table-expand>
+      <my-table-expand :isShow.sync="isTableSet" :sourceColumns="config.col" :columns.sync="columns" :name="config.name" @change="expandChange" :isShowTotalRow="show.setTotalRow"></my-table-expand>
     </div>
-    <slot></slot>
+    <slot name="content"></slot>
   </div>
 </template>
 
@@ -345,6 +287,10 @@ export default {
           this.mixData.push(getColumnData('合计', 'total'));
         }
       }
+      this.showAll = false;
+      this.$nextTick(() => {
+        this.showAll = true;
+      });
     },
     // 设置
     handleSet (...scope) {

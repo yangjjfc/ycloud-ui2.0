@@ -12,4 +12,3 @@ describe('Sku', () => {
     expect(vm.$el).to.exist;
   });
 });
-
