@@ -8,20 +8,18 @@
             <slot v-if="item.slot && !item.hide" :name="item.slot" :label="item.label" :col="item"></slot>
             <el-table-column v-bind="formatItem(item)" :key="item.mathRound" v-else-if="item.type=='operate' && !item.hide">
               <template slot-scope="scope">
-                <template v-for="(filItem) in [filterBtns(scope.row,item.btns)]">
-                  <template v-for="subItem in filItem.splice(0,(filItem.length>4?3:4))">
+                <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
+                  <template v-for="subItem in filItem.slice(0,(filItem.length>4?3:4))">
                     <el-button :key="subItem.mathRound" type="text" class="table-btns" size="mini" @click="subItem.event(scope.row)">{{subItem.name}}
                     </el-button>
                   </template>
-                </template>
-                <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
                   <template v-if="filItem.length>4">
                     <el-dropdown size="mini" :key="fillIndex">
                       <span class="el-dropdown-link">
                         更多<i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                       <el-dropdown-menu slot="dropdown">
-                        <template v-for="subItem in filItem.splice(filItem.length>4?3:4)">
+                        <template v-for="subItem in filItem.slice(filItem.length>4?3:4)">
                           <el-dropdown-item :key="subItem.mathRound" @click.native="subItem.event(scope.row)">{{subItem.name}}</el-dropdown-item>
                         </template>
                       </el-dropdown-menu>
@@ -205,6 +203,7 @@ export default {
         item.mathRound = item.mathRound || parseInt(Math.random() * 10000000);
         return this.showBtnFunc(row, item);
       });
+      console.log(arr);
       return arr;
     },
     // 处理按钮
@@ -218,8 +217,8 @@ export default {
         if (item[iterator.key]) {
           if (typeof item[iterator.key] === 'function') {
             return iterator.flag
-              ? !item[iterator.key].apply(this, row)
-              : item[iterator.key].apply(this, row);
+              ? !item[iterator.key].call(this, row)
+              : item[iterator.key].call(this, row);
           } else {
             return iterator.flag ? !item[iterator.key] : item[iterator.key];
           }
