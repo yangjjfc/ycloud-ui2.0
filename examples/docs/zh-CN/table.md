@@ -112,7 +112,7 @@
               unSave: true,
               fixed: true
             },
-            { label: "单据单号", prop: "billNo", width: 170 },
+            { label: "单据单号", prop: "billNo", width: 170,hide:this.hidess },
             { label: "仓库", slot: "warehouseName" },
             { label: "往来单位", prop: "supplierName" },
             { label: "经办人", prop: "agentName" },
@@ -223,6 +223,9 @@
       },
       hideEdit() {
         return true;
+      },
+      hidess(){
+        console.log(this)
       }
     },
     mounted() {

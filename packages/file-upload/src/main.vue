@@ -214,7 +214,7 @@ export default {
     },
     // 点击放大镜查看
     review (file) {
-      let fileUrl = this._getFileUrl(file),
+      let fileUrl = this.getFileUrl(file),
         fileType = getFileType(fileUrl);
       if (['image', 'pdf'].includes(fileType)) {
         this.$refs.boxer.querySelector(`.link-view-${file.uid}`).click();

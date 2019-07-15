@@ -189,7 +189,7 @@ export default {
       let obj = {};
       for (let key of Object.keys(item)) {
         if (typeof item[key] === 'function') {
-          obj[key] = item[key](item);
+          obj[key] = item[key].call(this, item);
         } else {
           obj[key] = item[key];
         }
@@ -203,7 +203,7 @@ export default {
         item.mathRound = item.mathRound || parseInt(Math.random() * 10000000);
         return this.showBtnFunc(row, item);
       });
-      console.log(arr);
+      // console.log(arr);
       return arr;
     },
     // 处理按钮
