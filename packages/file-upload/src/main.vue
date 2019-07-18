@@ -171,7 +171,7 @@ export default {
         res = response;
       }
       // pdf 不能预览，需要替换
-      if (/^image/g.test(file.raw.type)) {
+      if (!/^image/g.test(file.raw.type)) {
         let formatUrl = this.formatFile(file.name);
         file.url = formatUrl.url;
       }
