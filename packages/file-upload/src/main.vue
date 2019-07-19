@@ -71,7 +71,6 @@ export default {
   },
   mounted () {
     this.headers.jtoken = Environment.TOKEN; // todo
-
     this.initFiles(this.value);
   },
   watch: {
@@ -83,8 +82,13 @@ export default {
     }
   },
   methods: {
+    // 强制更新
+    fourceUpdate () {
+      this.initFiles(this.value);
+    },
     // 初始化file
     initFiles (val) {
+      if (!val) return;
       let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null; 
       let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), 
         list = [],
