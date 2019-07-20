@@ -1,6 +1,6 @@
 <template>
   <div class="yl-table" style="overflow:hidden">
-    <el-table stripe border v-on="$listeners" v-bind="$attrs" :data="mixData" ref="table" :max-height="height">
+    <el-table stripe border v-on="$listeners" v-bind="cAttrs" :data="mixData" ref="table" :max-height="height">
       <template v-for="cItem in columns">
         <!-- hide时隐藏该列 -->
         <template v-if="!cItem.isHide">
@@ -66,6 +66,7 @@ export default {
       pageKey: '', // 保存设置唯一key
       showAll: false, // hack方法,确保二次渲染不会出错
       columns: [], // 列表
+      cAttrs: {}, // 自定义属性
       show: {
         // 显示
         total: false, // 自定义合计
@@ -133,6 +134,15 @@ export default {
           }
         });
       }
+    },
+    $attrs: {
+      handler: function (val, oldVal) {
+        if (JSON.stringify(val) !== JSON.stringify(oldVal)) {
+          this.cAttrs = val;
+        }
+      },
+      deep: true,
+      immediate: true
     }
   },
   methods: {
