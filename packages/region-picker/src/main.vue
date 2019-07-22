@@ -1,6 +1,6 @@
 <template>
   <div class="yl-region-picker">
-    <my-address :regions="chinaAddr" :province="province" :city="city" :district="district" @onchange="change" classx="Address" :disabled="disabled"></my-address>
+    <my-address :regions="chinaAddr" :province="province" v-bind="$attrs" :city="city" :district="district" @onchange="change" classx="Address" :disabled="disabled"></my-address>
   </div>
 </template>
 
@@ -47,21 +47,34 @@ export default {
     // 初始化数据
     _initData (val) {
       if (val) {
-        let district = val.toString(),
-          province = district.slice(0, 2) + '0000',
-          city = district.slice(0, 4) + '00';
-
-        this.province = this.chinaAddr[86][province];
-        this.city = this.chinaAddr[province][city] || '';
-        this.district = this.chinaAddr[city][district] || '';
-        this.selectedData = {
-          provinceName: this.province,
-          provinceCode: province,
-          cityName: this.city,
-          cityCode: city,
-          townName: this.district,
-          townCode: district
-        };
+        if (this.$attrs.twoSelect) { // 2级联动
+          let city = val.toString(),
+            province = city.slice(0, 2) + '0000';
+          this.province = this.chinaAddr[86][province];
+          this.city = this.chinaAddr[province][city] || '';
+          this.selectedData = {
+            provinceName: this.province,
+            provinceCode: province,
+            cityName: this.city,
+            cityCode: city
+          };
+        } else {
+          let district = val.toString(),
+            province = district.slice(0, 2) + '0000',
+            city = district.slice(0, 4) + '00';
+  
+          this.province = this.chinaAddr[86][province];
+          this.city = this.chinaAddr[province][city] || '';
+          this.district = this.chinaAddr[city][district] || '';
+          this.selectedData = {
+            provinceName: this.province,
+            provinceCode: province,
+            cityName: this.city,
+            cityCode: city,
+            townName: this.district,
+            townCode: district
+          };
+        }
       } else {
         this.province = '';
         this.city = '';
@@ -69,8 +82,15 @@ export default {
       }
     },
     change (msg) {
-      let names = [msg.provinceName, msg.cityName, msg.townName].join('');
-      let vals = msg.townCode;
+      let names = '';
+      let vals = '';
+      if (this.$attrs.twoSelect) { // 2级联动
+        names = [msg.provinceName, msg.cityName].join('');
+        vals = msg.cityCode;
+      } else {
+        names = [msg.provinceName, msg.cityName, msg.townName].join('');
+        vals = msg.townCode;
+      }
       this.selectedData = msg;
       this.$emit('input', names);
       this.$emit('update:codes', vals);
