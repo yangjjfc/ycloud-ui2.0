@@ -1,6 +1,6 @@
 <template>
   <div class="yl-table" style="overflow:hidden">
-    <el-table stripe border v-on="$listeners" v-bind="$attrs" :data="mixData" ref="table" :max-height="height">
+    <el-table stripe border v-on="clisteners" v-bind="cAttrs" :data="mixData" ref="table" :max-height="height">
       <template v-for="cItem in columns">
         <!-- hide时隐藏该列 -->
         <template v-if="!cItem.isHide">
@@ -66,6 +66,8 @@ export default {
       pageKey: '', // 保存设置唯一key
       showAll: false, // hack方法,确保二次渲染不会出错
       columns: [], // 列表
+      cAttrs: {}, // 自定义属性
+      clisteners: {}, // 自定义属性
       show: {
         // 显示
         total: false, // 自定义合计
@@ -132,6 +134,11 @@ export default {
             }
           }
         });
+      }
+    },
+    $attrs (val, oldval) {
+      if (JSON.stringify(val) !== JSON.stringify(oldval)) {
+        this.cAttrs = val;
       }
     }
   },
@@ -328,6 +335,8 @@ export default {
     }
   },
   created () {
+    this.cAttrs = this.$attrs;
+    this.clisteners = this.$listeners;
     this.config.showTotal &&
       (this.show = { ...this.show, ...this.config.showTotal }); // 合计列
     this.uselocal = !!this.config.uselocal;
