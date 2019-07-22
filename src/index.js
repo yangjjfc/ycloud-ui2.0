@@ -8,6 +8,7 @@ import RegionPicker from '../packages/region-picker/index.js';
 import Icon from '../packages/icon/index.js';
 import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
+import Sku from '../packages/sku/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 import Http from 'ycloud-ui/src/utils/axios/index';
@@ -26,6 +27,7 @@ const components = [
   Icon,
   Tinymce,
   Table,
+  Sku,
   CollapseTransition
 ];
 
@@ -52,7 +54,7 @@ export {
 };
 
 export default {
-  version: '2.1.3',
+  version: '2.1.4',
   install,
   CollapseTransition,
   Pagination,
@@ -62,5 +64,6 @@ export default {
   RegionPicker,
   Icon,
   Tinymce,
-  Table
+  Table,
+  Sku
 };

@@ -71,7 +71,6 @@ export default {
   },
   mounted () {
     this.headers.jtoken = Environment.TOKEN; // todo
-
     this.initFiles(this.value);
   },
   watch: {
@@ -83,8 +82,13 @@ export default {
     }
   },
   methods: {
+    // 强制更新
+    fourceUpdate () {
+      this.initFiles(this.value);
+    },
     // 初始化file
     initFiles (val) {
+      if (!val) return;
       let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null; 
       let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), 
         list = [],
@@ -171,7 +175,7 @@ export default {
         res = response;
       }
       // pdf 不能预览，需要替换
-      if (file.name.includes('.pdf')) {
+      if (!/^image/g.test(file.raw.type)) {
         let formatUrl = this.formatFile(file.name);
         file.url = formatUrl.url;
       }

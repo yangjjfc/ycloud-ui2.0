@@ -41,6 +41,10 @@ export const parseMoney = (n) => {
   }
   return _str;
 };
+
+// 获取类型
+export const getType = (obj) => Object.prototype.toString.call(obj).slice(8, -1); 
+
 /**
  * 每3位加个','
  * @param {*} num

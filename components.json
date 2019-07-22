@@ -6,5 +6,6 @@
   "region-picker": "./packages/region-picker/index.js",
   "icon": "./packages/icon/index.js",
   "Tinymce": "./packages/Tinymce/index.js",
-  "table": "./packages/table/index.js"
+  "table": "./packages/table/index.js",
+  "sku": "./packages/sku/index.js"
 }

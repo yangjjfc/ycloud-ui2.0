@@ -112,7 +112,7 @@
               unSave: true,
               fixed: true
             },
-            { label: "单据单号", prop: "billNo", width: 170 },
+            { label: "单据单号", prop: "billNo", width: 170,hide:this.hidess },
             { label: "仓库", slot: "warehouseName" },
             { label: "往来单位", prop: "supplierName" },
             { label: "经办人", prop: "agentName" },
@@ -223,6 +223,9 @@
       },
       hideEdit() {
         return true;
+      },
+      hidess(){
+        console.log(this)
       }
     },
     mounted() {
@@ -248,7 +251,7 @@
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | config   | 表格的配置项 | Object |  | {} |
 | data | 表格显示的数据 | Array    | — | -- |
-| maxHeight  | 表格显示的最大高度 |  Number   |  -- | -- |
+| max-height  | 表格显示的最大高度 |  Number   |  -- | -- |
 | page  | 分页信息,小计,合计用 |  Object   |  -- | -- |
 | disabled-confirm-button  | 禁用确认按钮 |  Boolean   |  -- | false |
 | hide-submit-button  | 隐藏确认按钮 |  Boolean   |  -- | false |
@@ -260,14 +263,35 @@
 |---------- |-------------- |---------- |--------------------------------  |-------- |
 | name   | 名字,无个性化设置可不传  | String |  | -- |
 | col | 行列设置属性 | Array    | [{ label: '', prop: '', slot: '' }] | -- |
-| showTotal  | 是否显示合计列,此参数需要后端配合 |  Boolean   |  -- | false |
+| show-total  | 是否显示合计列,此参数需要后端配合 |  Boolean   |  -- | false |
 | uselocal  | 是否直接使用本地配置参数,此参数需要后端配合 |  Boolean   |  -- | false |
 | container  | 表格显示的容器 |  String   |  'document','dialog' |  |
-| limitHeight  | 表格高度调整 |  Number   |  -- | 0 |
-| disAutoHeight  | 关闭自动计算高度 |  Boolean   |  -- | false |
+| limit-height  | 表格高度调整 |  Number   |  -- | 0 |
+| dis-auto-height  | 关闭自动计算高度 |  Boolean   |  -- | false |
+
+
+### col参数具体(表格列配置)
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| type   | 判断各自的类型  | String | [index表示行号,operate表示操作栏] | ---  |
+| label | 表头名称 | String    | -- | -- |
+| prop  | 表格数据展示字段 |  String   |  -- | -- |
+| hide  | 是否隐藏该列,支持函数 |  Boolean|Function   |  -- | -- |
+| field  | 该字段会使用v-html渲染,一般该字段是html |  String   | -- |  |
+| unSave  | 不保存到远程数据库,用于设置表头时使用 |  Boolean   |  -- | true |
+| element字段 | 会继承element字段 |  ---   |  -- | --- |
+
+### btns按钮参数具体(按钮)
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| name   | 按钮名称  | String | -- | ---  |
+| event | 事件绑定,需要绑定当前this,可用bind | Function    | -- | -- |
+| hide  | 为true时隐藏该按钮 |  Boolean|Function   |  -- | -- |
+| show  | 为true时显示该按钮 |  Boolean|Function   |  -- | -- |
+
 
 ### Slot
 
 | name | 说明 |
 |------|--------|
-| — | 表格添加的内容 |
+| content | 表格添加的内容 |
