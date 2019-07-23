@@ -46,6 +46,11 @@ export default {
   watch: {
     'district' (val) {
       this.setAddress();
+    },
+    'city' (val) {
+      if (this.twoSelect) {
+        this.setAddress();
+      }
     }
   },
   props: {

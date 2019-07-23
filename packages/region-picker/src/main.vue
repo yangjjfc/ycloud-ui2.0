@@ -94,7 +94,7 @@ export default {
       this.selectedData = msg;
       this.$emit('input', names);
       this.$emit('update:codes', vals);
-      this.$emit('change', vals);
+      this.$emit('change', this.selectedData);
       if (this.validate) {
         this.dispatch('ElFormItem', 'el.form.change', names);
       }
