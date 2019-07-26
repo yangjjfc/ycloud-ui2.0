@@ -1,5 +1,5 @@
 <template>
-  <div class="yl-table" style="overflow:hidden">
+  <div class="yl-table" style="overflow:hidden" v-if="showAll">
     <el-table stripe border v-on="clisteners" v-bind="cAttrs" :data="mixData" ref="table" :max-height="height">
       <template v-for="cItem in columns">
         <!-- hide时隐藏该列 -->
@@ -150,7 +150,7 @@ export default {
         path.push(this.config.name);
         this.pageKey = path.join('.');
       } else {
-        console.info('表格未设置关键词config.name');
+        // console.info('表格未设置关键词config.name');
       }
     },
 
