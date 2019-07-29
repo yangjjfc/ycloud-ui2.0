@@ -67,6 +67,14 @@ export default {
     validateEvent: {
       type: Boolean,
       default: true
+    },
+    string: {
+      type: Boolean,
+      default: true
+    },
+    join: {
+      type: String,
+      default: ';'
     }
   },
   mounted () {
@@ -198,8 +206,9 @@ export default {
         uid: item.uid,
         fullUrl: Environment.IMAGE_DOWNLOAD + this.getFileUrl(item)
       }));
-      this.$emit('input', this.imgUrls);
-      this.$emit('success', this.imgUrls + '', list);// 上传完成钩子
+      let imgUrls = this.string ? this.imgUrls.join(this.join) : this.imgUrls;
+      this.$emit('input', imgUrls);
+      this.$emit('success', this.imgUrls, list);// 上传完成钩子
       if (this.validateEvent) {
         this.dispatch('ElFormItem', 'el.form.change', [this.imgUrls + '']);
       }

@@ -31,6 +31,8 @@
 | value  | 图片地址 |  String, Array,字符串已';'分割   |  -- | -- |
 | hideUploadBtn  | 隐藏上传按钮 |  Boolean   |  -- | false |
 | validateEvent  | 是否验证 |  Boolean   |  -- | true |
+| string  | 是否是字符串形式返回,true为是,false为数组形式返回 |  Boolean   |  -- | true |
+| join  | 配合string-->true时才生效,字符串输出是默认用';'合并,也可以自定义 |  Boolean   |  -- | true |
 
 
 ### Slot
@@ -43,3 +45,9 @@
 | 事件名称      | 说明    | 回调参数      |
 |---------- |-------- |---------- |
 | success  | 上传成功后回调函数  | img,list  |
+
+
+
+### Methods
+| 方法名      | 说明    | 参数      |
+| fourceUpdate | 用于强制刷新图片显示,主要用于图片的二次更新 |--|
