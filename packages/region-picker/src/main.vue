@@ -51,7 +51,7 @@ export default {
           let city = val.toString(),
             province = city.slice(0, 2) + '0000';
           this.province = this.chinaAddr[86][province];
-          this.city = this.chinaAddr[province][city] || '';
+          this.city = city || '';
           this.selectedData = {
             provinceName: this.province,
             provinceCode: province,
@@ -94,7 +94,7 @@ export default {
       this.selectedData = msg;
       this.$emit('input', names);
       this.$emit('update:codes', vals);
-      this.$emit('change', vals);
+      this.$emit('change', this.selectedData);
       if (this.validate) {
         this.dispatch('ElFormItem', 'el.form.change', names);
       }
