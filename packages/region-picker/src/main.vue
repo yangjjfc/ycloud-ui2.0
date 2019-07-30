@@ -33,6 +33,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    twoSelect: {
+      type: Boolean,
+      default: false
     }
   },
   watch: {
@@ -47,34 +51,24 @@ export default {
     // 初始化数据
     _initData (val) {
       if (val) {
-        if (this.$attrs.twoSelect) { // 2级联动
-          let city = val.toString(),
-            province = city.slice(0, 2) + '0000';
-          this.province = this.chinaAddr[86][province];
-          this.city = city || '';
-          this.selectedData = {
-            provinceName: this.province,
-            provinceCode: province,
-            cityName: this.city,
-            cityCode: city
-          };
+        let province = val.toString().slice(0, 2) + '0000', city = '', district = '';
+        if (this.twoSelect) {
+          city = val.toString();
         } else {
-          let district = val.toString(),
-            province = district.slice(0, 2) + '0000',
-            city = district.slice(0, 4) + '00';
-  
-          this.province = this.chinaAddr[86][province];
-          this.city = this.chinaAddr[province][city] || '';
+          district = val.toString();
+          city = district.slice(0, 4) + '00';
           this.district = this.chinaAddr[city][district] || '';
-          this.selectedData = {
-            provinceName: this.province,
-            provinceCode: province,
-            cityName: this.city,
-            cityCode: city,
-            townName: this.district,
-            townCode: district
-          };
         }
+        this.province = this.chinaAddr[86][province];
+        this.city = this.chinaAddr[province][city] || '';
+        this.selectedData = {
+          provinceName: this.province,
+          provinceCode: province,
+          cityName: this.city,
+          cityCode: city,
+          townName: this.district,
+          townCode: district
+        };
       } else {
         this.province = '';
         this.city = '';
@@ -84,7 +78,7 @@ export default {
     change (msg) {
       let names = '';
       let vals = '';
-      if (this.$attrs.twoSelect) { // 2级联动
+      if (this.twoSelect) { // 2级联动
         names = [msg.provinceName, msg.cityName].join('');
         vals = msg.cityCode;
       } else {

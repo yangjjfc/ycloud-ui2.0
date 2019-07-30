@@ -34,6 +34,7 @@
 | codes   | 区编码,支持sync | String, Number | — | '' |
 | validate   | change时是否触发验证 | Boolean | — | true |
 | disabled   | 是否禁用 | Boolean | — | false |
+| twoSelect   | 是否是二级联动 | Boolean | — | false |
 
 ### Events
 | 事件名称      | 说明    | 回调参数      |
