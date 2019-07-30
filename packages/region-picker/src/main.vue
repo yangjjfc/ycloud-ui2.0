@@ -33,10 +33,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    twoSelect: {
-      type: Boolean,
-      default: false
     }
   },
   watch: {
@@ -52,7 +48,7 @@ export default {
     _initData (val) {
       if (val) {
         let province = val.toString().slice(0, 2) + '0000', city = '', district = '';
-        if (this.twoSelect) {
+        if (this.$attrs.twoSelect) {
           city = val.toString();
         } else {
           district = val.toString();
@@ -78,7 +74,7 @@ export default {
     change (msg) {
       let names = '';
       let vals = '';
-      if (this.twoSelect) { // 2级联动
+      if (this.$attrs.twoSelect) { // 2级联动
         names = [msg.provinceName, msg.cityName].join('');
         vals = msg.cityCode;
       } else {
