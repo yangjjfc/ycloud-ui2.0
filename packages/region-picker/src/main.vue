@@ -1,6 +1,6 @@
 <template>
   <div class="yl-region-picker">
-    <my-address :regions="chinaAddr" :province="province" v-bind="$attrs" :city="city" :district="district" @onchange="change" classx="Address" :disabled="disabled"></my-address>
+    <my-address :regions="chinaAddr" :province="province" v-bind="$attrs" :city="city" :district="district" @onchange="change" :classx="className" :disabled="disabled"></my-address>
   </div>
 </template>
 
@@ -42,6 +42,11 @@ export default {
   },
   created () {
     this.codes && this._initData(this.codes);
+  },
+  computed: {
+    className () {
+      return this.$attrs.twoSelect ? 'towCol' : 'threeCol';
+    }
   },
   methods: {
     // 初始化数据
