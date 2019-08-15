@@ -108,7 +108,8 @@ class Interceptor {
               if (item.show) {//eslint-disable-line
                 Message.error({
                   showClose: true,
-                  message: item.show.msg || `${response.data.message}`
+                  message: item.show.msg || `${response.data.message}`,
+                  customClass: 'yl-fix-mask'
                 });
                 item.clear ? sessionStorage.clear() : '';
                 item.href ? window.location.href = item.href : '';
@@ -119,7 +120,8 @@ class Interceptor {
         }
         Message.error({
           showClose: true,
-          message: `${response.data.message}`
+          message: `${response.data.message}`,
+          customClass: 'yl-fix-mask'
         });
         return Promise.reject(response.data);
       }
