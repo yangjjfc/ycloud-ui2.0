@@ -13,6 +13,7 @@ import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 import Http from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
+import double from 'ycloud-ui/src/utils/double';
 import emitter from 'ycloud-ui/src/mixins/emitter';
 import formValid from 'ycloud-ui/src/mixins/formValid';
 import boxer from 'ycloud-ui/src/directives/boxer';
@@ -50,11 +51,12 @@ export {
   Http,
   Environment,
   changeEnvironment,
-  Tools
+  Tools,
+  double
 };
 
 export default {
-  version: '2.1.13',
+  version: '2.1.14',
   install,
   CollapseTransition,
   Pagination,
