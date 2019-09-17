@@ -70,6 +70,10 @@
             {
               "path": "/sku",
               "title": "Sku 商品属性"
+            },
+            {
+              "path": "/status-tips",
+              "title": "StatusTips 状态提示"
             }
           ]
         }

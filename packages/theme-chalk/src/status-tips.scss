@@ -1,0 +1,42 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(status-tips) {
+    position: relative;
+
+    @include e(section) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+        font-size: 16px;
+        position: absolute;
+        border: 3px #000 dashed;
+        transform: rotate(20deg);
+    }
+
+    @include e(success) {
+        color: $--color-success;
+        border-color: $--color-success;
+    }
+
+    @include e(danger) {
+        color: $--color-danger;
+        border-color: $--color-danger;
+    }
+
+    @include e(warning) {
+        color: $--color-warning;
+        border-color: $--color-warning;
+    }
+
+    @include e(info) {
+        color: $--color-primary;
+        border-color: $--color-primary;
+    }
+
+    @include e(gray) {
+        color: $--color-info;
+        border-color: $--color-info;
+    }
+}

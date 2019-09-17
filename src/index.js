@@ -9,6 +9,7 @@ import Icon from '../packages/icon/index.js';
 import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
 import Sku from '../packages/sku/index.js';
+import StatusTips from '../packages/status-tips/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 
 import Http from 'ycloud-ui/src/utils/axios/index';
@@ -29,6 +30,7 @@ const components = [
   Tinymce,
   Table,
   Sku,
+  StatusTips,
   CollapseTransition
 ];
 
@@ -56,7 +58,7 @@ export {
 };
 
 export default {
-  version: '2.1.14',
+  version: '2.1.15',
   install,
   CollapseTransition,
   Pagination,
@@ -67,5 +69,6 @@ export default {
   Icon,
   Tinymce,
   Table,
-  Sku
+  Sku,
+  StatusTips
 };
