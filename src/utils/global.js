@@ -42,6 +42,19 @@ export const parseMoney = (n) => {
   return _str;
 };
 
+/**
+ * 金额格式化,可正负
+ * @param {*} value 
+ */
+export const parseMoneyPM = (value) => {
+  value = Number(value);
+  if (value === 0 || !value || Number.isNaN(value)) {
+    return '0.00';
+  }
+  let title = value < 0 ? '-' : '';
+  return title + parseMoney(Math.abs(value));
+};
+
 // 获取类型
 export const getType = (obj) => Object.prototype.toString.call(obj).slice(8, -1); 
 
@@ -58,7 +71,6 @@ export const parseNum = (num) => {
   }
   return list.reverse().join('');
 };
-
 /**
  * 获取当前时间，格式 yyyy-mm-dd
  */
