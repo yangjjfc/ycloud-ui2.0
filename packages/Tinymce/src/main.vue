@@ -136,8 +136,9 @@ export default {
       window.tinymce.get(this.tinymceId).getContent();
     },
     imageSuccessCBK (arr) {
+      if (!arr) return; 
       const _this = this;
-      arr.forEach(v => {
+      arr.split(';').forEach(v => {
         window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${Environment.IMAGE_DOWNLOAD + v}" >`);
       });
     }
