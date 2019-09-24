@@ -33,6 +33,7 @@
 | validateEvent  | 是否验证 |  Boolean   |  -- | true |
 | string  | 是否是字符串形式返回,true为是,false为数组形式返回 |  Boolean   |  -- | true |
 | join  | 配合string-->true时才生效,字符串输出是默认用';'合并,也可以自定义 |  Boolean   |  -- | true |
+| token  | 自定义token,默认无需上传 |  ''   |  -- | '' |
 
 
 ### Slot

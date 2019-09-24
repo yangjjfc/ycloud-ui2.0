@@ -75,10 +75,14 @@ export default {
     join: {
       type: String,
       default: ';'
+    },
+    token: {
+      type: String,
+      default: ''
     }
   },
   mounted () {
-    this.headers.jtoken = Environment.TOKEN; // todo
+    this.headers.jtoken = this.token || Environment.TOKEN; // todo
     this.initFiles(this.value);
   },
   watch: {
