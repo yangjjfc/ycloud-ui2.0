@@ -4,6 +4,7 @@ var nodeExternals = require('webpack-node-externals'); // 防止将某些 import
 var Components = require('../components.json');
 
 var utilsList = fs.readdirSync(path.resolve(__dirname, '../src/utils'));
+// var utilsConfig = fs.readdirSync(path.resolve(__dirname, '../src/config'));
 var mixinsList = fs.readdirSync(path.resolve(__dirname, '../src/mixins'));
 var transitionList = fs.readdirSync(path.resolve(__dirname, '../src/transitions'));
 var externals = {};
@@ -17,6 +18,10 @@ utilsList.forEach(function (file) {
   file = path.basename(file, '.js');
   externals[`ycloud-ui/src/utils/${file}`] = `ycloud-ui/lib/utils/${file}`;
 });
+// utilsConfig.forEach(function (file) {
+// file = path.basename(file, '.js');
+externals['ycloud-ui/src/config'] = 'ycloud-ui/lib/config';
+// });
 mixinsList.forEach(function (file) {
   file = path.basename(file, '.js');
   externals[`ycloud-ui/src/mixins/${file}`] = `ycloud-ui/lib/mixins/${file}`;

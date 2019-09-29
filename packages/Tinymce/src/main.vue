@@ -11,7 +11,7 @@
 import editorImage from './editorImage';
 import plugins from './plugins';
 import toolbar from './toolbar';
-import { Environment } from 'ycloud-ui/src/config/index';
+import { Environment } from 'ycloud-ui/src/config';
 
 export default {
   name: 'YlTinymce',

@@ -14,7 +14,7 @@
 import Emitter from 'ycloud-ui/src/mixins/emitter';
 import boxer from 'ycloud-ui/src/directives/boxer';
 import { getFileType, formatFile } from 'ycloud-ui/src/utils/global';
-import { Environment } from 'ycloud-ui/src/config/index';
+import { Environment } from 'ycloud-ui/src/config';
 export default {
   name: 'YlFileUpload',
   mixins: [Emitter],
