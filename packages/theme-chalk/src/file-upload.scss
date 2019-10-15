@@ -7,7 +7,7 @@
         line-height: 1;
         padding-top: 5px;
     }
-    /deep/ .el-upload--picture-card {
+    .el-upload--picture-card {
         background-color: #fbfdff;
         border: 1px dashed #c0ccda;
         border-radius: 6px;
@@ -19,7 +19,7 @@
         vertical-align: top;
         margin-bottom: 8px;
     }
-    /deep/ .el-upload-list--picture-card .el-upload-list__item {
+    .el-upload-list--picture-card .el-upload-list__item {
         overflow: hidden;
         background-color: #fff;
         border: 1px solid #c0ccda;

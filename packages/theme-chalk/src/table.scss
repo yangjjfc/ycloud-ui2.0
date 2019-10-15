@@ -28,7 +28,7 @@
         }
 
         .el-radio {
-            /deep/ .el-radio__label {
+            .el-radio__label {
                 display: none; //隐藏radio ladel
             }
         }
