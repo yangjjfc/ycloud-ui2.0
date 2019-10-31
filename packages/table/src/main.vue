@@ -201,8 +201,7 @@ export default {
           obj[key] = item[key];
         }
       }
-      obj.mathRound = obj.mathRound || parseInt(Math.random() * 10000000);
-
+      obj.mathRound = item.prop || item.type || item.slot || parseInt(Math.random() * 10000000);
       return obj;
     },
     filterBtns (row, msg) {
