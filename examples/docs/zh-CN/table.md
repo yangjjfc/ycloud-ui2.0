@@ -70,8 +70,8 @@
               fixed: true
             },
             {
-              type: "index",
-              prop: "indexX",
+              type: "cIndex",
+              prop: "index",
               label: "序号",
               show: false,
               width: 50,
@@ -225,17 +225,17 @@
         return true;
       },
       hidess(){
-        console.log(this)
+        // console.log(this)
       }
     },
     mounted() {
       setTimeout(() => {
-        this.list = [
-          ...[...this.list, ...this.list],
-          ...[...this.list, ...this.list],
-          ...[...this.list, ...this.list],
-          ...[...this.list, ...this.list]
-        ];
+        let list =this.list;
+        this.list=list.map((item,index)=>{
+          item.index =index;
+          return item
+        })
+        console.log("TCL: mounted -> this.list", this.list)
       }, 1000);
     }
   };
@@ -273,7 +273,7 @@
 ### col参数具体(表格列配置)
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| type   | 判断各自的类型  | String | [index表示行号,operate表示操作栏] | ---  |
+| type   | 判断各自的类型  | String | [cIndex表示行号(自定义index),operate表示操作栏] | ---  |
 | label | 表头名称 | String    | -- | -- |
 | prop  | 表格数据展示字段 |  String   |  -- | -- |
 | hide  | 是否隐藏该列,支持函数 |  Boolean|Function   |  -- | -- |

@@ -35,7 +35,7 @@
               </template>
             </el-table-column>
 
-            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='index' && !item.hide">
+            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='cIndex' && !item.hide">
               <template slot="header" slot-scope="scope">
                 <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
                 <span v-else>序号</span>
