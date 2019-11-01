@@ -7,6 +7,10 @@
           <template v-for="item in [formatItem(cItem)]">
             <slot v-if="item.slot && !item.hide" :name="item.slot" :label="item.label" :col="item"></slot>
             <el-table-column v-bind="formatItem(item)" :key="item.mathRound" v-else-if="item.type=='operate' && !item.hide">
+              <template slot="header" slot-scope="scope">
+                <span>{{item.label}}</span>
+                <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
+              </template>
               <template slot-scope="scope">
                 <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
                   <template v-for="subItem in filItem.slice(0,(filItem.length>4?3:4))">
@@ -35,12 +39,12 @@
               </template>
             </el-table-column>
 
-            <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='cIndex' && !item.hide">
+            <!-- <el-table-column v-bind="item" :key="item.mathRound" v-else-if="item.type=='cIndex' && !item.hide">
               <template slot="header" slot-scope="scope">
                 <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
                 <span v-else>序号</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
 
             <el-table-column v-bind="item" :key="item.mathRound" v-else-if="!item.hide"></el-table-column>
           </template>

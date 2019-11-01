@@ -70,7 +70,7 @@
               fixed: true
             },
             {
-              type: "cIndex",
+              type: "index",
               prop: "index",
               label: "序号",
               show: false,
@@ -83,6 +83,7 @@
               type: "operate",
               label: "操作",
               width: 200,
+              show: false,
               btns: [
                 {
                   name: "查看",
