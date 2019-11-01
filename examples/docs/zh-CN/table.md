@@ -83,7 +83,7 @@
               type: "operate",
               label: "操作",
               width: 200,
-              show: false,
+              show: true,
               btns: [
                 {
                   name: "查看",

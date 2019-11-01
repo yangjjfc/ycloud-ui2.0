@@ -36,13 +36,13 @@
                 </el-col>
                 <el-col :span="3">
                     <div class="right-btn">
-                        <p class="text-center">
+                        <p class="text-center mgb10">
                             <el-button size="mini" @click="up">上移</el-button>
                         </p>
-                        <p class="text-center">
+                        <p class="text-center mgb10">
                             <el-button size="mini" @click="down">下移</el-button>
                         </p>
-                        <p class="text-center">
+                        <p class="text-center mgb10">
                             <el-button size="mini" @click="reset">还原默认值</el-button>
                         </p>
                     </div>

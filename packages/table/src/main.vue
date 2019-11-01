@@ -9,7 +9,7 @@
             <el-table-column v-bind="formatItem(item)" :key="item.mathRound" v-else-if="item.type=='operate' && !item.hide">
               <template slot="header" slot-scope="scope">
                 <span>{{item.label}}</span>
-                <i class="el-icon-setting svg-table-title" v-if="!item.show" @click.self="handleSet(scope,item)"></i>
+                <i class="el-icon-setting svg-table-title" v-if="item.show" @click.self="handleSet(scope,item)"></i>
               </template>
               <template slot-scope="scope">
                 <template v-for="(filItem,fillIndex) in [filterBtns(scope.row,item.btns)]">
