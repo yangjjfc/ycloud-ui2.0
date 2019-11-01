@@ -46,10 +46,13 @@ export const parseMoney = (n) => {
  * 金额格式化,可正负
  * @param {*} value 
  */
-export const parseMoneyPM = (value) => {
+export const parseMoneyPM = (value, show = '--') => {
   value = Number(value);
-  if (value === 0 || !value || Number.isNaN(value)) {
+  if (value === 0) {
     return '0.00';
+  }
+  if (!value || Number.isNaN(value)) {
+    return show;
   }
   let title = value < 0 ? '-' : '';
   return title + parseMoney(Math.abs(value));
@@ -275,42 +278,11 @@ export const reverseData = (list, map) => {
   return list;
 };
 
-// 同步树插件的半选中状态(保存树时添加半选中，编辑时去掉半选中)
-export const handleUpdateCheckds = (tree, checkeds, isAdd = true, checkKey = 'no') => {
-  let findHalfCheckds = (item, checkeds, result = new Set()) => {
-    if (item.children) {
-      let node = [...item.children];
-      while (node.length) {
-        let data = node.shift();
-        if (!item.isRoot) {
-          if (isAdd && checkeds.includes(data[checkKey] || data) && !checkeds.includes(item[checkKey] || item)) {
-            result.add(item[checkKey] || item);
-          } else if (!isAdd && !checkeds.includes(data[checkKey] || data) && checkeds.includes(item[checkKey] || item)) {
-            result.add(item[checkKey] || item);
-          }
-        }
-        if (data.children && data.children.length > 0) {
-          node = node.concat(data.children);
-        }
-        findHalfCheckds(data, checkeds, result);
-      }
-    }
-    return result;
-  };
-  let result,
-    halfCheckds = [...findHalfCheckds({
-      isRoot: true,
-      children: tree
-    }, checkeds)];
-  if (isAdd) { //
-    result = [...new Set(checkeds.concat(halfCheckds))];
-  } else {
-    result = checkeds.filter(item => !halfCheckds.includes(item));
-  }
-  // console.log(halfCheckds);
-  return result;
-};
-
+/**
+ * 匹配下拉名称
+ * @param {} id 
+ * @param {*} source 
+ */
 export const getSelectValue = (id, source = []) => {
   let result = '';
   source.forEach(item => {
@@ -320,16 +292,6 @@ export const getSelectValue = (id, source = []) => {
     }
   });
   return result;
-};
-
-export const clearAttr = (obj) => {
-  for (let key in obj) {
-    if (typeof obj[key] === 'object') {
-      this.clearAttr(obj[key]);
-    } else if (typeof obj[key] === 'string' && String.trim(obj[key]) === '') {
-      delete obj[key];
-    }
-  }
 };
 
 // 正则
