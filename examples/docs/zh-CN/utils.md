@@ -97,6 +97,7 @@
 	* 使用 `summaries(param, '合计', ['advancePaymentAmount', 'orderAdvancePayment', 'contractAdvancePayment']);`
 
 * `global.js`
+
 | 函数名称 |    描述 |    参数 | 返回 |
 | :--------| :-------- | :--------| :--: |
 | parseMoneyPM |格式化金额 | (value, [show = '--']) |  money   |
@@ -110,6 +111,7 @@
 | downloadFile |下载文件  | (data:下载链接, strFileName:下载文件名,默认不传]) |  -- |
 | getSelectValue|获取下拉列表名称 | (id, source = []) |  名称 |
 | regexp | 正则 |-- |  --|
+
 ```js
 export const regexp = {
   phone: /^1\d{10}$/, // 手机电话
