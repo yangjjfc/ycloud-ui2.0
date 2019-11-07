@@ -1,8 +1,36 @@
 <template>
   <div class="yl-file-upload" ref="imgUpload">
-    <el-upload   v-bind="$attrs" v-on="$listeners"  :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :on-preview="review" :before-upload="beforeUpload" :drag="drag" :file-list="fileLists" :on-remove="remove"  :on-exceed="handleExceed" :limit="limit">
+    <el-upload   v-bind="$attrs" v-on="$listeners" :disabled="disabled" :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" 
+     :before-upload="beforeUpload" :drag="drag" :on-remove="remove" :file-list="fileLists" :on-exceed="handleExceed" :limit="limit" ref="ylUpload">
         <slot name='imgs'></slot>
         <i class="el-icon-plus"></i>
+        <div slot="file" slot-scope="{file}" class="yl-file-img">
+          <img
+            class="el-upload-list__item-thumbnail"
+            :src="file.url" alt=""
+          >
+          <span class="el-upload-list__item-actions">
+            <span
+              class="el-upload-list__item-preview"
+              @click="review(file)"
+            >
+              <i class="el-icon-zoom-in"></i>
+            </span>
+            <span
+              class="el-upload-list__item-delete"
+              @click="handleDownload(file)"
+            >
+              <i class="el-icon-download"></i>
+            </span>
+            <span
+              v-if="!disabled"
+              class="el-upload-list__item-delete"
+              @click="handleRemove(file)"
+            >
+              <i class="el-icon-delete"></i>
+            </span>
+          </span>
+        </div>
     </el-upload>
     <div v-show="false" ref="boxer">
         <a v-for="item in files" :href="item.fullUrl" :key="item.fullUrl" v-boxer="item.fullUrl" :class="'link-view-'+item.uid"></a>
@@ -13,7 +41,7 @@
 <script>
 import Emitter from 'ycloud-ui/src/mixins/emitter';
 import boxer from 'ycloud-ui/src/directives/boxer';
-import { getFileType, formatFile } from 'ycloud-ui/src/utils/global';
+import { getFileType, formatFile, downloadFile } from 'ycloud-ui/src/utils/global';
 import { Environment } from 'ycloud-ui/src/config';
 export default {
   name: 'YlFileUpload',
@@ -51,6 +79,10 @@ export default {
       validator: function (value) {
         return ['img', 'file', 'all'].indexOf(value) !== -1;
       }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     drag: {
       type: Boolean,
@@ -131,7 +163,7 @@ export default {
     updateUploadBtn () {
       let $card = this.$refs.imgUpload.querySelector('.el-upload'),
         $icon = this.$refs.imgUpload.querySelector('.el-icon-plus');
-      if (this.hideUploadBtn || this.$attrs.disabled) {
+      if (this.hideUploadBtn || this.disabled) {
         $card.style.display = 'none';
         $icon.style.display = 'none';
         return;
@@ -225,9 +257,20 @@ export default {
         return JSON.parse(file.response).data;
       }
     },
+    handleRemove (file) {
+      let upload = this.$refs.ylUpload;
+
+      upload.handleRemove(file);
+    },
     // 删除
     remove (file, fileList) {
       this.updateFiles(fileList);
+    },
+    // 下载
+    handleDownload (file) {
+      let fileUrl = Environment.IMAGE_DOWNLOAD + 'my/' + this.getFileUrl(file);
+      downloadFile(fileUrl);
+      console.log(fileUrl);
     },
     // 点击放大镜查看
     review (file) {

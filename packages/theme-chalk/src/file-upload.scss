@@ -7,6 +7,9 @@
         line-height: 1;
         padding-top: 5px;
     }
+    .yl-file-img{
+        height: 100%;
+    }
     .el-upload--picture-card {
         background-color: #fbfdff;
         border: 1px dashed #c0ccda;
@@ -29,5 +32,13 @@
         height: $width;
         margin: 0 8px 8px 0;
         display: inline-block;
+    }
+    .el-upload-list--picture-card .el-upload-list__item-actions{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span + span{
+            margin-left: 10px;
+        }
     }
 }

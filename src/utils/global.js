@@ -13,6 +13,7 @@ import CryptoJS from 'ycloud-ui/src/utils/aes/aes-min.min.js';
 import SHA256 from 'ycloud-ui/src/utils/sha256/sha256.min.js';
 // 环境配置
 import { Environment } from 'ycloud-ui/src/config';
+import Download from 'ycloud-ui/src/utils/download';
 
 /**
  * 金额格式化
@@ -243,17 +244,29 @@ export const delEvent = (obj, evtype, fn, useCapture) => {
  * @param {*下载链接} data
  * @param {*下载文件名} strFileName
  */
+
 export const downloadFile = (data, strFileName) => {
   // 判断是否支持download
   var isSupportDownload = 'download' in document.createElement('a');
   if (isSupportDownload) {
-    let aLink = document.createElement('a');
-    let evt = document.createEvent('MouseEvents');
-    let etx = data.split('/').reverse()[0];
-    evt.initEvent('click', false, false); // initEvent 不加后两个参数在FF下会报错
-    aLink.href = data + '?action=download';
-    aLink.download = etx || strFileName;
-    aLink.dispatchEvent(evt);
+    let fileName = strFileName || data.split('/').reverse()[0];
+    let etx = (data.split('.').pop() || '').toLowerCase();
+    let fileType = getFileType(data);
+    if (fileType === 'image') {
+      var x = new XMLHttpRequest();
+      x.open('GET', data, true);
+      x.responseType = 'blob';
+      x.onload = function (x) { Download(x.response, fileName, 'image/' + etx); };
+      x.send();
+    } else {
+      let aLink = document.createElement('a');
+      let evt = document.createEvent('MouseEvents');
+      
+      evt.initEvent('click', false, false); // initEvent 不加后两个参数在FF下会报错
+      aLink.href = data + '?action=download';
+      aLink.download = fileName;
+      aLink.dispatchEvent(evt);
+    }
   } else {
     window.open(data + '?action=download', '_blank');
   }
