@@ -229,6 +229,7 @@ export default {
           this.updateFiles(fileList);
         }
       } else {
+        this.handleRemove(file); 
         this.$notify.error({
           title: '错误',
           message: res.message
@@ -259,7 +260,6 @@ export default {
     },
     handleRemove (file) {
       let upload = this.$refs.ylUpload;
-
       upload.handleRemove(file);
     },
     // 删除

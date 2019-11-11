@@ -1,0 +1,40 @@
+@import "mixins/mixins";
+@import "common/var";
+
+@include b(multi-select-page) {
+    @include flex(flex-sater, flex-sater);
+
+    &-left {
+        flex: 1;
+    }
+
+    &-right {
+        width: 200px;
+        flex: none;
+        margin-left: 10px;
+        overflow: auto;
+        .el-card__body {
+            padding: 10px;
+            h3 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: bold;
+            }
+        }
+
+        .box-card-scroll {
+            width: 100%;
+
+            .el-tag {
+                height: auto;
+                white-space: normal;
+                padding: 5px 10px;
+                line-height: 16px;
+            }
+        }
+    }
+
+    .box-card-li {
+        margin: 5px 0;
+    }
+}

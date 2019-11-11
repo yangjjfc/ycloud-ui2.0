@@ -8,5 +8,6 @@
   "Tinymce": "./packages/Tinymce/index.js",
   "table": "./packages/table/index.js",
   "sku": "./packages/sku/index.js",
-  "status-tips": "./packages/status-tips/index.js"
+  "status-tips": "./packages/status-tips/index.js",
+  "multi-select-page": "./packages/multi-select-page/index.js"
 }

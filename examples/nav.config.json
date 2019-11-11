@@ -78,6 +78,10 @@
             {
               "path": "/utils",
               "title": "utils 工具函数"
+            },
+            {
+              "path": "/multi-select-page",
+              "title": "MultiSelectPage 分页选择"
             }
           ]
         }

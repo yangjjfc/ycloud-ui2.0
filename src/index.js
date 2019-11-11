@@ -10,6 +10,7 @@ import Tinymce from '../packages/Tinymce/index.js';
 import Table from '../packages/table/index.js';
 import Sku from '../packages/sku/index.js';
 import StatusTips from '../packages/status-tips/index.js';
+import MultiSelectPage from '../packages/multi-select-page/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 import Http from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
@@ -36,6 +37,7 @@ const components = [
   Table,
   Sku,
   StatusTips,
+  MultiSelectPage,
   CollapseTransition
 ];
 
@@ -81,5 +83,6 @@ export default {
   Tinymce,
   Table,
   Sku,
-  StatusTips
+  StatusTips,
+  MultiSelectPage
 };
