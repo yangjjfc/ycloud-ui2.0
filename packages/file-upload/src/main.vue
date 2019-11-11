@@ -268,7 +268,7 @@ export default {
     },
     // 下载
     handleDownload (file) {
-      let fileUrl = Environment.IMAGE_DOWNLOAD + 'my/' + this.getFileUrl(file);
+      let fileUrl = Environment.IMAGE_DOWNLOAD + this.getFileUrl(file);
       downloadFile(fileUrl);
       console.log(fileUrl);
     },
