@@ -256,8 +256,8 @@ export const downloadFile = (data, strFileName) => {
       var x = new XMLHttpRequest();
       x.open('GET', data, true);
       x.responseType = 'blob';
-      x.onload = function (x) {
-        Download(x.response, fileName, 'image/' + etx);
+      x.onload = function (e) {
+        Download(x.response, fileName);
       };
       x.send();
     } else {

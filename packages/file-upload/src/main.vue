@@ -252,10 +252,16 @@ export default {
       this.updateUploadBtn();
     },
     getFileUrl (file) {
+      // console.log(file);
       if (file.reUrl) {
         return file.reUrl;
       } else {
-        return JSON.parse(file.response).data;
+        try {
+          return JSON.parse(file.response).data;
+        } catch (e) {
+          console.log('error', file);
+          return '';
+        }
       }
     },
     handleRemove (file) {
@@ -268,9 +274,9 @@ export default {
     },
     // 下载
     handleDownload (file) {
-      let fileUrl = Environment.IMAGE_DOWNLOAD + this.getFileUrl(file);
-      downloadFile(fileUrl);
-      console.log(fileUrl);
+      let fileUrl = this.getFileUrl(file);
+      fileUrl && downloadFile(Environment.IMAGE_DOWNLOAD + fileUrl);
+      // console.log(file);
     },
     // 点击放大镜查看
     review (file) {

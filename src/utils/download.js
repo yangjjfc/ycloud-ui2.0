@@ -1,5 +1,5 @@
 /* eslint-disable*/
-export default function (data, strFileName, strMimeType) {
+function download (data, strFileName, strMimeType) {
   var self = window, // this script is only for browsers anyway...
     defaultMime = 'application/octet-stream', // this default mime also triggers iframe downloads
     mimeType = strMimeType || defaultMime,
@@ -12,7 +12,6 @@ export default function (data, strFileName, strMimeType) {
     blob,
     reader;
   myBlob = myBlob.call ? myBlob.bind(self) : Blob;
-	  
   if (String(this) === 'true') { // reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
     payload = [payload, mimeType];
     mimeType = payload[0];
@@ -125,3 +124,5 @@ export default function (data, strFileName, strMimeType) {
   }
   return true;
 } /* end download() */
+
+export default download;

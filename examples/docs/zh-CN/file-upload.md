@@ -8,7 +8,7 @@
   export default {
     data() {
       return {
-       val:'s2/M00/26/05/rB4r9VxMIeWAPWp-AA6kkFSNdr4321.png'
+       val:'s2/M00/26/35/rB4r9V3JMoGAM4WfAAWyhJ07vXM753.jpg'
       };
     },
     methods: {

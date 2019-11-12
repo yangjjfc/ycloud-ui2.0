@@ -31,7 +31,7 @@ const webpackConfig = {
     modules: ['node_modules']
   },
   devServer: { // 端口
-    host: '0.0.0.0',
+    host: 'localhost',
     port: 8087,
     publicPath: '/',
     noInfo: true,
