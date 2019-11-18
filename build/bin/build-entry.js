@@ -15,7 +15,7 @@ import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 import Http from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
 import double from 'ycloud-ui/src/utils/double';
-import summaries from 'ycloud-ui/src/utils/summaries';
+import * as tableEv from 'ycloud-ui/src/utils/table-event';
 import emitter from 'ycloud-ui/src/mixins/emitter';
 import formValid from 'ycloud-ui/src/mixins/formValid';
 import focus from 'ycloud-ui/src/mixins/focus';
@@ -57,7 +57,7 @@ export {
   changeEnvironment,
   Tools,
   double,
-  summaries
+  tableEv
 };
 
 export default {

@@ -35,7 +35,7 @@
 | join  | 配合string-->true时才生效,字符串输出是默认用';'合并,也可以自定义 |  Boolean   |  -- | true |
 | token  | 自定义token,默认无需上传 |  ''   |  -- | '' |
 | disable  | 是否禁用 |  Boolean   |  -- | false |
-
+| showDown  | 是否显示下载 |  Boolean   |  -- | false |
 
 ### Slot
 

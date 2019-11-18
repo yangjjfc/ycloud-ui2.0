@@ -11,11 +11,12 @@ import Table from '../packages/table/index.js';
 import Sku from '../packages/sku/index.js';
 import StatusTips from '../packages/status-tips/index.js';
 import MultiSelectPage from '../packages/multi-select-page/index.js';
+import ExcelUpload from '../packages/excel-upload/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
 import Http from 'ycloud-ui/src/utils/axios/index';
 import * as Tools from 'ycloud-ui/src/utils/global';
 import double from 'ycloud-ui/src/utils/double';
-import summaries from 'ycloud-ui/src/utils/summaries';
+import * as tableEv from 'ycloud-ui/src/utils/table-event';
 import emitter from 'ycloud-ui/src/mixins/emitter';
 import formValid from 'ycloud-ui/src/mixins/formValid';
 import focus from 'ycloud-ui/src/mixins/focus';
@@ -38,6 +39,7 @@ const components = [
   Sku,
   StatusTips,
   MultiSelectPage,
+  ExcelUpload,
   CollapseTransition
 ];
 
@@ -67,7 +69,7 @@ export {
   changeEnvironment,
   Tools,
   double,
-  summaries
+  tableEv
 };
 
 export default {
@@ -84,5 +86,6 @@ export default {
   Table,
   Sku,
   StatusTips,
-  MultiSelectPage
+  MultiSelectPage,
+  ExcelUpload
 };

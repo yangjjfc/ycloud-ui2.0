@@ -249,8 +249,7 @@ export const downloadFile = (data, strFileName) => {
   // 判断是否支持download
   var isSupportDownload = 'download' in document.createElement('a');
   if (isSupportDownload) {
-    let fileName = strFileName || data.split('/').reverse()[0];
-    let etx = (data.split('.').pop() || '').toLowerCase();
+    let fileName = data.split('/').reverse()[0] || strFileName;
     let fileType = getFileType(data);
     if (fileType === 'image') {
       var x = new XMLHttpRequest();

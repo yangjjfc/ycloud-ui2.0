@@ -9,7 +9,7 @@
 export let Environment = {
   IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/', // 图片下载服务器地址
   IMG_SIZE_MAX: '5242880',
-  TOKEN: 'ff1aa033c7be2ee0ae37d16a22dfb7dd' // 用户登入凭证
+  TOKEN: '5ea16aaa421abfbfa3514c60a6244262' // 用户登入凭证
 };
 
 if (process.env.NODE_ENV === 'production') {

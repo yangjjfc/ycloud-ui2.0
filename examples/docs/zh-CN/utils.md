@@ -93,9 +93,28 @@
 	* double.div除
 
 
-* `summaries.js` element表单合计
+* `tableEvent.js` element表单工具
 	* 使用 `summaries(param, '合计', ['advancePaymentAmount', 'orderAdvancePayment', 'contractAdvancePayment']);`
-
+	* `getSpanArr` 获取合计数组 
+		* 参数 `data, id, isShowNum`
+		*  [this.spanArr, this.numArr] = getSpanArr(val, 'skuId', true);
+		* ```js
+			//使用配合 vue watch
+			'list': function (val) {
+		      	this.spanArr = this.getSpanArr();
+		  	}
+		  ```
+	* `tableSpanMethod` 表格合并使用
+		* ```js
+			/**
+			* 表格合并使用
+			* :span-method="objectSpanMethod"
+			* @param {* 默认四个参数} param0  当前行row、当前列column、当前行号rowIndex、当前列号columnIndex四个属性
+			* @param {* 计算返回的合计arr} spanArr 
+			* @param {* 第几列开始计算合计} spanRow 
+			*/
+			```
+			
 * `global.js`
 
 | 函数名称 |    描述 |    参数 | 返回 |

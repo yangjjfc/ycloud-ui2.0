@@ -82,6 +82,10 @@
             {
               "path": "/multi-select-page",
               "title": "MultiSelectPage 分页选择"
+            },
+            {
+              "path": "/excel-upload",
+              "title": "ExcelUpload 文件上传"
             }
           ]
         }

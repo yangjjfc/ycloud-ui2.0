@@ -1,39 +1,25 @@
 <template>
   <div class="yl-file-upload" ref="imgUpload">
-    <el-upload   v-bind="$attrs" v-on="$listeners" :disabled="disabled" :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" 
-     :before-upload="beforeUpload" :drag="drag" :on-remove="remove" :file-list="fileLists" :on-exceed="handleExceed" :limit="limit" ref="ylUpload">
-        <slot name='imgs'></slot>
-        <i class="el-icon-plus"></i>
-        <div slot="file" slot-scope="{file}" class="yl-file-img">
-          <img
-            class="el-upload-list__item-thumbnail"
-            :src="file.url" alt=""
-          >
-          <span class="el-upload-list__item-actions">
-            <span
-              class="el-upload-list__item-preview"
-              @click="review(file)"
-            >
-              <i class="el-icon-zoom-in"></i>
-            </span>
-            <span
-              class="el-upload-list__item-delete"
-              @click="handleDownload(file)"
-            >
-              <i class="el-icon-download"></i>
-            </span>
-            <span
-              v-if="!disabled"
-              class="el-upload-list__item-delete"
-              @click="handleRemove(file)"
-            >
-              <i class="el-icon-delete"></i>
-            </span>
+    <el-upload v-bind="$attrs" v-on="$listeners" :disabled="disabled" :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :before-upload="beforeUpload" :drag="drag" :on-remove="remove" :file-list="fileLists" :on-exceed="handleExceed" :limit="limit" ref="ylUpload">
+      <slot name='imgs'></slot>
+      <i class="el-icon-plus"></i>
+      <div slot="file" slot-scope="{file}" class="yl-file-img">
+        <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
+        <span class="el-upload-list__item-actions">
+          <span class="el-upload-list__item-preview" @click="review(file)">
+            <i class="el-icon-zoom-in"></i>
           </span>
-        </div>
+          <span class="el-upload-list__item-delete" @click="handleDownload(file)" v-if="showDown">
+            <i class="el-icon-download"></i>
+          </span>
+          <span v-if="!disabled" class="el-upload-list__item-delete" @click="handleRemove(file)">
+            <i class="el-icon-delete"></i>
+          </span>
+        </span>
+      </div>
     </el-upload>
     <div v-show="false" ref="boxer">
-        <a v-for="item in files" :href="item.fullUrl" :key="item.fullUrl" v-boxer="item.fullUrl" :class="'link-view-'+item.uid"></a>
+      <a v-for="item in files" :href="item.fullUrl" :key="item.fullUrl" v-boxer="item.fullUrl" :class="'link-view-'+item.uid"></a>
     </div>
   </div>
 </template>
@@ -111,10 +97,14 @@ export default {
     token: {
       type: String,
       default: ''
+    },
+    showDown: {
+      type: Boolean,
+      default: false
     }
   },
   mounted () {
-    this.headers.jtoken = this.token || Environment.TOKEN; // todo
+    this.headers.jtoken = this.token || Environment.TOKEN;
     this.initFiles(this.value);
   },
   watch: {
@@ -133,8 +123,8 @@ export default {
     // 初始化file
     initFiles (val) {
       if (!val) return;
-      let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null; 
-      let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)), 
+      let splitCode = val.includes(',') ? ',' : val.includes(';') ? ';' : null;
+      let src = (typeof val === 'string' ? val.split(splitCode) : (val instanceof Array ? val : null)),
         list = [],
         reUrls = []; // 全地址
       this.imgUrls = [];
@@ -229,7 +219,7 @@ export default {
           this.updateFiles(fileList);
         }
       } else {
-        this.handleRemove(file); 
+        this.handleRemove(file);
         this.$notify.error({
           title: '错误',
           message: res.message
