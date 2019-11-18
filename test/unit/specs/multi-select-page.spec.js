@@ -12,4 +12,3 @@ describe('MultiSelectPage', () => {
     expect(vm.$el).to.exist;
   });
 });
-
