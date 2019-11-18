@@ -35,7 +35,7 @@
 | params   | 添加额外参数 | Object | — | {} |
 | fileType   | 支持的文件类型 | Array | — | [] |
 | token   | 可自行传token | String | — | '' |
-| message   | 文件类型错误提示 | Array | — | '请上传正确格式的文件' |
+| message   | 文件类型错误提示 | Array | — | '请上传excel文件' |
 | classx   | 自定义class | String | — | -- |
 
 ### Events

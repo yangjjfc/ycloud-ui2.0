@@ -48,7 +48,7 @@ export default {
     },
     message: {
       type: String,
-      default: '请上传正确格式的文件'
+      default: '请上传excel文件'
     }
   },
   mounted () {
@@ -71,7 +71,7 @@ export default {
       if (!this.getFileType(file.name)) {
         this.$notify.error({
           title: '错误',
-          message: '请上传excel文件'
+          message: this.message
         });
         this.fileName = '';
         return false;
