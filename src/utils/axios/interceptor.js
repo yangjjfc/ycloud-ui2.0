@@ -123,7 +123,10 @@ class Interceptor {
           message: `${response.data.message}`,
           customClass: 'yl-fix-mask'
         });
-        return Promise.reject(response.data);
+        return Promise.reject({
+          req: response.config ? response.config.data : '',
+          res: response.data
+        });
       }
       return response;
     }, (error) => {
