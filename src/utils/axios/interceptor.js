@@ -123,10 +123,24 @@ class Interceptor {
           message: `${response.data.message}`,
           customClass: 'yl-fix-mask'
         });
-        return Promise.reject({
-          req: response.config ? response.config.data : '',
-          res: response.data
-        });
+        let responsex = {}; // 响应
+        try {
+          responsex = {
+            req: JSON.parse(response.config.data || {}),
+            res: response.data
+          };
+        } catch (error) {
+          responsex = {};
+        }
+        if (window.Sentry) {
+          window.Sentry.withScope(function (scope) {
+            scope.setLevel('error');
+            scope.setTag('api', response.config.url);
+            scope.setExtra('data', responsex);
+            window.Sentry.captureException(new Error('请求返回错误'));
+          });
+        }
+        return Promise.reject(responsex);
       }
       return response;
     }, (error) => {
