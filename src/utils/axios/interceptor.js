@@ -126,19 +126,12 @@ class Interceptor {
         let responsex = {}; // 响应
         try {
           responsex = {
+            api: response.config.url,
             req: JSON.parse(response.config.data || {}),
             res: response.data
           };
         } catch (error) {
           responsex = {};
-        }
-        if (window.Sentry) {
-          window.Sentry.withScope(function (scope) {
-            scope.setLevel('error');
-            scope.setTag('api', response.config.url);
-            scope.setExtra('data', responsex);
-            window.Sentry.captureException(new Error('请求返回错误'));
-          });
         }
         return Promise.reject(responsex);
       }
