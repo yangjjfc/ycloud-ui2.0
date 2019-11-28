@@ -11,7 +11,7 @@
 <script>
 import YlDialog from 'ycloud-ui/packages/dialog';
 import YlFileUpload from 'ycloud-ui/packages/file-upload';
-import { Environment } from 'ycloud-ui/src/config';
+import { Environment } from 'ycloud-ui/src/config/index';
 
 export default {
   name: 'EditorSlideUpload',

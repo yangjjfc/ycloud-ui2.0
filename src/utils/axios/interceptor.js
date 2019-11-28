@@ -123,23 +123,32 @@ class Interceptor {
           message: `${response.data.message}`,
           customClass: 'yl-fix-mask'
         });
-        let responsex = {}; // 响应
-        try {
-          responsex = {
-            api: response.config.url,
-            req: JSON.parse(response.config.data || {}),
-            res: response.data
-          };
-        } catch (error) {
-          responsex = {};
-        }
-        return Promise.reject(responsex);
+        return Promise.reject(this.formatResponseData(response));
       }
       return response;
     }, (error) => {
       NProgress.done();
       return Promise.reject(error);
     });
+  }
+  formatResponseData (response) {
+    let responsex = {}, apiCode = response.config.url; 
+    if (response.config.url.includes('apiCode')) {
+      apiCode = response.config.url.split('apiCode')[1];
+      if (apiCode) {
+        apiCode = apiCode.split('&')[0].replace(/=/g, '');
+      }
+    }
+    try {
+      responsex = {
+        api: apiCode,
+        req: JSON.parse(response.config.data || {}),
+        res: response.data
+      };
+    } catch (error) {
+      responsex = {};
+    }
+    return responsex;
   }
 }
 export default Interceptor;

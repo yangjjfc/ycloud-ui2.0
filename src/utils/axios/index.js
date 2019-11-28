@@ -3,7 +3,7 @@
  */
 import axios from 'axios';
 // 环境配置
-import { Environment } from 'ycloud-ui/src/config';
+import { Environment } from 'ycloud-ui/src/config/index';
 import Interceptor from './interceptor';
 const TimeOut = 15000;
 // 初始化拦截器

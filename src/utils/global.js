@@ -12,7 +12,7 @@ import excel from './img/excel.png';
 import CryptoJS from 'ycloud-ui/src/utils/aes/aes-min.min.js';
 import SHA256 from 'ycloud-ui/src/utils/sha256/sha256.min.js';
 // 环境配置
-import { Environment } from 'ycloud-ui/src/config';
+import { Environment } from 'ycloud-ui/src/config/index';
 import Download from 'ycloud-ui/src/utils/download';
 
 /**

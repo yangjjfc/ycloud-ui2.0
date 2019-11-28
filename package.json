@@ -36,6 +36,8 @@
   "unpkg": "lib/index.js",
   "style": "lib/theme-chalk/index.css",
   "dependencies": {
+    "@sentry/browser": "^5.9.1",
+    "@sentry/integrations": "^5.8.0",
     "@tinymce/tinymce-vue": "^2.1.0",
     "async-validator": "~1.8.1",
     "axios": "^0.19.0",

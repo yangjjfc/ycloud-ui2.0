@@ -7,7 +7,7 @@
 <script>
 import myAddress from './address.vue';
 import emitter from 'ycloud-ui/src/mixins/emitter';
-import REGION_DATA from './data.js'; // 元数据的文案要改，只能把数据文件本地化
+import REGION_DATA from 'ycloud-ui/src/utils/china-map'; // 元数据的文案要改，只能把数据文件本地化
 export default {
   name: 'YlRegionPicker',
   mixins: [emitter],

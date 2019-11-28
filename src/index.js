@@ -13,9 +13,10 @@ import StatusTips from '../packages/status-tips/index.js';
 import MultiSelectPage from '../packages/multi-select-page/index.js';
 import ExcelUpload from '../packages/excel-upload/index.js';
 import CollapseTransition from 'ycloud-ui/src/transitions/collapse-transition';
-import Http from 'ycloud-ui/src/utils/axios/index';
+import Http from 'ycloud-ui/src/utils/axios';
 import * as Tools from 'ycloud-ui/src/utils/global';
 import double from 'ycloud-ui/src/utils/double';
+import sentry from 'ycloud-ui/src/utils/sentry';
 import * as tableEv from 'ycloud-ui/src/utils/table-event';
 import emitter from 'ycloud-ui/src/mixins/emitter';
 import formValid from 'ycloud-ui/src/mixins/formValid';
@@ -25,7 +26,7 @@ import tableAutoHeight from 'ycloud-ui/src/mixins/tableAutoHeight';
 import boxer from 'ycloud-ui/src/directives/boxer';
 import autoHeight from 'ycloud-ui/src/directives/autoHeight';
 import money from 'ycloud-ui/src/fliters/money';
-import { Environment, changeEnvironment } from 'ycloud-ui/src/config';
+import { Environment, changeEnvironment } from 'ycloud-ui/src/config/index';
 
 const components = [
   Pagination,
@@ -69,7 +70,8 @@ export {
   changeEnvironment,
   Tools,
   double,
-  tableEv
+  tableEv,
+  sentry
 };
 
 export default {

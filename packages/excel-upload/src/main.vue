@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { Environment } from 'ycloud-ui/src/config';
+import { Environment } from 'ycloud-ui/src/config/index';
 
 export default {
   name: 'YlExcelUpload',
