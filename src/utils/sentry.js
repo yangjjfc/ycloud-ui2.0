@@ -17,7 +17,7 @@ const users = () => {
             values[0].mechanism = { handled: false, type: 'generic' };
             values[0].type = '请求返回,发生错误';
           } else {
-            return;
+            return null;
           }
         }
         return event;
