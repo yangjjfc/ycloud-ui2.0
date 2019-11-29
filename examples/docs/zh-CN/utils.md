@@ -23,6 +23,16 @@
 		    IMAGE_DOWNLOAD: process.env.IMAGE_DOWNLOAD
 		} : { });
       ```
+	* ```js
+	 	IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/', // 图片下载服务器地址
+		IMG_SIZE_MAX: '5242880', //图片最大值
+		SENTRY_DSN: '', // sentry的dsn
+		USER_SENTRY: false, // sentry的开关
+		NODE_ENV: 'development', // 开发环境,区分本地线上
+		USER_ENVIRONMENT: 'dev', // sentry环境
+		RELEASE: '1.1', // 版本
+		TOKEN: '5ea16aaa421abfbfa3514c60a6244262' // 用户登入凭证
+	  ``` 
 
 ### directives 指令
 * `autoHeight.js` 自动计算高度指令 
@@ -114,6 +124,8 @@
 			* @param {* 第几列开始计算合计} spanRow 
 			*/
 			```
+	* `sentry` 前端监控系统
+		* 引入文件,修改环境变量,然后执行`sentry()`即可	
 			
 * `global.js`
 
@@ -122,6 +134,7 @@
 | parseMoneyPM |格式化金额 | (value, [show = '--']) |  money   |
 | getType| 获取js类型 | obj |  "Object|Array|Number|String|null|undefined|symbol|其他"|
 | format |格式化时间 | (time, fmt) | yyyy-mm-dd|
+| getPreMonth |获取上一个月 | (date) | -- |
 | getFileType|获取上传文件类型 | (item) |  返回文件地址 |
 | formatFile |格式化文件,获取缩略图 | (item, size[默认100x100]) |  返回文件地址|
 | encryption|密码加密 | (password, clientid, token]) |  加密密码 |

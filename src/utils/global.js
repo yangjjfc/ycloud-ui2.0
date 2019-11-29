@@ -121,6 +121,35 @@ export const format = (time, fmt) => {
 };
 
 /**
+ * 获取上一个月
+ * @param {* new Date()} date 
+ */
+export const getPreMonth = (msg) => {
+  let date = format(msg, 'yyyy-MM');
+  let arr = date.split('-'),
+    year = arr[0], // 获取当前日期的年份
+    month = arr[1], // 获取当前日期的月份
+    day = arr[2]; // 获取当前日期的日
+  let year2 = year,
+    month2 = parseInt(month) - 1;
+  if (month2 === 0) {
+    year2 = parseInt(year2) - 1;
+    month2 = 12;
+  }
+  let day2 = day,
+    days2 = new Date(year2, month2, 0);
+  days2 = days2.getDate();
+  if (day2 > days2) {
+    day2 = days2;
+  }
+  if (month2 < 10) {
+    month2 = '0' + month2;
+  }
+  let t2 = year2 + '-' + month2;
+  return t2;
+};
+
+/**
  *
  * @param {*文件上传支持的类型} item
  * @param {*定制化上传类型} type
