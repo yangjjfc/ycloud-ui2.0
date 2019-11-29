@@ -12,7 +12,8 @@ export let Environment = {
   SENTRY_DSN: '', // sentry的dsn
   USER_SENTRY: false, // sentry的开关
   NODE_ENV: 'development', // 开发环境,区分本地线上
-  USER_ENVIRONMENT: '1.0', // 版本
+  USER_ENVIRONMENT: 'dev', // 环境
+  RELEASE: '1.1', // 版本
   TOKEN: '5ea16aaa421abfbfa3514c60a6244262' // 用户登入凭证
 };
 

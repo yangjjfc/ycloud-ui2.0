@@ -11,7 +11,7 @@ const users = () => {
       beforeSend (event) {
         let values = event.exception.values;
         // 排除no catch 错误
-        if (values && values[0].type === 'UnhandledRejection' && event.extra.__serialized__ && event.extra.__serialized__.api) {
+        if (values && values[0].type === 'UnhandledRejection' && event.extra && event.extra.__serialized__ && event.extra.__serialized__.api) {
           if (values[0].value.includes('res')) {
             values[0].value = '请求地址: ' + event.extra.__serialized__.api;
             values[0].mechanism = { handled: false, type: 'generic' };
@@ -23,7 +23,7 @@ const users = () => {
         return event;
       },
       integrations: [new Integrations.Vue({ Vue, attachProps: true })],
-      release: '1.1',
+      release: Environment.RELEASE,
       logErrors: true,
       environment: Environment.USER_ENVIRONMENT
     });
