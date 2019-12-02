@@ -20,6 +20,13 @@ const users = () => {
             return null;
           }
         }
+        if (values && values[0].type === 'Error') {
+          if (values[0].value === 'ResizeObserver loop limit exceeded') {
+            return null;
+          } else {
+            return event;
+          }
+        }
         return event;
       },
       integrations: [new Integrations.Vue({ Vue, attachProps: true })],
