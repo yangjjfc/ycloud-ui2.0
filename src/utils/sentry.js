@@ -9,9 +9,9 @@ const users = () => {
     Sentry.init({
       dsn: Environment.SENTRY_DSN,
       beforeSend (event) {
-        let values = event.exception.values;
+        let values = event.exception ? (event.exception.values || []) : [];
         // 排除no catch 错误
-        if (values && values[0].type === 'UnhandledRejection') {
+        if (values && values.length && values[0].type === 'UnhandledRejection') {
           if (event.extra && event.extra.__serialized__ && event.extra.__serialized__.api && values[0].value.includes('res')) {
             values[0].value = '请求地址: ' + event.extra.__serialized__.api;
             values[0].mechanism = { handled: false, type: 'generic' };
@@ -21,7 +21,7 @@ const users = () => {
           }
         }
         // 排除element带来的错误影响
-        if (values && values[0].type === 'Error') {
+        if (values && values.length && values[0].type === 'Error') {
           if (values[0].value === 'ResizeObserver loop limit exceeded') {
             return null;
           } else {
@@ -31,7 +31,7 @@ const users = () => {
         return event;
       },
       integrations: [new Integrations.Vue({ Vue, attachProps: true })],
-      release: Environment.RELEASE,
+      release: Environment.USER_ENVIRONMENT + Environment.RELEASE,
       logErrors: true,
       environment: Environment.USER_ENVIRONMENT
     });
