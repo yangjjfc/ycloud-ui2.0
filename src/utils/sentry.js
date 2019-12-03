@@ -20,6 +20,7 @@ const users = () => {
             return null;
           }
         }
+        // 排除element带来的错误影响
         if (values && values[0].type === 'Error') {
           if (values[0].value === 'ResizeObserver loop limit exceeded') {
             return null;
