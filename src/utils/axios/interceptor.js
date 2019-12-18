@@ -5,6 +5,8 @@ import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css'; // Progress 进度条 样式
 // import qs from 'qs';序列化数据
 import { Message } from 'element-ui';
+import { Environment } from 'ycloud-ui/src/config/index';
+
 // console.log(Message);
 // const codeMessage = {
 //   200: '服务器成功返回请求的数据。',
@@ -83,7 +85,7 @@ class Interceptor {
         request.url = '/data/' + request.url;
         // 线上
       } else if (request.headers.ignoreRepeat || !this.req[request.urlGuid]) {
-        request.url = '/gateway/' + request.url;
+        request.url = Environment.REQUEST_URL + '/gateway/' + request.url;
         this.req[request.urlGuid] = true;
         this.requestTimeout(request.urlGuid);
       } else if (this.req[request.urlGuid]) {

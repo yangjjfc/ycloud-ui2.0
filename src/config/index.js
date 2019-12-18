@@ -2,11 +2,12 @@
  * @Author: yangjj
  * @Date: 2019-06-24 09:08:18
  * @LastEditors: yangjj
- * @LastEditTime: 2019-07-18 16:34:17
+ * @LastEditTime: 2019-12-12 13:35:04
  * @Description: 全局环境配置文件,使用时必须是import,而不能require
  */
 
 export let Environment = {
+  REQUEST_URL: '', // 请求地址
   IMAGE_DOWNLOAD: 'http://dfs.test.cloudyigou.com/dfs/', // 图片下载服务器地址
   IMG_SIZE_MAX: '5242880',
   SENTRY_DSN: '', // sentry的dsn
