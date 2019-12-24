@@ -3,7 +3,7 @@
     <el-upload v-bind="$attrs" v-on="$listeners" :disabled="disabled" :action="action" :headers="headers" :list-type="listType" :on-success="success" :on-error="errors" :before-upload="beforeUpload" :drag="drag" :on-remove="remove" :file-list="fileLists" :on-exceed="handleExceed" :limit="limit" ref="ylUpload">
       <slot name='imgs'></slot>
       <i class="el-icon-plus"></i>
-      <div slot="file" slot-scope="{file}" class="yl-file-img">
+      <div slot="file" slot-scope="{file}" class="yl-file-img" v-if="listType === 'picture-card'">
         <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
         <span class="el-upload-list__item-actions">
           <span class="el-upload-list__item-preview" @click="review(file)">

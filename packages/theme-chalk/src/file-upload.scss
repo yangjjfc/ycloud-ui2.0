@@ -10,6 +10,11 @@
     .yl-file-img{
         height: 100%;
     }
+    .el-upload--text{
+        .el-icon-plus{
+            display: none;
+        }
+    }
     .el-upload--picture-card {
         background-color: #fbfdff;
         border: 1px dashed #c0ccda;
