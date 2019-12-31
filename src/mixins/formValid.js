@@ -41,7 +41,7 @@ export default {
             callback();
           }
         }).catch(errors => {
-          this._errorMsg = errors.message || rule.message;
+          this._errorMsg = errors.res.message || rule.message;
           if (rule.errorCallback) {
             rule.errorCallback.call(this);
           }
