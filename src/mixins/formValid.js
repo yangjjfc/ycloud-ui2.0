@@ -18,7 +18,7 @@ export default {
       // 有的接口返回的是 true ， 但是要验证通过。也就是说翻转。
       let isReverse = false;
       if (typeof rule.params === 'function') {
-        params = rule.params.call(this, value);
+        params = rule.params.call(this, value, rule);
         if (params.reverse) {
           isReverse = true;
           delete params.reverse;
