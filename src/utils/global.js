@@ -276,29 +276,35 @@ export const delEvent = (obj, evtype, fn, useCapture) => {
 
 export const downloadFile = (data, strFileName) => {
   // 判断是否支持download
-  var isSupportDownload = 'download' in document.createElement('a');
-  if (isSupportDownload) {
-    let fileName = data.split('/').reverse()[0] || strFileName;
-    let fileType = getFileType(data);
-    if (fileType === 'image') {
-      var x = new XMLHttpRequest();
-      x.open('GET', data, true);
-      x.responseType = 'blob';
-      x.onload = function (e) {
-        Download(x.response, fileName);
-      };
-      x.send();
-    } else {
+  let isSupportDownload = 'download' in document.createElement('a');
+  let fileName = data.split('/').reverse()[0] || strFileName;
+  let fileType = getFileType(data);
+  if (fileType === 'image') {
+    var x = new XMLHttpRequest();
+    x.open('GET', data, true);
+    x.responseType = 'blob';
+    x.onload = function (e) {
+      Download(x.response, fileName);
+    };
+    x.send();
+  } else {
+    if (isSupportDownload) {
       let aLink = document.createElement('a');
       let evt = document.createEvent('MouseEvents');
-      
       evt.initEvent('click', false, false); // initEvent 不加后两个参数在FF下会报错
       aLink.href = data + '?action=download';
       aLink.download = fileName;
       aLink.dispatchEvent(evt);
+    } else {
+      var iframe = document.createElement('iframe');
+      iframe.src = data + '?action=download';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      setTimeout(() => {
+        $('iframe').remove();
+      }, 1000);
+      // window.open(data + '?action=download', '_blank');
     }
-  } else {
-    window.open(data + '?action=download', '_blank');
   }
 };
 
