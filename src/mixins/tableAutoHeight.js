@@ -1,4 +1,3 @@
-
 /**
  * table 高度自动计算
  * table ref必须是'my-table',
@@ -46,12 +45,14 @@ export default {
       }
     }
   },
-  mounted () {
-    this.countTableHeight();
-    const debounceFunc = debounce(this.countTableHeight.bind(this), 500);
-    window.addEventListener('resize', debounceFunc);
-    this.$once('hook:beforeDestroy', () => {
-      window.removeEventListener('resize', debounceFunc);
-    });
+  mounted() {
+    if (this.$refs['my-table']) {
+      this.countTableHeight();
+      const debounceFunc = debounce(this.countTableHeight.bind(this), 500);
+      window.addEventListener('resize', debounceFunc);
+      this.$once('hook:beforeDestroy', () => {
+        window.removeEventListener('resize', debounceFunc);
+      });
+    }
   }
 };
