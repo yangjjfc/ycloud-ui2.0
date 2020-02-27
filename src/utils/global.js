@@ -279,7 +279,7 @@ export const downloadFile = (data, strFileName) => {
   let isSupportDownload = 'download' in document.createElement('a');
   let fileName = data.split('/').reverse()[0] || strFileName;
   let fileType = getFileType(data);
-  if (fileType === 'image') {
+  if (fileType === 'image' || fileType === 'pdf') {
     var x = new XMLHttpRequest();
     x.open('GET', data, true);
     x.responseType = 'blob';
