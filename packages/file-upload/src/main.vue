@@ -64,7 +64,7 @@ export default {
       type: String,
       default: 'all',
       validator: function (value) {
-        return ['img', 'file', 'all'].indexOf(value) !== -1;
+        return ['img', 'file','bids','all'].indexOf(value) !== -1;
       }
     },
     disabled: {
