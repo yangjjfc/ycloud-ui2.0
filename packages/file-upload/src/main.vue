@@ -4,9 +4,10 @@
       <slot name='imgs'></slot>
       <i class="el-icon-plus"></i>
       <div slot="file" slot-scope="{file}" class="yl-file-img" v-if="listType === 'picture-card'">
+        <el-progress type="circle" v-if="file.status==='uploading'" :percentage="parsePercentage(file.percentage)" :width="80"></el-progress>
         <img class="el-upload-list__item-thumbnail" :src="file.url" alt="">
         <span class="el-upload-list__item-actions">
-          <span class="el-upload-list__item-preview" @click="review(file)">
+          <span class="el-upload-list__item-preview" @click="review(file)" v-show="showPreview(file)">
             <i class="el-icon-zoom-in"></i>
           </span>
           <span class="el-upload-list__item-delete" @click="handleDownload(file)" v-if="showDown">
@@ -280,6 +281,23 @@ export default {
     },
     handleExceed (files, fileList) {
       this.$message.warning(`当前限制选择 ${this.limit}个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    // 进度条
+    parsePercentage (size) {
+      try {
+        return parseInt(size);
+      } catch (error) {
+        console.log('进度条失败: ', error);
+      }
+    },
+    // 是否能查看
+    showPreview (file) {
+      let format = ['image', 'jpg', 'jpeg', 'png', 'pic', 'bmp', 'gif', 'doc', 'docx', 'xls', 'xlsx', 'pdf'];
+      if (file.fullUrl) {
+        let fSuffix = file.fullUrl.split('.').reverse()[0];
+        return format.includes(fSuffix);
+      }
+      return false;
     }
   }
 };

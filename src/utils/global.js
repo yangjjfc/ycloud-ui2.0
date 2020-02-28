@@ -160,7 +160,8 @@ export const getFileType = (item, type = 'all') => {
   }
   let supportType = { // 支持上传的文件类型
       img: ['image', 'pdf'],
-      file: ['doc', 'rar', 'xls', 'txt']
+      file: ['doc', 'rar', 'xls', 'txt'],
+      bids: ['pdf', 'doc', 'rar'] // 为招标准备的格式
     },
     // 所支持的文件类型
     fileTypes = [
