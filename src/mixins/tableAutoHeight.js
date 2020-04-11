@@ -45,7 +45,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     if (this.$refs['my-table']) {
       this.countTableHeight();
       const debounceFunc = debounce(this.countTableHeight.bind(this), 500);
