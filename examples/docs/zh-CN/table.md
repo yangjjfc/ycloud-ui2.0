@@ -2,7 +2,7 @@
  * @Author: yangjj
  * @Date: 2020-02-04 18:39:30
  * @LastEditors: yangjj
- * @LastEditTime: 2020-04-14 14:30:07
+ * @LastEditTime: 2020-04-14 17:33:58
  * @Description: file content
  -->
 
@@ -55,6 +55,17 @@
 * 继承element写法,所有属性和方法
 * 保存有两种方式，远程http 和本地indexDB。
   * 配置mode为http时需要配合Environment环境变量
+  ```
+  Environment:{
+    USERINFO:{},//表格依赖userINfo
+    TABLE: { // 表格设置
+        mode: 'http',
+        get: getConfig,
+        save: saveConfig
+    },
+  }
+  ```
+   
 
 ### 注意
 * cloumn添加属性
