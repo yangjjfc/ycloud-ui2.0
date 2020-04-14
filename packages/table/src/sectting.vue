@@ -1,6 +1,6 @@
 <template>
-    <yl-dialog title="表格设置" @submit="submit" :show.sync="shows" width="960px" classx="custom-table-expand">
-        <div >
+    <yl-dialog title="表格设置" @submit="submit" :show.sync="shows" width="960px" classx="custom-table-expand" buttonSize="mini" append-to-body>
+        <div>
             <el-row :gutter="10">
                 <el-col :span="21">
                     <el-table :data="list" style="width: 100%" border ref="tableRow" :max-height="maxHeight" stripe header-row-class-name="table-header">
@@ -25,11 +25,6 @@
                         <el-table-column prop="date" label="锁列" width="70" align="center">
                             <template slot-scope="scope">
                                 <el-radio v-model="fixed" @change="changeFixed" :disabled="!scope.row.isShow" :label="scope.row.index"></el-radio>
-                            </template>
-                        </el-table-column>
-                        <el-table-column prop="date" label="合计列" width="80" align="center" v-if="isShowTotalRow">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.totalRow" :disabled="!scope.row.isShow" v-if="scope.row.isShowTotal"></el-checkbox>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -66,10 +61,6 @@ export default {
       type: Boolean,
       required: true
     },
-    isShowTotalRow: {
-      type: Boolean,
-      required: true
-    },
     // 远程保存的col， 如果远程没保存，就用页面的col 数据
     columns: {
       type: Array,
@@ -79,26 +70,27 @@ export default {
     sourceColumns: {
       type: Array,
       required: true
-    },
-    name: { // 使用组件名称
-      type: String,
-      required: true
     }
   },
   created () {
     let list = this.initColumns(this.columns);
-    this.$set(this, 'list', list);
+    this.list = list;
     this.setHeigth();
   },
   methods: {
     initColumns (list) {
-      let res = [], i = 0;
+      let res = [],
+        i = 0;
       list.forEach((item, index) => {
-        if (!item.unSave) {
+        item.sortIndex = index + 1;
+        if (!item.unSet) {
           item.index = i; // 编号
-          item.sourceIndex = typeof item.sourceIndex === 'number' ? item.sourceIndex : i;// 源编号.方便重置
+          item.sourceIndex =
+                        typeof item.sourceIndex === 'number'
+                          ? item.sourceIndex
+                          : i; // 源编号.方便重置
           item.name = item.name || item.label; // 名称
-          item.fixed && (this.fixed = index); // 锁列
+          item.fixed && (this.fixed = item.index); // 锁列
           item.isShow = !item.isHide; // 是否显示
           res.push(item);
           i++;
@@ -132,8 +124,18 @@ export default {
         delete item.isShow;
         item.fixed = this.fixed >= 0 && item.index <= this.fixed;
       });
-      let unsetList = this.columns.filter(item => item.unSave);
-      this.$emit('change', [...unsetList, ...this.list], this.list);
+      let config = this.columns
+        .filter(item => item.unSet)
+        .concat(this.list);
+      config.sort((a, b) => {
+        if (!a.unSet && !b.unSet) {
+          return a.index - b.index;
+        } else {
+          return a.sortIndex - b.sortIndex;
+        }
+      });
+      this.$emit('change', config);
+      this.shows = false;
     },
     // 逻辑： 已经锁列的是不能上下移动的
     up () {
@@ -141,16 +143,27 @@ export default {
         let target = this.currentIndex - 1;
         this.list[target].index = target + 1;
         this.list[target + 1].index = target;
-        this.list[target] = this.list.splice(target + 1, 1, this.list[target])[0];
+        this.list[target] = this.list.splice(
+          target + 1,
+          1,
+          this.list[target]
+        )[0];
         this.currentIndex = target;
       }
     },
     down () {
-      if (this.currentIndex < this.list.length - 1 && this.currentIndex > this.fixed) {
+      if (
+        this.currentIndex < this.list.length - 1 &&
+                this.currentIndex > this.fixed
+      ) {
         let target = this.currentIndex + 1;
         this.list[target].index = target - 1;
         this.list[target - 1].index = target;
-        this.list[target] = this.list.splice(target - 1, 1, this.list[target])[0];
+        this.list[target] = this.list.splice(
+          target - 1,
+          1,
+          this.list[target]
+        )[0];
         this.currentIndex = target;
       }
     },
@@ -180,5 +193,4 @@ export default {
     }
   }
 };
-
 </script>

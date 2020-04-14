@@ -1,298 +1,91 @@
-## Table 表格
+<!--
+ * @Author: yangjj
+ * @Date: 2020-02-04 18:39:30
+ * @LastEditors: yangjj
+ * @LastEditTime: 2020-04-14 14:30:07
+ * @Description: file content
+ -->
 
 :::demo yl-table 是element table的二开,通过配置参数进行渲染
 
 ```html
-<yl-table :data="list" :config="config" :page="page">
-  <el-table-column
-    prop="warehouseNo"
-    :label="props.label"
-    slot-scope="props"
-    :fixed="props.col.fixed"
-    slot="warehouseName"
-    column-key="warehouseNo"
-    :filter-multiple="false"
-    :filters="warehouseOptions"
-    align="center"
-  >
-    <template slot-scope="scope">
-      <div v-text="scope.row.warehouseName"></div>
-    </template>
-  </el-table-column>
-  <el-table-column
-    :label="props.label"
-    slot-scope="props"
-    prop="bill_date"
-    :fixed="props.col.fixed"
-    min-width="120"
-    sortable="custom"
-    align="center"
-    slot="billDate"
-  >
-    <template slot-scope="scope">
-      <div v-text="scope.row.billDate"></div>
-    </template>
-  </el-table-column>
-  <el-table-column
-    :label="props.label"
-    slot-scope="props"
-    :fixed="props.col.fixed"
-    prop="status"
-    min-width="90"
-    sortable="custom"
-    align="center"
-    :filter-multiple="false"
-    slot="status"
-    column-key="status"
-    :filters="openOptions"
-  >
-    <template slot-scope="scope">
-      <div v-html="scope.row.statusX"></div>
-    </template>
-  </el-table-column>
+<yl-table :data="list" class="my-table">
+    <el-table-column type="selection" width="50" align="center" :unSet="true" fixed></el-table-column>
+    <el-table-column prop="index" label="序号" width="50" align="center" :unSet="true" fixed>
+      <template slot-scope="scope">
+            <p>{{scope.$index}}</p>
+        </template>
+    </el-table-column>
+    <el-table-column prop="orderTime" label="下单日期" width="90">
+        <template slot-scope="scope">
+            <p>{{scope.row.orderTime || '-'}}</p>
+        </template>
+    </el-table-column>
+    <el-table-column prop="createName" label="联系人/联系方式" min-width="120">
+        <template slot-scope="scope">
+            <span>{{scope.row.receiveUser}}</span>/<span class="">{{scope.row.receivePhone}}</span>
+        </template>
+    </el-table-column>
+    <el-table-column label="操作" width="150"  fixed="right" :unSet="true" type="operate">
+        <template slot-scope="scope">
+            <el-button size="mini" type="text">查看</el-button>
+        </template>
+    </el-table-column>
 </yl-table>
-
 <script>
   export default {
-    data() {
+      data() {
       return {
-        warehouseOptions: [],
-        openOptions: [],
-        config: {
-          name: "otherInStock",
-          col: [
-            {
-              type: "selection",
-              width: 60,
-              align: "center",
-              unSave: true,
-              hide: false,
-              fixed: true
-            },
-            {
-              type: "index",
-              prop: "index",
-              label: "序号",
-              show: false,
-              width: 50,
-              align: "center",
-              unSave: true,
-              fixed: true
-            },
-            {
-              type: "operate",
-              label: "操作",
-              width: 200,
-              show: true,
-              btns: [
-                {
-                  name: "查看",
-                  event: this.view //事件
-                },
-                {
-                  name: "编辑1",
-                  event: this.view,
-                  hide: () => !this.hideEdit() //隐藏
-                },
-                {
-                  name: "编辑2",
-                  event: this.view,
-                  show: () => this.hideEdit 
-                },
-                {
-                  name: "编辑3",
-                  event: this.view,
-                  hide: () => !this.hideEdit() // 隐藏
-                },
-                {
-                  name: "编辑4",
-                  event: this.view,
-                  hide: () => !this.hideEdit() // 隐藏
-                }
-              ],
-              unSave: true,
-              fixed: true
-            },
-            { label: "单据单号", prop: "billNo", width: 170,hide:this.hidess },
-            { label: "仓库", slot: "warehouseName" },
-            { label: "往来单位", prop: "supplierName" },
-            { label: "经办人", prop: "agentName" },
-            { label: "单据日期", slot: "billDate" },
-            { label: "入库数量", prop: "totalNum" },
-            { label: "单据状态", slot: "status" }
-          ]
-        },
-        page: {
-          pageIndex: 1,
-          pageSize: 20,
-          total: 0
-        },
-        list: [
-          {
-            createTime: "2018-09-26 13:55:13",
-            totalInedNum: 0.0,
-            supplierName: "reeeeeeeeeeeeee",
-            agentNo: "501710203971",
-            supplierNo: "000000203",
-            remark: "",
-            borrowReturnNum: 0.0,
-            invoiceNo: "",
-            id: 196,
-            warehouseName: "123123",
-            inType: "gh",
-            billExplain:
-              "归还WNR-200A嗜碱细胞有核红细胞溶血素02等共计2行21.00件货品",
-            billNo: "QTRKD201809260001",
-            totalAmount: 21.0,
-            enterpriseNo: "6017401899",
-            billType: "QTRKD",
-            status: "dsh",
-            billDate: "2018-09-26",
-            createName: "hzgjmygs",
-            deleted: 0,
-            totalNum: 21.0,
-            agentName: "hzgjmygs",
-            createNo: "501710203971",
-            warehouseNo: "0000131",
-            syncFlag: 0
-          },
-          {
-            createTime: "2018-08-23 14:01:38",
-            totalInedNum: 0.0,
-            supplierName: "广州奥康生物有限公司",
-            agentNo: "501710203971",
-            supplierNo: "000000192",
-            remark: "",
-            borrowReturnNum: 0.0,
-            invoiceNo: "",
-            id: 191,
-            warehouseName: "W1仓库",
-            inType: "",
-            billExplain: "",
-            billNo: "QTRKD201808230001",
-            totalAmount: 55.0,
-            enterpriseNo: "6017401899",
-            billType: "QTRKD",
-            status: "cg",
-            billDate: "2018-07-07",
-            createName: "hzgjmygs",
-            deleted: 0,
-            totalNum: 2.0,
-            agentName: "hzgjmygs",
-            createNo: "501710203971",
-            warehouseNo: "0000022",
-            syncFlag: 0
-          },
-          {
-            createTime: "2018-07-25 13:33:34",
-            totalInedNum: 0.0,
-            supplierName: "上海广辉医药有限公司",
-            agentNo: "501810204135",
-            supplierNo: "000000186",
-            remark: "",
-            borrowReturnNum: 0.0,
-            invoiceNo: "",
-            id: 79,
-            warehouseName: "啥仓库",
-            inType: "qt",
-            billExplain: "12",
-            billNo: "QTRKD-20180725-000016",
-            totalAmount: 5.0,
-            enterpriseNo: "6017401899",
-            billType: "QTRKD",
-            status: "cg",
-            billDate: "2018-07-07",
-            createName: "hzgjmygs",
-            deleted: 0,
-            totalNum: 3.0,
-            agentName: "财务2",
-            createNo: "501710203971",
-            warehouseNo: "0000075",
-            syncFlag: 0
-          }
-        ]
-      };
-    },
-    components: {},
-    methods: {
-      sortList() {},
-      filterList(...res) {
-        console.log(res);
-      },
-      view() {
-        console.log(33333333333333);
-      },
-      hideEdit() {
-        return true;
-      },
-      hidess(){
-        // console.log(this)
+          list:[{"deliveryPhone":"","reason":"","terminalClientNo":"63","transportName":"冷链运输","sremark":"42342345432","deliveryTime":"2020-01-20 13:21:21","terminalClientName":"浙江迪安医疗器械有限公司","outStorageType":1,"orderTime":"2020-01-20 13:19:35","modifyTime":"2020-01-20 13:29:30","receiptTime":"2020-01-20","businessUserNo":"000000048","id":"291","operateName":"李路","supplierName":"亚辉龙集团","receivePhone":"16899001234","orderNo":"120000000582","receiveAddr":"浙江省杭州市西湖区三墩镇石祥西路紫荆创业园1401","organizationName":"商务部","transportCode":"LLYS","businessUserName":"黄希夷","deliveryNo":"20200120001001","supplierNo":"2000000","organizationNo":"0006","auditNo":"501610101020","customerName":"杭州云医购供应链科技有限公司","receiveUser":"李路1","cremark":"","lockFlag":"1","returnLabel":0,"deliveryNum":35.00,"createTime":"2020-01-20 13:21:21","auditTime":"2020-01-20 13:21:31","outStatus":"all","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6019604591","deliveryStatus":"trade_confirm","operateNo":"51000031"},{"deliveryPhone":"","reason":"","terminalClientNo":"","transportName":"航空运输","sremark":"","deliveryTime":"2020-01-16 09:51:17","terminalClientName":"","outStorageType":1,"orderTime":"2020-01-14 19:36:28","modifyTime":"2020-01-18 00:10:19","businessUserNo":"","id":"273","operateName":"超级管理员","supplierName":"亚辉龙集团","receivePhone":"13333949843","orderNo":"120000000559","receiveAddr":"浙江省杭州市西湖区基因小镇14","organizationName":"","transportCode":"HKYS","businessUserName":"","deliveryNo":"20200116200005","supplierNo":"2000000","organizationNo":"","auditNo":"501610101020","customerName":"广州市迪汇医疗器械有限公司","receiveUser":"云医购","cremark":"","lockFlag":"0","returnLabel":0,"deliveryNum":3.00,"createTime":"2020-01-16 09:51:17","auditTime":"2020-01-16 09:51:48","outStatus":"wait","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6017602777","deliveryStatus":"trade_cancel","operateNo":"501610101020"},{"deliveryPhone":"","reason":"","terminalClientNo":"","transportName":"航空运输","sremark":"","deliveryTime":"2020-01-15 17:07:30","terminalClientName":"","outStorageType":1,"orderTime":"2020-01-14 19:36:28","modifyTime":"2020-01-18 00:10:19","businessUserNo":"","id":"271","operateName":"超级管理员","supplierName":"亚辉龙集团","receivePhone":"13333949843","orderNo":"120000000559","receiveAddr":"浙江省杭州市西湖区基因小镇14","organizationName":"","transportCode":"HKYS","businessUserName":"","deliveryNo":"20200115200032","supplierNo":"2000000","organizationNo":"","auditNo":"501610101020","customerName":"广州市迪汇医疗器械有限公司","receiveUser":"云医购","cremark":"","lockFlag":"0","returnLabel":0,"deliveryNum":1.00,"createTime":"2020-01-15 17:07:30","auditTime":"2020-01-16 10:05:14","outStatus":"wait","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6017602777","deliveryStatus":"trade_cancel","operateNo":"501610101020"}]
       }
-    },
-    mounted() {
-      setTimeout(() => {
-        let list =this.list;
-        this.list=list.map((item,index)=>{
-          item.index =index;
-          return item
-        })
-        console.log("TCL: mounted -> this.list", this.list)
-      }, 1000);
-    }
-  };
+      }
+  }
 </script>
+
 ```
 
 :::
 
+### 实现
+* 切换列表顺序
+* 切改名称
+* 隐藏列表
+* 高度自动计算
+* 设置图标可配置化
+* 继承element写法,所有属性和方法
+* 保存有两种方式，远程http 和本地indexDB。
+  * 配置mode为http时需要配合Environment环境变量
+
+### 注意
+* cloumn添加属性
+    * unSet是否参与设置,一般`index,sections,操作`需要加上
+    * fixed 属性index,sections需要加上,避免设置锁列时出问题,
+    * 操作列需要加一个`type="operate"`
+* table添加属性
+    * showConfig 是否显示设置按钮,这个属性为true,`必须要有index列`
+    * name table名称区别唯一
+    * setName 指定哪行是设置项,一般不用传
+    * height计算内部集成
+
+### Table Attributes
+| 参数       | 说明                     | 类型    | 可选值 | 默认值 |
+| ---------- | ------------------------ | ------- | ------ | ------ |
+| data       | 显示数据,必填            | Array   | --     | --     |
+| showConfig | 是否配置                 | Boolean | --     | true   |
+| setName    | 指定哪行是设置项(可不填) | String  | --     | --     |
+| depend    | 依赖数据，表格中有v-if依赖该数据时用| Object  | --     | --     |
+
+### Cloumn Attributes
+| 参数  | 说明                                            | 类型    | 可选值 | 默认值 |
+| ----- | ----------------------------------------------- | ------- | ------ | ------ |
+| unSet | 过滤设置时使用,一般index,sections,操作需要加上  | Boolean | --     | --     |
+| fixed | 属性index,sections需要加上,避免设置锁列时出问题 | Boolean | --     | --     |
+| name | 表格名称，当一个url地址下有多个表格的时候，需要加上 | String | --     | --     |
 
 
-### Attributes
-| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
-|---------- |-------------- |---------- |--------------------------------  |-------- |
-| config   | 表格的配置项 | Object |  | {} |
-| data | 表格显示的数据 | Array    | — | -- |
-| max-height  | 表格显示的最大高度 |  Number   |  -- | -- |
-| page  | 分页信息,小计,合计用 |  Object   |  -- | -- |
-| disabled-confirm-button  | 禁用确认按钮 |  Boolean   |  -- | false |
-| hide-submit-button  | 隐藏确认按钮 |  Boolean   |  -- | false |
-| hide-cancel-button  | 隐藏取消按钮 |  Boolean   |  -- | false |
+### 方法
+| 参数  | 说明                                            | 类型    | 可选值 | 默认值 |
+| ----- | ----------------------------------------------- | ------- | ------ | ------ |
+| refresh  | 组件方法,重新初始化使用 |  this.$refs['my-table'].refresh()   |  -- |  -- | 
 
 
-### config参数具体
-| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
-|---------- |-------------- |---------- |--------------------------------  |-------- |
-| name   | 名字,无个性化设置可不传  | String |  | -- |
-| col | 行列设置属性 | Array    | [{ label: '', prop: '', slot: '' }] | -- |
-| show-total  | 是否显示合计列,此参数需要后端配合 |  Boolean   |  -- | false |
-| uselocal  | 是否直接使用本地配置参数,此参数需要后端配合 |  Boolean   |  -- | false |
-| container  | 表格显示的容器 |  String   |  'document','dialog' |  |
-| limit-height  | 表格高度调整 |  Number   |  -- | 0 |
-| dis-auto-height  | 关闭自动计算高度 |  Boolean   |  -- | false |
-
-
-### col参数具体(表格列配置)
-| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
-|---------- |-------------- |---------- |--------------------------------  |-------- |
-| type   | 判断各自的类型  | String | [cIndex表示行号(自定义index),operate表示操作栏] | ---  |
-| label | 表头名称 | String    | -- | -- |
-| prop  | 表格数据展示字段 |  String   |  -- | -- |
-| hide  | 是否隐藏该列,支持函数 |  Boolean|Function   |  -- | -- |
-| field  | 该字段会使用v-html渲染,一般该字段是html |  String   | -- |  |
-| unSave  | 不保存到远程数据库,用于设置表头时使用 |  Boolean   |  -- | true |
-| element字段 | 会继承element字段 |  ---   |  -- | --- |
-
-### btns按钮参数具体(按钮)
-| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
-|---------- |-------------- |---------- |--------------------------------  |-------- |
-| name   | 按钮名称  | String | -- | ---  |
-| event | 事件绑定,需要绑定当前this,可用bind | Function    | -- | -- |
-| hide  | 为true时隐藏该按钮 |  Boolean|Function   |  -- | -- |
-| show  | 为true时显示该按钮 |  Boolean|Function   |  -- | -- |
-
-
-### Slot
-
-| name | 说明 |
-|------|--------|
-| content | 表格添加的内容 |
