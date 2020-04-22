@@ -2,7 +2,7 @@
  * @Author: yangjj
  * @Date: 2019-06-24 09:08:18
  * @LastEditors: yangjj
- * @LastEditTime: 2019-12-12 13:35:04
+ * @LastEditTime: 2020-04-14 14:21:56
  * @Description: 全局环境配置文件,使用时必须是import,而不能require
  */
 
@@ -15,6 +15,12 @@ export let Environment = {
   NODE_ENV: 'development', // 开发环境,区分本地线上
   USER_ENVIRONMENT: 'dev', // 环境
   RELEASE: '1.1', // 版本
+  USERINFO: {}, // 用户信息
+  TABLE: { // 表格配置
+    mode: 'local',
+    get: null, // callback 函数
+    save: null // callback 函数
+  },
   TOKEN: '5ea16aaa421abfbfa3514c60a6244262' // 用户登入凭证
 };
 

@@ -302,6 +302,7 @@ export const downloadFile = (data, strFileName) => {
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
       setTimeout(() => {
+        // eslint-disable-next-line no-undef
         $('iframe').remove();
       }, 1000);
       // window.open(data + '?action=download', '_blank');

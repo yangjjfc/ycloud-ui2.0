@@ -27,7 +27,7 @@
             title: '选中的经销商',
             height:'600',
             list: [],
-            oList: [],
+            oList: [{"enterpriseNo":"6020000005","enterpriseName":"默默企业"}],
             checked: []
         }
       };

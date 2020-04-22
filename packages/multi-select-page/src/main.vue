@@ -85,7 +85,8 @@ export default {
     oList: {
       handler: function (val, oldVal) {
         this.checkAll = this.oList;
-      }
+      },
+      immediate: true
     },
     checked: {
       handler: function (val, oldVal) {
