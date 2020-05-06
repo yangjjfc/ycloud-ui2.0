@@ -4,7 +4,7 @@
 ### 基础用法
 :::demo 设置`codes`，就能显示三级省市区
 ```html
- <yl-region-picker :codes.sync="form.regionCode" @input="inputEvent" @change="changeEvent" :twoSelect="true"></yl-region-picker>
+ <yl-region-picker :codes.sync="form.regionCode" @input="inputEvent" @change="changeEvent" ></yl-region-picker>
 
 <script>
   export default {
