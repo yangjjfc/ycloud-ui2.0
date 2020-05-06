@@ -1,6 +1,6 @@
 <template>
   <div class="yl-pagination">
-    <el-pagination v-bind="$attrs" v-on="listeners" :layout="layout" @size-change="changeSize" @current-change="changePage">
+    <el-pagination v-bind="$attrs" v-on="listeners" :layout="layout" @size-change="changeSize" :page-sizes="pageSizes" @current-change="changePage">
     </el-pagination>
   </div>
 </template>
@@ -17,6 +17,12 @@ export default {
     layout: {
       type: String,
       default: 'total, sizes, prev, pager, next, jumper'
+    },
+    pageSizes:{
+      type: Array,
+      default(){
+        return [10, 20, 50, 100 ,200];
+      }
     }
   },
   created () {
