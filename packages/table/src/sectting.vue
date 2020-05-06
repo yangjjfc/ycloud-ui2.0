@@ -10,9 +10,14 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="name" label="列名"></el-table-column>
-                        <el-table-column label="显示名称">
+                        <el-table-column label="显示名称" v-if="isEditName">
                             <template slot-scope="scope">
                                 <el-input v-model="scope.row.label" size="small"></el-input>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="宽度" width="125">
+                            <template slot-scope="scope">
+                                <el-input-number v-model="scope.row.width" size="small" :controls="false" class="w100" :min="50"></el-input-number>
                             </template>
                         </el-table-column>
                         <el-table-column prop="date" label="显示" width="80" align="center">
@@ -22,9 +27,14 @@
                                 <el-switch v-else v-model="scope.row.isShow" :disabled="scope.row.totalRow" size="small"></el-switch>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="date" label="锁列" width="70" align="center">
+                        <el-table-column prop="date" label="左锁列" width="70" align="center">
                             <template slot-scope="scope">
-                                <el-radio v-model="fixed" @change="changeFixed" :disabled="!scope.row.isShow" :label="scope.row.index"></el-radio>
+                                <el-checkbox v-model="scope.row.leftFixed" @change="changeFixed(scope.row, 'left')" :disabled="!scope.row.isShow " ></el-checkbox>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="date" label="右锁列" width="70" align="center">
+                            <template slot-scope="scope">
+                                <el-checkbox v-model="scope.row.rightFixed" @change="changeFixed(scope.row, 'right')" :disabled="!scope.row.isShow"></el-checkbox>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -70,11 +80,15 @@ export default {
     sourceColumns: {
       type: Array,
       required: true
+    },
+    // 是否可以修改列名称
+    isEditName: {
+      type: Boolean,
+      required: true
     }
   },
   created () {
-    let list = this.initColumns(this.columns);
-    this.list = list;
+    this.list = this.initColumns(this.columns);
     this.setHeigth();
   },
   methods: {
@@ -90,8 +104,10 @@ export default {
                           ? item.sourceIndex
                           : i; // 源编号.方便重置
           item.name = item.name || item.label; // 名称
-          item.fixed && (this.fixed = item.index); // 锁列
+          // item.fixed && (this.fixed = item.index); // 锁列
           item.isShow = !item.isHide; // 是否显示
+          item.leftFixed = item.fixed === 'left' || item.fixed === true;
+          item.rightFixed = item.fixed === 'right';
           res.push(item);
           i++;
         }
@@ -113,16 +129,25 @@ export default {
       this.maxHeight = maxH;
     },
     // 锁列改变
-    changeFixed () {
-      this.list.forEach(item => {
-        item.fixed = this.fixed >= 0 && item.index <= this.fixed;
-      });
+    changeFixed (row, type) {
+      if (type === 'right' && row.rightFixed) {
+        row.leftFixed = false;
+      }
+      if (type === 'left' && row.leftFixed) {
+        row.rightFixed = false;
+      }
     },
     submit () {
       this.list.forEach(item => {
         item.isHide = !item.isShow;
         delete item.isShow;
-        item.fixed = this.fixed >= 0 && item.index <= this.fixed;
+        if (item.leftFixed) {
+          item.fixed = 'left';
+        } else if (item.rightFixed) {
+          item.fixed = 'right';
+        } else {
+          delete item.fixed;
+        }
       });
       let config = this.columns
         .filter(item => item.unSet)
@@ -139,7 +164,7 @@ export default {
     },
     // 逻辑： 已经锁列的是不能上下移动的
     up () {
-      if (this.currentIndex > 0 && this.currentIndex > this.fixed + 1) {
+      if (this.currentIndex > 0) {
         let target = this.currentIndex - 1;
         this.list[target].index = target + 1;
         this.list[target + 1].index = target;
@@ -153,8 +178,7 @@ export default {
     },
     down () {
       if (
-        this.currentIndex < this.list.length - 1 &&
-                this.currentIndex > this.fixed
+        this.currentIndex < this.list.length - 1
       ) {
         let target = this.currentIndex + 1;
         this.list[target].index = target - 1;
@@ -179,7 +203,6 @@ export default {
         item.index = index;
       });
       this.currentIndex = null;
-      this.fixed = -1;
     }
   },
   computed: {

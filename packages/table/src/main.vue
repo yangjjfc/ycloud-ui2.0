@@ -40,6 +40,11 @@ export default {
     // 依赖数据
     depend: {
       type: [Array, Boolean, String, Object]
+    },
+    // 是否可以修改列名称
+    isEditName: {
+      type: Boolean,
+      default: false
     }
   },
   created () {
@@ -70,7 +75,8 @@ export default {
         </el-table>
       ) : null}
       {this.isTableSet ? (
-        <sectting isShow={true} {...{ on: { 'update:isShow': e => { this.isTableSet = e; } } }} columns={this.config} sourceColumns={this.sourceConfig} onChange={this.changeTableColumns} />
+        <sectting isShow={true} {...{ on: { 'update:isShow': e => { this.isTableSet = e; } } }} columns={this.config} 
+          isEditName={this.isEditName} sourceColumns={this.sourceConfig} onChange={this.changeTableColumns} />
       ) : null}
       </div>
     );
