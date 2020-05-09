@@ -1,4 +1,4 @@
-<script type="text/ecmascript-6">
+<script>
 import sectting from './sectting';
 import indexDB from './indexDB.js';
 import { Environment } from 'ycloud-ui/src/config/index';

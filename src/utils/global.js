@@ -277,7 +277,7 @@ export const delEvent = (obj, evtype, fn, useCapture) => {
 
 export const downloadFile = (data, strFileName) => {
   // 判断是否支持download
-  let isSupportDownload = 'download' in document.createElement('a');
+  // let isSupportDownload = 'download' in document.createElement('a');
   let fileName = data.split('/').reverse()[0] || strFileName;
   let fileType = getFileType(data);
   if (fileType === 'image' || fileType === 'pdf') {
@@ -289,24 +289,14 @@ export const downloadFile = (data, strFileName) => {
     };
     x.send();
   } else {
-    if (isSupportDownload) {
-      let aLink = document.createElement('a');
-      let evt = document.createEvent('MouseEvents');
-      evt.initEvent('click', false, false); // initEvent 不加后两个参数在FF下会报错
-      aLink.href = data + '?action=download';
-      aLink.download = fileName;
-      aLink.dispatchEvent(evt);
-    } else {
-      var iframe = document.createElement('iframe');
-      iframe.src = data + '?action=download';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      setTimeout(() => {
-        // eslint-disable-next-line no-undef
-        $('iframe').remove();
-      }, 1000);
-      // window.open(data + '?action=download', '_blank');
-    }
+    var iframe = document.createElement('iframe');
+    iframe.src = data + '?action=download';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    setTimeout(() => {
+      // eslint-disable-next-line no-undef
+      $('iframe').remove();
+    }, 1000);
   }
 };
 
