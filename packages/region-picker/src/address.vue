@@ -168,10 +168,23 @@ export default {
       }));
     },
     districts () {
-      return this._filter(this.citySelected[0]).map((item, index) => ({
+      let list = this._filter(this.citySelected[0]).map((item, index) => ({
         value: item[0],
         label: item[1]
       }));
+      if (list.length === 0) {
+        let code = this.citySelected[0];
+        if (code) {
+          code += 1;
+        }
+        list = [
+          {
+            label: '市辖区',
+            value: code
+          }
+        ];
+      }
+      return list;
     },
     provinceSelected: {
       get () {
