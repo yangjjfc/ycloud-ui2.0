@@ -58,7 +58,11 @@ export default {
         } else {
           district = val.toString();
           city = district.slice(0, 4) + '00';
-          this.district = this.chinaAddr[city][district] || '';
+          if (this.chinaAddr[city]) {
+            this.district = this.chinaAddr[city][district] || '';
+          } else {
+            this.district = '市辖区';
+          }
         }
         this.province = this.chinaAddr[86][province];
         this.city = this.chinaAddr[province][city] || '';
@@ -79,6 +83,7 @@ export default {
     change (msg) {
       let names = '';
       let vals = '';
+      
       if (this.$attrs.twoSelect) { // 2级联动
         names = [msg.provinceName, msg.cityName].join('');
         vals = msg.cityCode;

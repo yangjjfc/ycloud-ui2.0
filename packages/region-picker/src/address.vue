@@ -117,7 +117,9 @@ export default {
     // 过滤地址
     _filter (pid) {
       const result = [];
-      const items = this.regions[pid];
+      const items = this.regions[pid] || {
+        [pid + 1]: '市辖区'
+      };
       for (let code in items) {
         result.push([parseInt(code, 10), items[code]]);
       }
@@ -172,7 +174,7 @@ export default {
         value: item[0],
         label: item[1]
       }));
-      if (list.length === 0) {
+      if (this.citySelected[0] && list.length === 0) {
         let code = this.citySelected[0];
         if (code) {
           code += 1;
