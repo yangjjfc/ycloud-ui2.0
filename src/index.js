@@ -75,7 +75,7 @@ export {
 };
 
 export default {
-  version: '2.1.50',
+  version: '2.1.51',
   install,
   CollapseTransition,
   Pagination,

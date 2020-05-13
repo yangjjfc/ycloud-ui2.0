@@ -54,9 +54,7 @@ export default {
     depend: {
       deep: true,
       handler (val, current) {
-        if (val !== current) {
-          this.refresh();
-        }
+        this.refresh();
       }
     }
   },
@@ -91,6 +89,7 @@ export default {
     // 初始化
     init () {
       this.sourceSlots = this.$slots.default.filter(item => item.tag);
+      console.log(this.sourceSlots);
       this.formatProps().then(_ => {
         if (this.showConfig) {
           let arr = [];
