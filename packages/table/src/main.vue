@@ -39,7 +39,7 @@ export default {
     },
     // 依赖数据
     depend: {
-      type: [Array, Boolean, String, Object]
+      type: [Array, Boolean, String, Object, Number]
     },
     // 是否可以修改列名称
     isEditName: {
@@ -89,7 +89,7 @@ export default {
     // 初始化
     init () {
       this.sourceSlots = this.$slots.default.filter(item => item.tag);
-      console.log(this.sourceSlots);
+      // console.log(this.sourceSlots);
       this.formatProps().then(_ => {
         if (this.showConfig) {
           let arr = [];
@@ -154,18 +154,28 @@ export default {
     // 配置
     columnCof () {
       let arr = [];
-      for (const item of this.config) {
-        for (const subItem of this.sourceSlots) {
-          // isHide为true则隐藏
-          let isShow = (item.prop && item.prop === subItem.componentOptions.propsData.prop) ||
-                        (item.type && item.type === subItem.componentOptions.propsData.type);
-          if (isShow && !item.isHide) {
-            subItem.componentOptions.propsData = item;
-            arr.push(subItem);
-            break;
-          }
+      // for (const item of this.config) {
+      //   for (const subItem of this.sourceSlots) {
+      //     // isHide为true则隐藏
+      //     let isShow = (item.prop && item.prop === subItem.componentOptions.propsData.prop) ||
+      //                   (item.type && item.type === subItem.componentOptions.propsData.type) || subItem.componentOptions.propsData.unSet;
+      //     if (isShow && !item.isHide) {
+      //       subItem.componentOptions.propsData = item;
+      //       arr.push(subItem);
+      //       break;
+      //     }
+      //   }
+      // }
+      this.sourceSlots.forEach(item => {
+        let temp = this.config.find(subItem => (subItem.prop && subItem.prop === item.componentOptions.propsData.prop) || (subItem.type && subItem.type === item.componentOptions.propsData.type));
+        if (temp && !temp.isHide) {
+          item.componentOptions.propsData = temp;
+          arr.push(item);
         }
-      }
+        if (!temp) {
+          arr.push(item); 
+        }
+      });
       this.showTable = false;
       this.sSolts = arr;
       // hack

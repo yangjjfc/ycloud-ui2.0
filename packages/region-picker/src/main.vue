@@ -1,7 +1,16 @@
 <template>
-  <div class="yl-region-picker">
-    <my-address :regions="chinaAddr" :province="province" v-bind="$attrs" :city="city" :district="district" @onchange="change" :classx="className" :disabled="disabled"></my-address>
-  </div>
+    <div class="yl-region-picker">
+        <my-address
+            :regions="chinaAddr"
+            :province="province"
+            v-bind="$attrs"
+            :city="city"
+            :district="district"
+            @onchange="change"
+            :classx="className"
+            :disabled="disabled"
+        ></my-address>
+    </div>
 </template>
 
 <script>
@@ -52,7 +61,9 @@ export default {
     // 初始化数据
     _initData (val) {
       if (val) {
-        let province = val.toString().slice(0, 2) + '0000', city = '', district = '';
+        let province = val.toString().slice(0, 2) + '0000',
+          city = '',
+          district = '';
         if (this.$attrs.twoSelect) {
           city = val.toString();
         } else {
@@ -83,8 +94,9 @@ export default {
     change (msg) {
       let names = '';
       let vals = '';
-      
-      if (this.$attrs.twoSelect) { // 2级联动
+
+      if (this.$attrs.twoSelect) {
+        // 2级联动
         names = [msg.provinceName, msg.cityName].join('');
         vals = msg.cityCode;
       } else {
