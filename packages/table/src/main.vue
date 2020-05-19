@@ -154,22 +154,14 @@ export default {
     // 配置
     columnCof () {
       let arr = [];
-      // for (const item of this.config) {
-      //   for (const subItem of this.sourceSlots) {
-      //     // isHide为true则隐藏
-      //     let isShow = (item.prop && item.prop === subItem.componentOptions.propsData.prop) ||
-      //                   (item.type && item.type === subItem.componentOptions.propsData.type) || subItem.componentOptions.propsData.unSet;
-      //     if (isShow && !item.isHide) {
-      //       subItem.componentOptions.propsData = item;
-      //       arr.push(subItem);
-      //       break;
-      //     }
-      //   }
-      // }
+      this.config.forEach((item, index) => {
+        item.tempSort = index + 1;
+      });
       this.sourceSlots.forEach(item => {
         let temp = this.config.find(subItem => (subItem.prop && subItem.prop === item.componentOptions.propsData.prop) || (subItem.type && subItem.type === item.componentOptions.propsData.type));
         if (temp && !temp.isHide) {
           item.componentOptions.propsData = temp;
+          item.tempSort = temp.tempSort;
           arr.push(item);
         }
         if (!temp) {
@@ -177,7 +169,8 @@ export default {
         }
       });
       this.showTable = false;
-      this.sSolts = arr;
+      arr.sort((a, b) => a.tempSort - b.tempSort);
+      this.sSolts = [].concat(arr);
       // hack
       this.$nextTick(() => {
         this.showTable = true;

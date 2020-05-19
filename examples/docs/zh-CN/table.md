@@ -9,7 +9,7 @@
 :::demo yl-table 是element table的二开,通过配置参数进行渲染
 
 ```html
-<yl-table :data="list" class="my-table" :depend="form">
+<yl-table :data="list" class="my-table" :depend="form" useVirtual :height="500">
     <el-table-column type="selection" width="50" align="center" :unSet="true" fixed v-if="form.isShow"></el-table-column>
     <el-table-column prop="index" label="序号" width="50" align="center" :unSet="true" fixed>
       <template slot-scope="scope">
@@ -21,9 +21,14 @@
             <p>{{scope.row.orderTime || '-'}}</p>
         </template>
     </el-table-column>
-    <el-table-column prop="createName" label="联系人/联系方式" min-width="120">
+    <el-table-column prop="createName" label="联系人" min-width="120">
         <template slot-scope="scope">
-            <span>{{scope.row.receiveUser}}</span>/<span class="">{{scope.row.receivePhone}}</span>
+            <span>{{scope.row.receiveUser}}</span>
+        </template>
+    </el-table-column>
+    <el-table-column prop="receivePhone" label="联系方式" min-width="120">
+        <template slot-scope="scope">
+            <span class="">{{scope.row.receivePhone}}</span>
         </template>
     </el-table-column>
     <el-table-column label="操作" width="150"  fixed="right" :unSet="true" type="operate">
@@ -33,17 +38,24 @@
     </el-table-column>
 </yl-table>
 <script>
+const col = {"deliveryPhone":"","reason":"","terminalClientNo":"63","transportName":"冷链运输","sremark":"42342345432","deliveryTime":"2020-01-20 13:21:21","terminalClientName":"浙江迪安医疗器械有限公司","outStorageType":1,"orderTime":"2020-01-20 13:19:35","modifyTime":"2020-01-20 13:29:30","receiptTime":"2020-01-20","businessUserNo":"000000048","id":"291","operateName":"李路","supplierName":"亚辉龙集团","receivePhone":"16899001234","orderNo":"120000000582","receiveAddr":"浙江省杭州市西湖区三墩镇石祥西路紫荆创业园1401","organizationName":"商务部","transportCode":"LLYS","businessUserName":"黄希夷","deliveryNo":"20200120001001","supplierNo":"2000000","organizationNo":"0006","auditNo":"501610101020","customerName":"杭州云医购供应链科技有限公司","receiveUser":"李路1","cremark":"","lockFlag":"1","returnLabel":0,"deliveryNum":35.00,"createTime":"2020-01-20 13:21:21","auditTime":"2020-01-20 13:21:31","outStatus":"all","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6019604591","deliveryStatus":"trade_confirm","operateNo":"51000031"};
   export default {
       data() {
       return {
           form:{
               isShow:false
           },
-          list:[{"deliveryPhone":"","reason":"","terminalClientNo":"63","transportName":"冷链运输","sremark":"42342345432","deliveryTime":"2020-01-20 13:21:21","terminalClientName":"浙江迪安医疗器械有限公司","outStorageType":1,"orderTime":"2020-01-20 13:19:35","modifyTime":"2020-01-20 13:29:30","receiptTime":"2020-01-20","businessUserNo":"000000048","id":"291","operateName":"李路","supplierName":"亚辉龙集团","receivePhone":"16899001234","orderNo":"120000000582","receiveAddr":"浙江省杭州市西湖区三墩镇石祥西路紫荆创业园1401","organizationName":"商务部","transportCode":"LLYS","businessUserName":"黄希夷","deliveryNo":"20200120001001","supplierNo":"2000000","organizationNo":"0006","auditNo":"501610101020","customerName":"杭州云医购供应链科技有限公司","receiveUser":"李路1","cremark":"","lockFlag":"1","returnLabel":0,"deliveryNum":35.00,"createTime":"2020-01-20 13:21:21","auditTime":"2020-01-20 13:21:31","outStatus":"all","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6019604591","deliveryStatus":"trade_confirm","operateNo":"51000031"},{"deliveryPhone":"","reason":"","terminalClientNo":"","transportName":"航空运输","sremark":"","deliveryTime":"2020-01-16 09:51:17","terminalClientName":"","outStorageType":1,"orderTime":"2020-01-14 19:36:28","modifyTime":"2020-01-18 00:10:19","businessUserNo":"","id":"273","operateName":"超级管理员","supplierName":"亚辉龙集团","receivePhone":"13333949843","orderNo":"120000000559","receiveAddr":"浙江省杭州市西湖区基因小镇14","organizationName":"","transportCode":"HKYS","businessUserName":"","deliveryNo":"20200116200005","supplierNo":"2000000","organizationNo":"","auditNo":"501610101020","customerName":"广州市迪汇医疗器械有限公司","receiveUser":"云医购","cremark":"","lockFlag":"0","returnLabel":0,"deliveryNum":3.00,"createTime":"2020-01-16 09:51:17","auditTime":"2020-01-16 09:51:48","outStatus":"wait","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6017602777","deliveryStatus":"trade_cancel","operateNo":"501610101020"},{"deliveryPhone":"","reason":"","terminalClientNo":"","transportName":"航空运输","sremark":"","deliveryTime":"2020-01-15 17:07:30","terminalClientName":"","outStorageType":1,"orderTime":"2020-01-14 19:36:28","modifyTime":"2020-01-18 00:10:19","businessUserNo":"","id":"271","operateName":"超级管理员","supplierName":"亚辉龙集团","receivePhone":"13333949843","orderNo":"120000000559","receiveAddr":"浙江省杭州市西湖区基因小镇14","organizationName":"","transportCode":"HKYS","businessUserName":"","deliveryNo":"20200115200032","supplierNo":"2000000","organizationNo":"","auditNo":"501610101020","customerName":"广州市迪汇医疗器械有限公司","receiveUser":"云医购","cremark":"","lockFlag":"0","returnLabel":0,"deliveryNum":1.00,"createTime":"2020-01-15 17:07:30","auditTime":"2020-01-16 10:05:14","outStatus":"wait","auditName":"超级管理员","dataSource":"DMS-CS","deliveryName":"","customerNo":"6017602777","deliveryStatus":"trade_cancel","operateNo":"501610101020"}]
+          list:[]
       }
       },
       created(){
+        this.list = Array.from({ length: 20 }, (_, idx) => ({
+            index: idx + 1,
+            ...col
+        }))
         setTimeout(() => {
+            
+
             this.form.isShow = true;
           },0)
       }
