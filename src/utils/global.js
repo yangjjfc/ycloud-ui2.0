@@ -279,7 +279,7 @@ export const delEvent = (obj, evtype, fn, useCapture) => {
 export const downloadFile = (data, strFileName) => {
   // 判断是否支持download
   // let isSupportDownload = 'download' in document.createElement('a');
-  let fileName = data.split('/').reverse()[0] || strFileName;
+  let fileName = decodeURI(data.split('/').reverse()[0].split('?')[0]) || strFileName;
   let fileType = getFileType(data);
   if (fileType === 'image' || fileType === 'pdf') {
     var x = new XMLHttpRequest();
@@ -291,7 +291,7 @@ export const downloadFile = (data, strFileName) => {
     x.send();
   } else {
     var iframe = document.createElement('iframe');
-    iframe.src = data + '?action=download';
+    iframe.src = data + (data.indexOf('?') > 0 ? '&action=download' : '?action=download');
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
     setTimeout(() => {
