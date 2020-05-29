@@ -173,6 +173,7 @@ export const getFileType = (item, type = 'all') => {
       ['txt']
     ],
     getFile = null;
+  item = item.split('?')[0];
   if (item.indexOf('.') > -1) {
     let etx = (item.split('.').pop() || '').toLowerCase();
     if (type !== 'all') { // 过滤上传的文件类型
