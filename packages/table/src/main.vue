@@ -67,15 +67,15 @@ export default {
     };
     return (
       <div class="yl-table">
-      {this.showTable ? (
-        <el-table data={list} stripe style="width: 100%" border size="small" ref="my-table" {...{ attrs: this.$attrs }} {...listeners} >
-        {this.sSolts}
-        </el-table>
-      ) : null}
-      {this.isTableSet ? (
-        <sectting isShow={true} {...{ on: { 'update:isShow': e => { this.isTableSet = e; } } }} columns={this.config} 
-          isEditName={this.isEditName} sourceColumns={this.sourceConfig} onChange={this.changeTableColumns} />
-      ) : null}
+        {this.showTable ? (
+          <el-table data={list} stripe style="width: 100%" border size="small" ref="my-table" {...{ attrs: this.$attrs }} {...listeners} >
+            {this.sSolts}
+          </el-table>
+        ) : null}
+        {this.isTableSet ? (
+          <sectting isShow={true} {...{ on: { 'update:isShow': e => { this.isTableSet = e; } } }} columns={this.config} 
+            isEditName={this.isEditName} sourceColumns={this.sourceConfig} onChange={this.changeTableColumns} />
+        ) : null}
       </div>
     );
   },
