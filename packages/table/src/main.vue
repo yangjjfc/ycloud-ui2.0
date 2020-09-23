@@ -37,6 +37,9 @@ export default {
       // 设置名称
       type: String
     },
+    summaryMethod: {
+      type: Function
+    },
     // 依赖数据
     depend: {
       type: [Array, Boolean, String, Object, Number]
@@ -54,7 +57,9 @@ export default {
     depend: {
       deep: true,
       handler (val, current) {
-        this.refresh();
+        this.$nextTick(() => {
+          this.init();
+        });
       }
     }
   },
@@ -62,20 +67,42 @@ export default {
     let list = this.data;
     const listeners = {
       on: {
-        ...this.$listeners
+        ...this.$listeners,
+        'header-dragend': this.headerDragend
       }
     };
     return (
       <div class="yl-table">
-        {this.showTable ? (
-          <el-table data={list} stripe style="width: 100%" border size="small" ref="my-table" {...{ attrs: this.$attrs }} {...listeners} >
-            {this.sSolts}
-          </el-table>
-        ) : null}
-        {this.isTableSet ? (
-          <sectting isShow={true} {...{ on: { 'update:isShow': e => { this.isTableSet = e; } } }} columns={this.config} 
-            isEditName={this.isEditName} sourceColumns={this.sourceConfig} onChange={this.changeTableColumns} />
-        ) : null}
+      {this.showTable ? (
+        <el-table
+          data={list}
+          stripe
+          style="width: 100%"
+          border
+          size="small"
+          ref="my-table"
+          {...{ attrs: this.$attrs }}
+          {...listeners}
+        >
+          {this.sSolts}
+        </el-table>
+      ) : null}
+      {this.isTableSet ? (
+        <sectting
+          isShow={true}
+          {...{
+            on: {
+              'update:isShow': (e) => {
+                this.isTableSet = e;
+              }
+            }
+          }}
+          columns={this.config}
+          isEditName={this.isEditName}
+          sourceColumns={this.sourceConfig}
+          onChange={this.changeTableColumns}
+        />
+      ) : null}
       </div>
     );
   },
@@ -83,23 +110,27 @@ export default {
     // 刷新视图
     refresh () {
       this.$nextTick(() => {
-        this.init();
+        this.columnCof();
       });
     },
     // 初始化
     init () {
-      this.sourceSlots = this.$slots.default.filter(item => item.tag);
+      this.sourceSlots = this.$slots.default.filter((item) => item.tag);
       // console.log(this.sourceSlots);
-      this.formatProps().then(_ => {
+      this.formatProps().then((_) => {
         if (this.showConfig) {
           let arr = [];
           if (this.setName) {
             arr = this.sourceSlots.filter(
-              item => item.componentOptions.propsData.prop === this.setName
+              (item) =>
+                item.componentOptions.propsData.prop ===
+                                this.setName
             );
           } else {
-            arr = this.sourceSlots.filter(item => {
-              let prop = item.componentOptions.propsData.prop || item.componentOptions.propsData.type;
+            arr = this.sourceSlots.filter((item) => {
+              let prop =
+                                item.componentOptions.propsData.prop ||
+                                item.componentOptions.propsData.type;
               return prop === 'index' || prop === 'indexX';
             });
           }
@@ -108,7 +139,8 @@ export default {
               arr[0].data.scopedSlots = {};
             }
             arr[0].data.scopedSlots.header = () => (
-              <i class="el-icon-s-tools pointer"
+              <i
+                class="el-icon-s-tools pointer"
                 onClick={() => {
                   this.isTableSet = true;
                 }}
@@ -121,7 +153,7 @@ export default {
     },
     // 处理props和attrs
     formatProps () {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         let arr = [];
         for (const item of this.sourceSlots) {
           arr.push({
@@ -137,11 +169,11 @@ export default {
           this.isFristLoad = false;
           // 判断类型
           if (Environment.TABLE.mode === 'http') {
-            this.getPageConfig().then(_ => {
+            this.getPageConfig().then((_) => {
               resolve();
             });
           } else {
-            this.initIndexDB().then(_ => {
+            this.initIndexDB().then((_) => {
               resolve();
             });
           }
@@ -157,15 +189,23 @@ export default {
       this.config.forEach((item, index) => {
         item.tempSort = index + 1;
       });
-      this.sourceSlots.forEach(item => {
-        let temp = this.config.find(subItem => (subItem.prop && subItem.prop === item.componentOptions.propsData.prop) || (subItem.type && subItem.type === item.componentOptions.propsData.type));
+      this.sourceSlots.forEach((item) => {
+        let temp = this.config.find(
+          (subItem) =>
+            (subItem.prop &&
+                            subItem.prop ===
+                                item.componentOptions.propsData.prop) ||
+                        (subItem.type &&
+                            subItem.type ===
+                                item.componentOptions.propsData.type)
+        );
         if (temp && !temp.isHide) {
-          item.componentOptions.propsData = temp;
+          Object.assign(item.componentOptions.propsData, temp);
           item.tempSort = temp.tempSort;
           arr.push(item);
         }
         if (!temp) {
-          arr.push(item); 
+          arr.push(item);
         }
       });
       this.showTable = false;
@@ -175,6 +215,15 @@ export default {
       this.$nextTick(() => {
         this.showTable = true;
       });
+    },
+    // 拖动列
+    headerDragend (newWidth, oldWidth, column) {
+      this.config.forEach((item) => {
+        if (item.prop === column.property) {
+          item.width = newWidth;
+        }
+      });
+      this.setConfig();
     },
     // 列修改
     changeTableColumns (a) {
@@ -196,7 +245,9 @@ export default {
       path = path.join('.');
       // TODO 取值需要修改
       let userInfo = Environment.USERINFO;
-      this.hash = SHA256(JSON.stringify(this.sourceConfig.filter(item => !item.unSet)));
+      this.hash = SHA256(
+        JSON.stringify(this.sourceConfig.filter((item) => !item.unSet))
+      );
       this.pageKey = `${path}_${userInfo.userNo}`;
     },
     // 获取配置
@@ -207,15 +258,23 @@ export default {
     },
     // 获取table配置
     getPageConfig () {
-      if (Object.prototype.toString.call(Environment.TABLE.get).slice(8, -1) === 'Function') {
-        return Environment.TABLE.get.call(this, this.pageKey).then(res => {
-          if (res) {
-            this.storeConfig = res;
-            this.getConfig(res);
-          }
-        });
+      if (
+        Object.prototype.toString
+          .call(Environment.TABLE.get)
+          .slice(8, -1) === 'Function'
+      ) {
+        return Environment.TABLE.get
+          .call(this, this.pageKey)
+          .then((res) => {
+            if (res) {
+              this.storeConfig = res;
+              this.getConfig(res);
+            }
+          });
       } else {
-        this.$message.error('远程请求时Environment.TABLE.get必须是个函数');
+        this.$message.error(
+          '远程请求时Environment.TABLE.get必须是个函数'
+        );
         return Promise.reject();
       }
     },
@@ -227,10 +286,16 @@ export default {
         config: this.config
       };
       if (Environment.TABLE.mode === 'http') {
-        if (Object.prototype.toString.call(Environment.TABLE.save).slice(8, -1) === 'Function') {
+        if (
+          Object.prototype.toString
+            .call(Environment.TABLE.save)
+            .slice(8, -1) === 'Function'
+        ) {
           Environment.TABLE.save.call(this, this.pageKey, obj);
         } else {
-          this.$message.error('远程请求时Environment.TABLE.savet必须是个函数');
+          this.$message.error(
+            '远程请求时Environment.TABLE.savet必须是个函数'
+          );
         }
       } else if (this.isGetData) {
         this.updateDataDB(obj);
@@ -240,14 +305,26 @@ export default {
     },
     // 添加table自带方法
     ...(() => {
-      let methodKeys = ['clearSelection', 'toggleRowSelection', 'toggleAllSelection', 'setCurrentRow', 'clearSort', 'clearFilter', 'doLayout', 'sort'],
-        methods = [], methodsJson = {};
-      methodKeys.forEach(key => {
-        methods.push({ [key] (...res) {
-          this.$refs['my-table'][key].apply(this, res);
-        } });
+      let methodKeys = [
+          'clearSelection',
+          'toggleRowSelection',
+          'toggleAllSelection',
+          'setCurrentRow',
+          'clearSort',
+          'clearFilter',
+          'doLayout',
+          'sort'
+        ],
+        methods = [],
+        methodsJson = {};
+      methodKeys.forEach((key) => {
+        methods.push({
+          [key] (...res) {
+            this.$refs['my-table'][key].apply(this, res);
+          }
+        });
       });
-      methods.forEach(item => {
+      methods.forEach((item) => {
         methodsJson = { ...methodsJson, ...item };
       });
       return methodsJson;

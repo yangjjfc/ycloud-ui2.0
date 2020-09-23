@@ -23,7 +23,7 @@ export default {
           } else {
             throw new Error('params只支持object和string');
           }
-          this.$router.push({ path: url, query });
+          this.$router.push({ path: url, [query.type === 'params' ? 'params' : 'query']: query });
         } else {
           this.$router.push({ path: url });
         }
