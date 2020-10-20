@@ -76,7 +76,6 @@ export default {
       {this.showTable ? (
         <el-table
           data={list}
-          stripe
           style="width: 100%"
           border
           size="small"
