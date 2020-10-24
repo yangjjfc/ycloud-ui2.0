@@ -37,9 +37,6 @@ export default {
       // 设置名称
       type: String
     },
-    summaryMethod: {
-      type: Function
-    },
     // 依赖数据
     depend: {
       type: [Array, Boolean, String, Object, Number]
