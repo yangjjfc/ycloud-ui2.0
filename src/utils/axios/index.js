@@ -12,7 +12,8 @@ new Interceptor({ TimeOut, axios }); // eslint-disable-line no-new
 const configuration = [
   'version', // 版本
   'ignoreRepeat', // 忽略防止重复请求
-  'verifycode' // 验证码
+  'verifycode', // 验证码
+  'platform'
 ];
 /**
  * 基础配置
