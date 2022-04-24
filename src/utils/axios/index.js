@@ -33,7 +33,9 @@ let Http = (url, data = {}, type = 'post') => {
   for (const item of configuration) {
     if (data[item]) {
       headers[item] = data[item];
-      delete data[item];
+      if (item !== 'platform') {
+        delete data[item];
+      }
     }
   }
   if (url.split('.').length === 1 || ~url.indexOf('.json')) {
