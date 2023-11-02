@@ -1,31 +1,34 @@
 <template>
-    <div class="yl-region-picker">
-        <my-address
-            :regions="chinaAddr"
-            :province="province"
-            v-bind="$attrs"
-            :city="city"
-            :district="district"
-            @onchange="change"
-            :classx="className"
-            :disabled="disabled"
-        ></my-address>
-    </div>
+  <div class="yl-region-picker">
+    <my-address
+      v-if="isLoadinged"
+      :regions="chinaAddr"
+      :province="province"
+      v-bind="$attrs"
+      :city="city"
+      :district="district"
+      @onchange="change"
+      :classx="className"
+      :disabled="disabled"
+    ></my-address>
+  </div>
 </template>
 
 <script>
 import myAddress from './address.vue';
 import emitter from 'ycloud-ui/src/mixins/emitter';
-import REGION_DATA from 'ycloud-ui/src/utils/china-map'; // 元数据的文案要改，只能把数据文件本地化
+import loadAreaData from './loadAreaData.js';
+
 export default {
   name: 'YlRegionPicker',
   mixins: [emitter],
   data () {
     return {
-      chinaAddr: REGION_DATA,
+      chinaAddr: '',
       province: '',
       city: '',
       district: '',
+      isLoadinged: false,
       selectedData: null
     };
   },
@@ -49,8 +52,17 @@ export default {
       this._initData(val);
     }
   },
-  created () {
-    this.codes && this._initData(this.codes);
+  mounted () {
+    try {
+      loadAreaData.init().then(source => {
+        let res = this.format(source);
+        this.chinaAddr = res;
+        this.codes && this._initData(this.codes);
+        this.isLoadinged = true;
+      });
+    } catch (err) {
+      console.log(err);
+    }
   },
   computed: {
     className () {
@@ -58,6 +70,27 @@ export default {
     }
   },
   methods: {
+    format (data) {
+      let res = {};
+      for (let key in data) {
+        let keyPlus;
+        if (key === '86') {
+          keyPlus = 86;
+        } else {
+          keyPlus = key.toString() + '0000';
+          keyPlus = keyPlus.slice(0, 6);
+        }
+        let sonObj = {};
+        for (let key2 in data[key]) {
+          let keyPlus2;
+          keyPlus2 = key2.toString() + '0000';
+          keyPlus2 = keyPlus2.slice(0, 6);
+          sonObj[keyPlus2] = data[key][key2].name;
+        }
+        res[keyPlus] = sonObj;
+      }
+      return res;
+    },
     // 初始化数据
     _initData (val) {
       if (val) {
